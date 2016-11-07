@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">HouseKeeper</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="id_name">邮箱/手机号码</string>
+    <string name="pwd_name">密码</string>
+    <string name="new_user_name">新用户注册</string>
+    <string name="foreget_pwd_name">忘记密码</string>
+    <string name="login_name">登录</string>
+    <string name="title_activity_register_phone">RegisterPhoneActivity</string>
+
+    <!--注册-->
+    <string name="register_email">邮箱注册&#160;&#062;&#062;</string>
+    <string name="code">获取验证码</string>
+    <string name="phone_num">手机号</string>
+    <string name="comfire_pwd">确认密码</string>
+    <string name="edit_code">请输入验证码</string>
+    <string name="old_user_login1">老用户登录 &#160;&#062;&#062;</string>
+    <string name="register_phone">&#060;&#060;&#160;手机号注册</string>
+    <string name="email">邮箱</string>
+    <string name="title_activity_splash">SplashActivity</string>
+</resources>
