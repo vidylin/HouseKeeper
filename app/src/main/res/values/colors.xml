@@ -3,6 +3,7 @@
     <color name="white">#ffffffff</color>
     <color name="alpha">#00000000</color>
     <color name="half_alpha">#88000000</color>
+    <color name="fish_back">#f4f4f4</color>
 
     <color name="listview_foucs">#E4E4E4</color>
     <color name="home_bg_color">#f7f7f7</color>
@@ -20,6 +21,11 @@
     <color name="font_color">#7a7979</color>
     <color name="exitcolor">#3b3b3b</color>
     <color name="profile_button_color">#CDC7BD</color>
+    <color name="gray_more">#BBBBBB</color><!-- 外边框颜色-->
+    <color name="mode_text_normal">#727171</color>
+    <color name="mode_home">#FF5e38</color>
+    <color name="mode_office">#3bca84</color>
+    <color name="mode_sleep">#9752fa</color>
 
     <color name="color_gray">#cccccc</color>
     <color name="reseda">#ff9acd32</color><!-- 嫩绿色 -->
@@ -37,6 +43,7 @@
     <color name="dialog_title">#52a0e0</color>
     <color name="text_color_light">#848484</color>
     <color name="text_color">#123456</color>
+    <color name="device_blue_p">#399dff</color>
 
     <color name="bg_infrared">#80000000</color>
     <color name="bg_infrared_p">#219cc0</color>

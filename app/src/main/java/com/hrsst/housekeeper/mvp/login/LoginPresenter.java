@@ -16,6 +16,8 @@ import com.hrsst.housekeeper.rxjava.SubscriberCallBack;
 import com.p2p.core.utils.MD5;
 import com.p2p.core.utils.MyUtils;
 
+import java.util.Random;
+
 import rx.Observable;
 
 /**
@@ -40,7 +42,9 @@ public class LoginPresenter extends BasePresenter<LoginView>{
         if(type==1){
             mvpView.showLoading();
         }
-        Observable<LoginModel> observable = apiStores.loginYooSee(userId, password, "1", "3", AppVersion);
+        Random random = new Random();
+        int value = random.nextInt(4);
+        Observable<LoginModel> observable = apiStore[value].loginYooSee(userId, password, "1", "3", AppVersion);
         addSubscription(observable,new SubscriberCallBack<>(new ApiCallback<LoginModel>() {
             @Override
             public void onSuccess(LoginModel model) {
@@ -66,7 +70,6 @@ public class LoginPresenter extends BasePresenter<LoginView>{
                         mvpView.autoLoginFail();
                     }
                 }
-
             }
 
             @Override
@@ -79,36 +82,28 @@ public class LoginPresenter extends BasePresenter<LoginView>{
                 mvpView.hideLoading();
             }
         }));
-
-//        twoSubscription(, new Func1<LoginModel,Observable<LoginModel>>() {
+//        final boolean[] result = {false};
+//        twoSubscription(observable1, new Func1<LoginModel,Observable<LoginModel>>() {
 //                    @Override
 //                    public Observable<LoginModel> call(LoginModel loginModel) {
-//                        if(loginModel.getError_code().equals("0")){
+//                        if(loginModel.getError_code().equals("0")&&result[0]==false){
+//                            result[0] =true;
 //                            editSharePreference(context,loginModel,User,Pwd);
-//                            mvpView.getDataSuccess(loginModel);
-//                            return null;
-//                        }else {
-//                            Observable<LoginModel> observable = Observable.just(loginModel);
 //                            return observable;
+//                        }else{
+//                            return null;
 //                        }
 //                    }
 //                },
 //                new SubscriberCallBack<>(new ApiCallback<LoginModel>() {
 //                    @Override
 //                    public void onSuccess(LoginModel model) {
-//                        String error_code = model.getError_code();
-//                        if(error_code==null){
-//                            int errorCode = model.getErrorCode();
-//                            switch (errorCode){
-//                                case 0:
-////                                    MyApp.app.setPrivilege(model.getPrivilege());
-////                                    mvpView.getDataSuccess(model);
-//                                    break;
-//                                default:
-//                                    break;
-//                            }
-//                        }else{
+//                        if(model!=null){
+//                            String error_code = model.getError_code();
 //                            switch (error_code){
+//                                case "0":
+//                                    mvpView.getDataSuccess(model);
+//                                    break;
 //                                case "2":
 //                                    T.showShort(context,"用户不存在");
 //                                    break;
@@ -121,23 +116,21 @@ public class LoginPresenter extends BasePresenter<LoginView>{
 //                                default:
 //                                    break;
 //                            }
-//                            if(type==0){
-//                                mvpView.autoLoginFail();
-//                            }
 //                        }
 //                    }
 //                    @Override
 //                    public void onFailure(int code, String msg) {
-//                        mvpView.getDataFail(msg);
 //                    }
 //                    @Override
 //                    public void onCompleted() {
-//                        if(type==1){
-//                            mvpView.hideLoading();
+//                        mvpView.hideLoading();
+//                        if(result[0]==false){
+//                            mvpView.getDataFail("网络错误，请检查网络");
 //                        }
 //                    }
 //                }));
     }
+
 
     private void editSharePreference(Context mContext, LoginModel object, String userId, String userPwd){
         String userID = "0"+String.valueOf((Integer.parseInt(object.getUserID())&0x7fffffff));

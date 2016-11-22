@@ -3,11 +3,17 @@ package com.hrsst.housekeeper.common.global;
 public class Constants {
 	// handle message
 	public static final int KEYBOARD_SHOW_FILTER_USER = 0x11;
-	public static final String PACKAGE_NAME = "com.yoosee.";
+	public static final String PACKAGE_NAME = "com.hrsst.housekeeper.";
 //	public static final String FORGET_PASSWORD_URL = "http://cloudlinks.cn/pw/";
 	public static final String FORGET_PASSWORD_URL = "http://www.cloudlinks.cn/pw/";
-	public static final String SERVER_YOOSEE_IP ="http://api1.cloudlinks.cn/";
+	public static final String SERVER_YOOSEE_IP_ONE ="http://api1.cloudlinks.cn/";
+	public static final String SERVER_YOOSEE_IP_TWO = "http://api2.cloudlinks.cn/";
+	public static final String SERVER_YOOSEE_IP_THREE = "http://api3.cloud-links.net/";
+	public static final String SERVER_YOOSEE_IP_FOUR = "http://api4.cloud-links.net/";
 	public static final String CACHE_FOLDER_NAME = "yoosee";
+	//更新接口
+	public static final String UPDATE_URL="http://192.168.4.120:8080/download/";
+	public static final int DEFAULT_TIMEOUT=20;
 
 	public static class P2P {
 		// 设备不支持
@@ -275,6 +281,8 @@ public class Constants {
 				+ "ACK_GET_SD_CARD_FORMAT";
 		public static final String RET_GET_USB_CAPACITY = PACKAGE_NAME
 				+ "RET_GET_USB_CAPACITY";
+		//查看/设置预置位返回
+		public static final String RET_PRESET_MOTORPOS_STATUS=PACKAGE_NAME+"RET_PRESET_MOTORPOS_STATUS";
 		// 预录像
 		public static final String RET_GET_PRE_RECORD = PACKAGE_NAME
 				+ "RET_GET_PRE_RECORD";

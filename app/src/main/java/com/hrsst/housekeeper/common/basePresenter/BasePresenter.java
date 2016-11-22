@@ -1,6 +1,5 @@
 package com.hrsst.housekeeper.common.basePresenter;
 
-import com.hrsst.housekeeper.common.global.Constants;
 import com.hrsst.housekeeper.retrofit.ApiStores;
 import com.hrsst.housekeeper.retrofit.AppClient;
 
@@ -13,7 +12,7 @@ import rx.subscriptions.CompositeSubscription;
 
 public class BasePresenter <V> implements Presenter<V>{
     public V mvpView;
-    public ApiStores apiStores = AppClient.retrofit(Constants.SERVER_YOOSEE_IP).create(ApiStores.class);
+    public ApiStores[] apiStore = {AppClient.retrofit().create(ApiStores.class),AppClient.retrofitTwo().create(ApiStores.class),AppClient.retrofitThree().create(ApiStores.class),AppClient.retrofitFour().create(ApiStores.class)};
     private CompositeSubscription mCompositeSubscription;
 
     @Override

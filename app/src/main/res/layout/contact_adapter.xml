@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        android:background="@color/shou_ye_bg">
+
+        <com.hrsst.housekeeper.common.widget.HeaderView
+            android:id="@+id/user_icon"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            android:background="@mipmap/header_icon"
+            android:scaleType="centerCrop"
+            />
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:id="@+id/camera_name"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:text="啊加快速度"/>
+            <RelativeLayout
+                android:id="@+id/lock_relative"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/camera_name">
+                <ImageView
+                    android:id="@+id/lock_image"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/suo_kai"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/modify_camera"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/camera_name"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="50dp">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/modify_camera_selector"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:id="@+id/line_state"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/lx"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

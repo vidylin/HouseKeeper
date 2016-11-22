@@ -16,6 +16,7 @@ import com.hrsst.housekeeper.AppComponent;
 import com.hrsst.housekeeper.R;
 import com.hrsst.housekeeper.common.baseActivity.BaseActivity;
 import com.hrsst.housekeeper.common.global.Constants;
+import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
 import com.hrsst.housekeeper.common.utils.T;
 import com.hrsst.housekeeper.entity.LoginModel;
 import com.hrsst.housekeeper.mvp.main.MainActivity;
@@ -63,6 +64,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
         ButterKnife.bind(this);
         mContext = this;
         initView();
+        String userID = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
+                SharedPreferencesManager.KEY_RECENTNAME);
+        String pwd = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
+                SharedPreferencesManager.KEY_RECENTPASS);
+        userId.setText(userID);
+        userPwd.setText(pwd);
     }
 
     private void initView() {

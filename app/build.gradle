@@ -6,12 +6,26 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
 
+    dexOptions{
+        jumboMode true
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs =['libs']
+        }
+    }
+
     defaultConfig {
         applicationId "com.hrsst.housekeeper"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            abiFilters "armeabi"
+        }
     }
     buildTypes {
         release {
@@ -29,12 +43,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    //rxjava
-    
-
     apt 'com.google.dagger:dagger-compiler:2.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
-
     compile project(path: ':p2PCore')
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
@@ -51,4 +61,9 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.0'
     compile 'org.greenrobot:greendao-generator:3.2.0'
     compile 'com.android.support:design:24.2.1'
+    compile ('com.squareup.retrofit2:converter-simplexml:2.0.0-beta4'){
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'stax', module: 'stax'
+    }
 }

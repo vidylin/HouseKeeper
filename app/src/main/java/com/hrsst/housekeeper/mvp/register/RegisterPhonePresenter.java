@@ -10,6 +10,8 @@ import com.hrsst.housekeeper.rxjava.SubscriberCallBack;
 import com.p2p.core.utils.MD5;
 import com.p2p.core.utils.MyUtils;
 
+import java.util.Random;
+
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -25,7 +27,10 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
     public void getMessageCode(String phoneNum){
         String AppVersion = MyUtils.getBitProcessingVersion();
         mvpView.showLoading();
-        addSubscription(apiStores.getMesageCode("86", phoneNum,AppVersion),
+        Random random = new Random();
+        int value = random.nextInt(4);
+        Observable<RegisterModel> observable = apiStore[value].getMesageCode("86", phoneNum,AppVersion);
+        addSubscription(observable,
                 new SubscriberCallBack<>(new ApiCallback<RegisterModel>() {
                     @Override
                     public void onSuccess(RegisterModel model) {
@@ -63,10 +68,13 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
         final String password = md.getMD5ofStr(pwd);
         final String rePassword = md.getMD5ofStr(rePwd);
         mvpView.showLoading();
-        twoSubscription(apiStores.verifyPhoneCode("86", phoneNo,code),new Func1<RegisterModel, Observable<RegisterModel>>(){
+        Random random = new Random();
+        final int value = random.nextInt(4);
+        Observable<RegisterModel> observable = apiStore[value].verifyPhoneCode("86", phoneNo,code);
+        twoSubscription(observable,new Func1<RegisterModel, Observable<RegisterModel>>(){
                     @Override
                     public Observable<RegisterModel> call(RegisterModel registerModel) {
-                        return apiStores.register("1","","86",phoneNo,password,rePassword,code,"1");
+                        return apiStore[value].register("1","","86",phoneNo,password,rePassword,code,"1");
                     }
                 },
                 new SubscriberCallBack<>(new ApiCallback<RegisterModel>() {

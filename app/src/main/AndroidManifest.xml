@@ -52,8 +52,7 @@
             android:label="@string/title_activity_login"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".mvp.register.RegisterPhoneActivity"
             android:label="@string/title_activity_register_phone"
@@ -68,6 +67,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".mvp.apmonitor.ApMonitorActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".mvp.alarm.AlarmActivity" />
+        <activity android:name=".mvp.addCamera.AddCameraFourthActivity" />
+        <activity android:name=".mvp.addCamera.AddWaitActicity" />
+        <activity android:name=".mvp.addCamera.AddCameraFirstActivity" />
+        <activity android:name=".mvp.addCamera.AddCameraSecondActivity" />
+        <activity android:name=".mvp.addCamera.AddCameraThirdActivity" />
+
+        <service android:name=".service.MainService" />
+
+        <activity
+            android:name=".mvp.ImageSee.ImageSeeActivity"
+            android:label="@string/title_activity_image_see"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.ForwardDownActivity" />
+        <activity
+            android:name=".mvp.playBack.PlayBackListActivity"
+            android:label="@string/title_activity_play_back_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".mvp.playBack.PlayBackActivity" />
+        <activity android:name=".mvp.recordProject.RecordProjectActivity" />
+        <activity android:name=".mvp.sdcard.SDCardActivity" />
+        <activity android:name=".mvp.alarmSetting.AlarmSettingActivity" />
+        <activity android:name=".mvp.modifyBoundEmail.ModifyBoundEmailActivity" />
+        <activity android:name=".mvp.alarmPushAccount.AlarmPushAccountActivity"></activity>
     </application>
 
 </manifest>

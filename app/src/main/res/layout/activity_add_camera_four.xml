@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    >
+    
+    <ImageView 
+        android:id="@+id/add_camera_four_image"
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+		android:background="@mipmap/add_camera_4"
+        />
+    
+    <RelativeLayout
+        android:id="@+id/camera_name_rela" 
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+     	android:layout_above="@+id/camera_pwd_rela"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edit_view"
+        >
+        <EditText 
+	        android:id="@+id/camera_name_et"
+	        android:layout_width="230dp"
+	        android:layout_height="40dp"
+	        android:layout_centerInParent="true"
+	        android:background="@null"
+	        android:hint="输入设备名称"
+        />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/camera_pwd_rela" 
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="85dp"
+        android:background="@drawable/edit_view"
+        >
+        <EditText 
+	        android:id="@+id/camera_pwd_et"
+	        android:layout_width="230dp"
+	        android:layout_height="40dp"
+	        android:layout_centerInParent="true"
+	        android:background="@null"
+	        android:hint="输入设备密码"
+        />
+    </RelativeLayout>
+	
+     <Button 
+        android:id="@+id/add_camera_action_four"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/baocun"
+        />
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.hrsst.housekeeper.retrofit;
 
 import com.hrsst.housekeeper.entity.LoginModel;
 import com.hrsst.housekeeper.entity.RegisterModel;
+import com.hrsst.housekeeper.entity.VersionXml;
 
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -41,6 +42,6 @@ public interface ApiStores {
             , @Query("Pwd") String pwd, @Query("RePwd") String rePwd
             , @Query("VerifyCode") String verifyCode, @Query("IgnoreSafeWarning") String ignoreSafeWarning);
 
-
-
+    @GET("update.xml")
+    Observable<VersionXml> checkVersion();
 }
