@@ -57,6 +57,13 @@ public interface ApiStores {
     @POST("register")
     Observable<PostResult> registerServerIp(@Field("userId") String userId, @Field("userName") String userName
             , @Field("phone") String phone, @Field("email") String email, @Field("privilege") String pwd);
-
-
+//    addCamera
+//(cameraId=1&cameraName=2&cameraPwd=3&cameraAddress=4&longitude=5&latitude=6&principal1=7&principal1Phone=8&principal2=9&principal2Phone=10&areaId=11&placeTypeId=12)
+    @FormUrlEncoded
+    @POST("addCamera")
+    Observable<PostResult> addCamera(@Field("cameraId") String cameraId, @Field("cameraName") String cameraName
+            , @Field("cameraPwd") String cameraPwd, @Field("cameraAddress") String cameraAddress, @Field("longitude") String longitude
+            ,@Field("latitude") String latitude, @Field("principal1") String principal1, @Field("principal1Phone") String principal1Phone,
+             @Field("principal2") String principal2, @Field("principal2Phone") String principal2Phone, @Field("areaId") String areaId,
+             @Field("placeTypeId") String placeTypeId);
 }

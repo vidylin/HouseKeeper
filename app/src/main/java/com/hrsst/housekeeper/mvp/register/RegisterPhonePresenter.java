@@ -41,12 +41,15 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
                                 mvpView.getMessageSuccess();
                                 break;
                             case "6":
+                                mvpView.hideLoading();
                                 mvpView.getDataFail("手机号已被注册");
                                 break;
                             case "9":
+                                mvpView.hideLoading();
                                 mvpView.getDataFail("手机号码格式错误");
                                 break;
                             case "27":
+                                mvpView.hideLoading();
                                 mvpView.getDataFail("获取手机验证码超时，请稍后再试");
                                 break;
                             default:
@@ -99,14 +102,18 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
                                 registerToServer(userID,"",phoneNo,pwd,"1");
                                 break;
                             case "6":
+                                mvpView.hideLoading();
                                 mvpView.getDataFail("手机号已被注册");
                                 break;
                             case "9":
+                                mvpView.hideLoading();
                                 mvpView.getDataFail("手机号码格式错误");
                                 break;
                             case "18":
+                                mvpView.hideLoading();
                                 mvpView.getDataFail("验证码输入错误");
                             case "10":
+                                mvpView.hideLoading();
                                 mvpView.getDataFail("两次输入的密码不一致");
                                 break;
                             default:

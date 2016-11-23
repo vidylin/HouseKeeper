@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
+import com.hrsst.housekeeper.service.LocationService;
 import com.hrsst.housekeeper.ui.ForwardDownActivity;
 import com.p2p.core.update.UpdateManager;
 
@@ -26,6 +27,7 @@ public class AppApplication extends Application{
     private Notification mNotification;
     public static final int NOTIFICATION_DOWN_ID = 0x53256562;
     private RemoteViews cur_down_view;
+    public LocationService locationService;
 
     public static AppApplication get(Context context){
         return (AppApplication)context.getApplicationContext();
@@ -43,6 +45,7 @@ public class AppApplication extends Application{
     public void onCreate() {
         super.onCreate();
         context = this;
+        locationService = new LocationService(getApplicationContext());
         appComponent=DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();

@@ -8,10 +8,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.baidu.location.BDLocation;
 import com.hrsst.housekeeper.AppComponent;
 import com.hrsst.housekeeper.R;
 import com.hrsst.housekeeper.common.baseActivity.BaseActivity;
+import com.hrsst.housekeeper.common.utils.T;
 import com.hrsst.housekeeper.common.widget.XCDropDownListView;
+import com.hrsst.housekeeper.entity.Area;
+import com.hrsst.housekeeper.entity.ShopType;
 import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.concurrent.TimeUnit;
@@ -64,10 +68,18 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
     RelativeLayout addCameraRelative;
     private String contactId;
     private Context mContext;
+    private ShopType mShopType;
+    private Area mArea;
+    private String areaId = "";
+    private String shopTypeId = "";
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerAddCameraFourthComponent.builder()
+                .appComponent(appComponent)
+                .addCameraFourthModule(new AddCameraFourthModule(this))
+                .build()
+                .inject(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -79,6 +91,7 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
         ButterKnife.bind(this);
         mContext = this;
         contactId = getIntent().getExtras().getString("contactId");
+        addRepeaterMac.setText(contactId);
         init();
     }
 
@@ -89,16 +102,37 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
         RxView.clicks(addFireDevBtn).throttleFirst(2, TimeUnit.SECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
+                addFire();
             }
         });
+    }
+
+    private void addFire() {
+        if (mShopType != null) {
+            shopTypeId = mShopType.getPlaceTypeId();
+        }
+        if (mArea != null) {
+            areaId = mArea.getAreaId();
+        }
+        String longitude = addFireLon.getText().toString().trim();
+        String latitude = addFireLat.getText().toString().trim();
+        String smokeMac = addFireMac.getText().toString().trim();
+        String address = addFireAddress.getText().toString().trim();
+        String cameraName = addCameraName.getText().toString().trim();
+        String principal1 = addFireMan.getText().toString().trim();
+        String principal2 = addFireManTwo.getText().toString().trim();
+        String principal1Phone = addFireManPhone.getText().toString().trim();
+        String principal2Phone = addFireManPhoneTwo.getText().toString().trim();
+        addCameraFourthPresenter.addCamera(contactId,smokeMac,cameraName,address,longitude,
+                latitude,principal1,principal1Phone,principal2,principal2Phone,
+                areaId,shopTypeId);
     }
 
     @OnClick({ R.id.location_image, R.id.add_fire_zjq, R.id.add_fire_type})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.location_image:
-//                mvpPresenter.startLocation();
+                addCameraFourthPresenter.startLocation();
                 break;
             case R.id.add_fire_zjq:
                 if (addFireZjq.ifShow()) {
@@ -126,6 +160,7 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
+        addCameraFourthPresenter.stopLocation();
         super.onDestroy();
         if (addFireZjq.ifShow()) {
             addFireZjq.closePopWindow();
@@ -136,4 +171,37 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onStart() {
+        addCameraFourthPresenter.initLocation();
+        super.onStart();
+    }
+
+    @Override
+    public void getLocationData(BDLocation location) {
+        addFireLon.setText(location.getLongitude() + "");
+        addFireAddress.setText(location.getAddrStr());
+        addFireLat.setText(location.getLatitude() + "");
+    }
+
+    @Override
+    public void showLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void addCameraResult(String msg) {
+        T.showShort(mContext,msg);
+        finish();
+    }
+
+    @Override
+    public void errorMessage(String msg) {
+        T.showShort(mContext,msg);
+    }
 }

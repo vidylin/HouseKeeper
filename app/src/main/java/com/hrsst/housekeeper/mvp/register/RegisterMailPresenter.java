@@ -52,15 +52,18 @@ public class RegisterMailPresenter extends BasePresenter<RegisterPhoneView>{
                             SharedPreferencesManager.getInstance().putData(mContext,
                                     SharedPreferencesManager.SP_FILE_GWELL,
                                     SharedPreferencesManager.KEY_RECENTPASS_NUMBER, userID);
-                            registerToServer(userID,"","",phoneNo,1+"");
+                            registerToServer(userID,"中文","",phoneNo,1+"");
                             break;
                         case "7":
+                            mvpView.hideLoading();
                             mvpView.getDataFail("邮箱已被注册");
                             break;
                         case "4":
+                            mvpView.hideLoading();
                             mvpView.getDataFail("邮箱格式不符合要求");
                             break;
                         case "10":
+                            mvpView.hideLoading();
                             mvpView.getDataFail("两次输入的密码不一致");
                             break;
                         default:
@@ -75,7 +78,6 @@ public class RegisterMailPresenter extends BasePresenter<RegisterPhoneView>{
 
                 @Override
                 public void onCompleted() {
-
                 }
             }));
         }else{
