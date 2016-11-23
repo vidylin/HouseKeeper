@@ -25,35 +25,31 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.functions.Action1;
 
-public class RegisterPhoneActivity extends BaseActivity implements RegisterPhoneView {
+public class RegisterEmailActivity extends BaseActivity implements RegisterPhoneView {
+
     @Inject
-    RegisterPhonePresenter registerPhonePresenter;
-    @Bind(R.id.register_user)
-    EditText registerUser;
-    @Bind(R.id.register_pwd)
-    EditText registerPwd;
-    @Bind(R.id.register_comfire_pwd)
-    EditText registerComfirePwd;
-    @Bind(R.id.register_code)
-    EditText registerCode;
-    @Bind(R.id.register_get_code)
-    Button registerGetCode;
-    @Bind(R.id.register_btn_phone)
-    Button registerBtnPhone;
-    @Bind(R.id.register_old_user_tv)
-    TextView registerOldUserTv;
+    RegisterMailPresenter registerMailPresenter;
+    @Bind(R.id.register_phone_tv)
+    TextView registerPhoneTv;
+    @Bind(R.id.register_email_user)
+    EditText registerEmailUser;
+    @Bind(R.id.register_email_pwd)
+    EditText registerEmailPwd;
+    @Bind(R.id.register_email_comfire_pwd)
+    EditText registerEmailComfirePwd;
+    @Bind(R.id.register_btn_email)
+    Button registerBtnEmail;
+    @Bind(R.id.register_email_old_user_tv)
+    TextView registerEmailOldUserTv;
     @Bind(R.id.mProgressBar)
     ProgressBar mProgressBar;
-    @Bind(R.id.register_email_tv)
-    TextView registerEmailTv;
     private Context mContext;
-    private String phoneNO;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-        DaggerRegisterPhoneActivityComponent.builder()
+        DaggerRegisterEmailActivityComponent.builder()
                 .appComponent(appComponent)
-                .registerPhoneActivityModule(new RegisterPhoneActivityModule(this))
+                .registerEmailActivityModule(new RegisterEmailActivityModule(this))
                 .build()
                 .inject(this);
     }
@@ -61,33 +57,14 @@ public class RegisterPhoneActivity extends BaseActivity implements RegisterPhone
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_phone);
+        setContentView(R.layout.activity_register_email);
         ButterKnife.bind(this);
         mContext = this;
-        doAction();
+        action();
     }
 
-    private void doAction() {
-        RxView.clicks(registerGetCode).throttleFirst(2, TimeUnit.SECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        phoneNO = registerUser.getText().toString().trim();
-                        registerPhonePresenter.getMessageCode(phoneNO);
-                    }
-                });
-        RxView.clicks(registerBtnPhone).throttleFirst(2, TimeUnit.SECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        String phoneNO = registerUser.getText().toString().trim();
-                        String pwd = registerPwd.getText().toString().trim();
-                        String rePwd = registerComfirePwd.getText().toString().trim();
-                        String code = registerCode.getText().toString().trim();
-                        registerPhonePresenter.register(phoneNO, pwd, rePwd, code, mContext);
-                    }
-                });
-        RxView.clicks(registerOldUserTv).throttleFirst(2, TimeUnit.SECONDS)
+    private void action() {
+        RxView.clicks(registerEmailOldUserTv).throttleFirst(2, TimeUnit.SECONDS)
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
@@ -98,15 +75,26 @@ public class RegisterPhoneActivity extends BaseActivity implements RegisterPhone
                         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     }
                 });
-        RxView.clicks(registerEmailTv).throttleFirst(2, TimeUnit.SECONDS)
+        RxView.clicks(registerPhoneTv).throttleFirst(2, TimeUnit.SECONDS)
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
                         //跳转到邮箱界面
-                        Intent intent1 = new Intent(mContext, RegisterEmailActivity.class);
+                        Intent intent1 = new Intent(mContext, RegisterPhoneActivity.class);
                         startActivity(intent1);
                         finish();
                         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    }
+                });
+        RxView.clicks(registerBtnEmail).throttleFirst(2, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        String phoneNO = registerEmailUser.getText().toString().trim();
+                        String pwd = registerEmailPwd.getText().toString().trim();
+                        String rePwd = registerEmailComfirePwd.getText().toString().trim();
+                        registerMailPresenter.registerEmail(phoneNO, pwd, rePwd,mContext);
+//                        registerMailPresenter.registerToServer("111222555","lllppp","12345645454","","1");
                     }
                 });
     }
@@ -136,6 +124,5 @@ public class RegisterPhoneActivity extends BaseActivity implements RegisterPhone
 
     @Override
     public void getMessageSuccess() {
-        T.showShort(mContext, "获取验证码成功");
     }
 }

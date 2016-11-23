@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.hrsst.housekeeper.common.basePresenter.BasePresenter;
 import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
+import com.hrsst.housekeeper.entity.PostResult;
 import com.hrsst.housekeeper.entity.RegisterModel;
 import com.hrsst.housekeeper.rxjava.ApiCallback;
 import com.hrsst.housekeeper.rxjava.SubscriberCallBack;
@@ -21,7 +22,7 @@ import rx.functions.Func1;
 public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
 
     public RegisterPhonePresenter(RegisterPhoneActivity registerPhoneActivity){
-        attachView(registerPhoneActivity);
+            attachView(registerPhoneActivity);
     }
 
     public void getMessageCode(String phoneNum){
@@ -83,6 +84,7 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
                         String errorCode = model.getError_code();
                         switch (errorCode){
                             case "0":
+                                String userID = "0"+String.valueOf((Integer.parseInt(model.getUserID())&0x7fffffff));
                                 SharedPreferencesManager.getInstance().putData(mContext,
                                         SharedPreferencesManager.SP_FILE_GWELL,
                                         SharedPreferencesManager.KEY_RECENTPASS,
@@ -91,7 +93,10 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
                                         SharedPreferencesManager.SP_FILE_GWELL,
                                         SharedPreferencesManager.KEY_RECENTNAME,
                                         phoneNo);
-                                mvpView.register();
+                                SharedPreferencesManager.getInstance().putData(mContext,
+                                        SharedPreferencesManager.SP_FILE_GWELL,
+                                        SharedPreferencesManager.KEY_RECENTPASS_NUMBER, userID);
+                                registerToServer(userID,"",phoneNo,pwd,"1");
                                 break;
                             case "6":
                                 mvpView.getDataFail("手机号已被注册");
@@ -114,8 +119,33 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
                     }
                     @Override
                     public void onCompleted() {
-                        mvpView.hideLoading();
                     }
                 }));
     }
+
+    private void registerToServer(String userId,String userName,String phone,String email,String privilege){
+        Observable<PostResult> observable = apiStoreServer.registerServerIp(userId,userName,phone,email,privilege);
+        addSubscription(observable,new SubscriberCallBack<>(new ApiCallback<PostResult>() {
+            @Override
+            public void onSuccess(PostResult model) {
+                int errorCode = model.getErrorCode();
+                if(errorCode==0){
+                    mvpView.register();
+                }else{
+                    mvpView.getDataFail("注册失败");
+                }
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mvpView.getDataFail(msg);
+            }
+
+            @Override
+            public void onCompleted() {
+                mvpView.hideLoading();
+            }
+        }));
+    }
+
 }

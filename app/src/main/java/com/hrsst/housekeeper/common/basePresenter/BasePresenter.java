@@ -1,5 +1,7 @@
 package com.hrsst.housekeeper.common.basePresenter;
 
+import com.hrsst.housekeeper.entity.Area;
+import com.hrsst.housekeeper.entity.ShopType;
 import com.hrsst.housekeeper.retrofit.ApiStores;
 import com.hrsst.housekeeper.retrofit.AppClient;
 
@@ -13,6 +15,7 @@ import rx.subscriptions.CompositeSubscription;
 public class BasePresenter <V> implements Presenter<V>{
     public V mvpView;
     public ApiStores[] apiStore = {AppClient.retrofit().create(ApiStores.class),AppClient.retrofitTwo().create(ApiStores.class),AppClient.retrofitThree().create(ApiStores.class),AppClient.retrofitFour().create(ApiStores.class)};
+    public ApiStores apiStoreServer = AppClient.retrofitServer().create(ApiStores.class);
     private CompositeSubscription mCompositeSubscription;
 
     @Override
@@ -25,6 +28,17 @@ public class BasePresenter <V> implements Presenter<V>{
         this.mvpView = null;
         onUnsubscribe();
     }
+
+    @Override
+    public void getArea(Area area) {
+
+    }
+
+    @Override
+    public void getShop(ShopType shopType) {
+
+    }
+
     //RXjava取消注册，以避免内存泄露
     public void onUnsubscribe() {
         if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {

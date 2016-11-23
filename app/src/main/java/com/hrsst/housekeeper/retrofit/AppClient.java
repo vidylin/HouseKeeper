@@ -77,6 +77,21 @@ public class AppClient {
         }
         return mRetrofit;
     }
+    public static Retrofit retrofitServer() {
+        if(mRetrofit!=null){
+            mRetrofit=null;
+        }
+        if (mRetrofit == null) {
+            mRetrofit = new Retrofit.Builder()
+                    .baseUrl(Constants.SERVER_IP)
+                    .addConverterFactory(ArbitraryResponseBodyConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .client(getOkHttpClient())
+                    .build();
+        }
+        return mRetrofit;
+    }
+
 
     public static Retrofit getRetrofit() {
         if(mRetrofit!=null){

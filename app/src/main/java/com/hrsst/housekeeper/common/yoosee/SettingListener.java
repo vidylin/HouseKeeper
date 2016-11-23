@@ -74,28 +74,27 @@ public class SettingListener implements ISetting {
 		// TODO Auto-generated method stub
 		Log.e(TAG, "ACK_vRetGetDefenceStates:" + result);
 		Log.e("defence", "contactId=" + contactId + "result=" + result);
-		if (result == Constants.P2P_SET.ACK_RESULT.ACK_NET_ERROR) {
-			FList.getInstance().setDefenceState(contactId,
-					Constants.DefenceState.DEFENCE_STATE_WARNING_NET);
-			Intent i = new Intent();
-			i.putExtra("state",
-					Constants.DefenceState.DEFENCE_STATE_WARNING_NET);
-			i.putExtra("contactId", contactId);
-			i.setAction(Constants.P2P.RET_GET_REMOTE_DEFENCE);
-			AppApplication.context.sendBroadcast(i);
-		} else if (result == Constants.P2P_SET.ACK_RESULT.ACK_PWD_ERROR) {
-			FList.getInstance().setDefenceState(contactId,
-					Constants.DefenceState.DEFENCE_STATE_WARNING_PWD);
-			Intent i = new Intent();
-			i.putExtra("state",
-					Constants.DefenceState.DEFENCE_STATE_WARNING_PWD);
-			i.putExtra("contactId", contactId);
-			i.setAction(Constants.P2P.RET_GET_REMOTE_DEFENCE);
-			AppApplication.context.sendBroadcast(i);
-		} else if (result == Constants.P2P_SET.ACK_RESULT.ACK_INSUFFICIENT_PERMISSIONS) {
-			FList.getInstance().setDefenceState(contactId,
-					Constants.DefenceState.DEFENCE_NO_PERMISSION);
-		}
+//		if (result == Constants.P2P_SET.ACK_RESULT.ACK_NET_ERROR) {
+//			FList.getInstance().setDefenceState(contactId,
+//					Constants.DefenceState.DEFENCE_STATE_WARNING_NET);
+//			Intent i = new Intent();
+//			i.putExtra("state", Constants.DefenceState.DEFENCE_STATE_WARNING_NET);
+//			i.putExtra("contactId", contactId);
+//			i.setAction(Constants.P2P.RET_GET_REMOTE_DEFENCE);
+//			AppApplication.context.sendBroadcast(i);
+//		} else if (result == Constants.P2P_SET.ACK_RESULT.ACK_PWD_ERROR) {
+//			FList.getInstance().setDefenceState(contactId,
+//					Constants.DefenceState.DEFENCE_STATE_WARNING_PWD);
+//			Intent i = new Intent();
+//			i.putExtra("state",
+//					Constants.DefenceState.DEFENCE_STATE_WARNING_PWD);
+//			i.putExtra("contactId", contactId);
+//			i.setAction(Constants.P2P.RET_GET_REMOTE_DEFENCE);
+//			AppApplication.context.sendBroadcast(i);
+//		} else if (result == Constants.P2P_SET.ACK_RESULT.ACK_INSUFFICIENT_PERMISSIONS) {
+//			FList.getInstance().setDefenceState(contactId,
+//					Constants.DefenceState.DEFENCE_NO_PERMISSION);
+//		}
 		Intent ack_Defence = new Intent();
 		ack_Defence.setAction(Constants.P2P.ACK_GET_REMOTE_DEFENCE);
 		ack_Defence.putExtra("contactId", contactId);

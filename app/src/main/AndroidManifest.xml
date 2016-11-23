@@ -101,7 +101,8 @@
         <activity android:name=".mvp.sdcard.SDCardActivity" />
         <activity android:name=".mvp.alarmSetting.AlarmSettingActivity" />
         <activity android:name=".mvp.modifyBoundEmail.ModifyBoundEmailActivity" />
-        <activity android:name=".mvp.alarmPushAccount.AlarmPushAccountActivity"></activity>
+        <activity android:name=".mvp.alarmPushAccount.AlarmPushAccountActivity" />
+        <activity android:name=".mvp.register.RegisterEmailActivity"></activity>
     </application>
 
 </manifest>

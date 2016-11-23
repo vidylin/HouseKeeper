@@ -4,7 +4,7 @@ public class Constants {
 	// handle message
 	public static final int KEYBOARD_SHOW_FILTER_USER = 0x11;
 	public static final String PACKAGE_NAME = "com.hrsst.housekeeper.";
-//	public static final String FORGET_PASSWORD_URL = "http://cloudlinks.cn/pw/";
+	public static final String SERVER_IP = "http://119.29.224.28:51090/camera/";
 	public static final String FORGET_PASSWORD_URL = "http://www.cloudlinks.cn/pw/";
 	public static final String SERVER_YOOSEE_IP_ONE ="http://api1.cloudlinks.cn/";
 	public static final String SERVER_YOOSEE_IP_TWO = "http://api2.cloudlinks.cn/";

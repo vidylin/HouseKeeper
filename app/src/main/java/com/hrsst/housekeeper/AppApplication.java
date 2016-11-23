@@ -16,6 +16,7 @@ import com.p2p.core.update.UpdateManager;
  * Created by Administrator on 2016/10/19.
  */
 public class AppApplication extends Application{
+    public static String privilege;
     public static AppApplication context;
     public static final String MAIN_SERVICE_START = "com.hrsst.housekeeper.service.MAINSERVICE";
     private AppComponent appComponent;
@@ -28,6 +29,14 @@ public class AppApplication extends Application{
 
     public static AppApplication get(Context context){
         return (AppApplication)context.getApplicationContext();
+    }
+
+    public void setPrivilege(int privilege){
+        this.privilege = privilege+"";
+    }
+
+    public String getPrivilege(){
+        return privilege;
     }
 
     @Override

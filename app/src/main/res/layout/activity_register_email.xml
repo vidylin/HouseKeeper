@@ -5,129 +5,86 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/register_email_tv"
+        android:id="@+id/register_phone_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_email"
+        android:text="@string/register_phone"
         android:textColor="@color/lead_regiater"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         />
 
     <RelativeLayout
-        android:id="@+id/register_rela"
+        android:id="@+id/register_email_rela"
         android:layout_width="250dp"
         android:layout_height="135dp"
-        android:layout_below="@id/register_email_tv"
+        android:layout_below="@id/register_phone_tv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/edit_view">
+        android:background="@drawable/edit_view_bg">
         <EditText
-            android:id="@+id/register_user"
+            android:id="@+id/register_email_user"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@null"
+            android:inputType="textEmailAddress"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:inputType="phone"
-            android:hint="@string/phone_num"
-            android:textColorHint="@color/hint_color_text"
             android:textColor="@color/text_view_and_kuang"
+            android:hint="@string/email"
+            android:textColorHint="@color/hint_color_text"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/text_view_and_kuang"
-            android:layout_below="@id/register_user"
+            android:layout_below="@id/register_email_user"
             />
         <EditText
-            android:id="@+id/register_pwd"
+            android:id="@+id/register_email_pwd"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@null"
-            android:inputType="textPassword"
+            android:password="true"
             android:layout_marginTop="51dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:textColor="@color/text_view_and_kuang"
             android:hint="密码"
             android:textColorHint="@color/hint_color_text"
-            android:textColor="@color/text_view_and_kuang"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/text_view_and_kuang"
-            android:layout_below="@id/register_pwd"
+            android:layout_below="@id/register_email_pwd"
             />
         <EditText
-            android:id="@+id/register_comfire_pwd"
+            android:id="@+id/register_email_comfire_pwd"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@null"
-            android:inputType="textPassword"
+            android:password="true"
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:textColor="@color/text_view_and_kuang"
             android:layout_alignParentBottom="true"
             android:hint="@string/comfire_pwd"
             android:textColorHint="@color/hint_color_text"
-            android:textColor="@color/text_view_and_kuang"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/register_rela2"
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:layout_below="@id/register_rela"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        >
-        <RelativeLayout
-            android:id="@+id/register_rela1"
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:background="@drawable/edit_view_bg"
-            >
-
-            <EditText
-                android:id="@+id/register_code"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentBottom="true"
-                android:hint="@string/edit_code"
-                android:textColorHint="@color/hint_color_text"
-                android:textColor="@color/text_view_and_kuang"
-                />
-
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/register_get_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/register_rela1"
-            android:layout_marginLeft="10dp"
-            android:text="@string/code"
-            android:textColor="#ffffff"
-            android:background="@drawable/login_button_selector"
             />
     </RelativeLayout>
 
     <Button
-        android:id="@+id/register_btn_phone"
+        android:id="@+id/register_btn_email"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:layout_below="@id/register_rela2"
+        android:layout_below="@id/register_email_rela"
         android:layout_marginLeft="10dp"
-        android:text="注册"
+        android:text="@string/register"
         android:textColor="#ffffff"
         android:background="@drawable/login_button_selector"
         android:layout_centerHorizontal="true"
@@ -135,7 +92,7 @@
         />
 
     <TextView
-        android:id="@+id/register_old_user_tv"
+        android:id="@+id/register_email_old_user_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

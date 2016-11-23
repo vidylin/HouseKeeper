@@ -23,7 +23,7 @@ public class RegisterPhoneActivityModule {
 
     @ActivityScope
     @Provides
-    RegisterPhonePresenter provideRegisterPhonePresenter(RegisterPhoneActivity registerPhoneActivity){
+    RegisterPhonePresenter providePhonePresenter(RegisterPhoneActivity registerPhoneActivity){
         return new RegisterPhonePresenter(registerPhoneActivity);
     }
 }

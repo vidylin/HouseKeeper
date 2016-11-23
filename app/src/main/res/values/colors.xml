@@ -4,6 +4,7 @@
     <color name="alpha">#00000000</color>
     <color name="half_alpha">#88000000</color>
     <color name="fish_back">#f4f4f4</color>
+    <color name="list_drop">#c1b5b7</color>
 
     <color name="listview_foucs">#E4E4E4</color>
     <color name="home_bg_color">#f7f7f7</color>
