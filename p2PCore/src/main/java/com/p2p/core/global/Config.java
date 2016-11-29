@@ -10,5 +10,6 @@ public class Config  {
         public static int [] CustomerIDs={0};
 //      商城版id  如果不是商城版填0
         public static String store_id="0";
+        public static int VideoMode=2;
     }
 }

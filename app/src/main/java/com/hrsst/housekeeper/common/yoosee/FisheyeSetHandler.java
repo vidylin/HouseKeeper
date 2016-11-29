@@ -74,8 +74,8 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_SETTING_IPC_WORKMODE;
         fishdata[3]= (byte) workMode;
-        Log.e("leleWorkMode", "workMode="+workMode);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_SETTING_IPC_WORKMODE,fishdata);
+        String passwordStr = P2PHandler.getInstance().EntryPassword(password);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(passwordStr),MSG_ID_FISHEYE_SETTING_IPC_WORKMODE,fishdata);
         MSG_ID_FISHEYE_SETTING_IPC_WORKMODE++;
     }
 
@@ -93,7 +93,8 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_SETTING_SENSOR_WORKMODE;
         System.arraycopy(sensarg,0,fishdata,3,sensarg.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_SETTING_SENSOR_WORKMODE,fishdata);
+        String passwordStr = P2PHandler.getInstance().EntryPassword(password);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(passwordStr),MSG_ID_FISHEYE_SETTING_SENSOR_WORKMODE,fishdata);
         MSG_ID_FISHEYE_SETTING_SENSOR_WORKMODE++;
     }
 
@@ -105,7 +106,8 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_SETTING_SCHEDULE_WORKMODE;
         System.arraycopy(grop,0,fishdata,3,grop.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId), Integer.parseInt(password), MSG_ID_FISHEYE_SETTING_SCHEDULE_WORKMODE, fishdata);
+        String passwordStr = P2PHandler.getInstance().EntryPassword(password);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId), Integer.parseInt(passwordStr), MSG_ID_FISHEYE_SETTING_SCHEDULE_WORKMODE, fishdata);
         Log.e("dxsTest", "fishdata:addtime-->" + Arrays.toString(fishdata));
         MSG_ID_FISHEYE_SETTING_SCHEDULE_WORKMODE++;
     }
@@ -118,7 +120,8 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_DELETE_SCHEDULE;
         fishdata[3]= (byte) bGroupIndex;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId), Integer.parseInt(password), MSG_ID_FISHEYE_DELETE_SCHEDULE, fishdata);
+        String passwordStr = P2PHandler.getInstance().EntryPassword(password);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId), Integer.parseInt(passwordStr), MSG_ID_FISHEYE_DELETE_SCHEDULE, fishdata);
         MSG_ID_FISHEYE_DELETE_SCHEDULE++;
     }
 
@@ -130,7 +133,8 @@ public class FisheyeSetHandler {
         byte[] fishdata=new byte[4];
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_GET_CURRENTWORKMODE;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_GET_CURRENTWORKMODE,fishdata);
+        String passwordStr = P2PHandler.getInstance().EntryPassword(password);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(passwordStr),MSG_ID_FISHEYE_GET_CURRENTWORKMODE,fishdata);
         MSG_ID_FISHEYE_GET_CURRENTWORKMODE++;
     }
 
@@ -141,7 +145,8 @@ public class FisheyeSetHandler {
         byte[] fishdata=new byte[67];
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_GET_SENSORWORKMODE;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_GET_SENSORWORKMODE,fishdata);
+        String passwordStr = P2PHandler.getInstance().EntryPassword(password);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(passwordStr),MSG_ID_FISHEYE_GET_SENSORWORKMODE,fishdata);
         MSG_ID_FISHEYE_GET_SENSORWORKMODE++;
     }
 
@@ -157,7 +162,8 @@ public class FisheyeSetHandler {
         byte[] fishdata=new byte[27];
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_GET_WORKMODE_SCHEDULE;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_WORKMODE_SCHEDULE,fishdata);
+        String passwordStr = P2PHandler.getInstance().EntryPassword(password);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(passwordStr),MSG_ID_FISHEYE_WORKMODE_SCHEDULE,fishdata);
         MSG_ID_FISHEYE_WORKMODE_SCHEDULE++;
     }
 
@@ -169,7 +175,7 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_SETTING_ALL_SENSOR_SWITCH;
         fishdata[3]= (byte) bSetValue;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_SETTING_ALL_SENSOR_SWITCH,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_SETTING_ALL_SENSOR_SWITCH,fishdata);
         MSG_ID_FISHEYE_SETTING_ALL_SENSOR_SWITCH++;
     }
 
@@ -181,7 +187,7 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_GET_ALL_SENSOR_SWITCH;
         fishdata[3]= (byte) bSetValue;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_GET_ALL_SENSOR_SWITCH,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_GET_ALL_SENSOR_SWITCH,fishdata);
         MSG_ID_FISHEYE_GET_ALL_SENSOR_SWITCH++;
     }
 
@@ -195,7 +201,7 @@ public class FisheyeSetHandler {
         fishdata[3]= (byte) bMemo;
         fishdata[4]= (byte) (wTimeVal>>0);
         fishdata[5]= (byte) (wTimeVal>>8);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_SET_LOW_VOL_TIMEINTERVAL,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_SET_LOW_VOL_TIMEINTERVAL,fishdata);
         MSG_ID_FISHEYE_SET_LOW_VOL_TIMEINTERVAL++;
     }
 
@@ -206,7 +212,7 @@ public class FisheyeSetHandler {
         byte[] fishdata=new byte[6];
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_GET_LOW_VOL_TIMEINTERVAL;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_GET_LOW_VOL_TIMEINTERVAL,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_GET_LOW_VOL_TIMEINTERVAL,fishdata);
         MSG_ID_FISHEYE_GET_LOW_VOL_TIMEINTERVAL++;
     }
 
@@ -223,7 +229,7 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_DELETE_ONE_CONTROLER;
         System.arraycopy(sensordata,0,fishdata,3,sensordata.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_DELETE_ONE_CONTROLER,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_DELETE_ONE_CONTROLER,fishdata);
         MSG_ID_FISHEYE_DELETE_ONE_CONTROLER++;
     }
 
@@ -240,7 +246,7 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_DELETE_ONE_SENSOR;
         System.arraycopy(sensordata,0,fishdata,3,sensordata.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_DELETE_ONE_SENSOR,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_DELETE_ONE_SENSOR,fishdata);
         MSG_ID_FISHEYE_DELETE_ONE_SENSOR++;
     }
 
@@ -259,7 +265,7 @@ public class FisheyeSetHandler {
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_CHANGE_CONTROLER_NAME;
         System.arraycopy(sensor,0,fishdata,3,sensor.length);
         System.arraycopy(newname,0,fishdata,3+sensor.length,newname.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_CHANGE_CONTROLER_NAME,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_CHANGE_CONTROLER_NAME,fishdata);
         MSG_ID_FISHEYE_CHANGE_CONTROLER_NAME++;
     }
 
@@ -278,7 +284,7 @@ public class FisheyeSetHandler {
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_CHANGE_SENSOR_NAME;
         System.arraycopy(sensor,0,fishdata,3,sensor.length);
         System.arraycopy(newname,0,fishdata,3+sensor.length,newname.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_CHANGE_SENSOR_NAME,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_CHANGE_SENSOR_NAME,fishdata);
         MSG_ID_FISHEYE_CHANGE_SENSOR_NAME++;
     }
 
@@ -296,7 +302,7 @@ public class FisheyeSetHandler {
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_TURN_SENSOR;
         fishdata[3]=sensorState;
         System.arraycopy(sensor,0,fishdata,4,sensor.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_TURN_SENSOR,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_TURN_SENSOR,fishdata);
         MSG_ID_FISHEYE_TURN_SENSOR++;
     }
 
@@ -312,7 +318,7 @@ public class FisheyeSetHandler {
         byte[] fishdata=new byte[4];
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_INTO_LEARN_STATE;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_INTO_LEARN_STATE,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_INTO_LEARN_STATE,fishdata);
         MSG_ID_FISHEYE_INTO_LEARN_STATE++;
     }
 
@@ -329,7 +335,7 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_SHARE_TO_MEMBER;
         System.arraycopy(data,0,fishdata,3,data.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_SHARE_TO_MEMBER,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_SHARE_TO_MEMBER,fishdata);
         MSG_ID_FISHEYE_SHARE_TO_MEMBER++;
     }
 
@@ -347,7 +353,7 @@ public class FisheyeSetHandler {
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_GOT_SHARE_MESG_RET;
         fishdata[2]=isgaree;
         System.arraycopy(deviceInfo,0,fishdata,3,deviceInfo.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_GOT_SHARE_MESG,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_GOT_SHARE_MESG,fishdata);
         MSG_ID_FISHEYE_GOT_SHARE_MESG++;
     }
 
@@ -367,7 +373,7 @@ public class FisheyeSetHandler {
         System.arraycopy(AppID,0,fishdata,5,AppID.length);
         byte[] id= Utils.intToBytes(userid|0x80000000);
         System.arraycopy(id,0,fishdata,9,id.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_ADMIN_DELETE_ONE_MEMBER,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_ADMIN_DELETE_ONE_MEMBER,fishdata);
         MSG_ID_FISHEYE_ADMIN_DELETE_ONE_MEMBER++;
     }
 
@@ -385,7 +391,7 @@ public class FisheyeSetHandler {
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_DELETE_DEV;
         byte[] id=Utils.intToBytes(AppId|0x80000000);
         System.arraycopy(id,0,fishdata,5,id.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_DELETE_DEV,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_DELETE_DEV,fishdata);
         MSG_ID_FISHEYE_DELETE_DEV++;
     }
 
@@ -403,7 +409,7 @@ public class FisheyeSetHandler {
         fishdata[1]=0;
         byte[] app=Utils.intToBytes(AppID|0x80000000);
         System.arraycopy(app,0,fishdata,5,app.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_GET_MEMBER_LIST,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_GET_MEMBER_LIST,fishdata);
         MSG_ID_FISHEYE_GET_MEMBER_LIST++;
     }
 
@@ -420,7 +426,7 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_SET_ONE_SPECIAL_ALARM;
         System.arraycopy(specalData,0,fishdata,4,specalData.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_SET_SPECIAL_ALARM,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_SET_SPECIAL_ALARM,fishdata);
         MSG_ID_FISHEYE_SET_SPECIAL_ALARM++;
     }
 
@@ -436,7 +442,7 @@ public class FisheyeSetHandler {
         byte[] fishdata=new byte[7];
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_GET_ALL_SPECIAL_ALARM;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_GET_ALL_SPECIAL_ALARM,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_GET_ALL_SPECIAL_ALARM,fishdata);
         MSG_ID_FISHEYE_GET_ALL_SPECIAL_ALARM++;
     }
 
@@ -456,7 +462,7 @@ public class FisheyeSetHandler {
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_DEAL_LAMP;
         fishdata[3]=lampState;
         System.arraycopy(lampInfo,0,fishdata,4,lampInfo.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_GET_LAMP_STATE,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_GET_LAMP_STATE,fishdata);
         MSG_ID_FISHEYE_GET_LAMP_STATE++;
     }
 
@@ -473,7 +479,7 @@ public class FisheyeSetHandler {
         fishdata[0]=MESG_TYPE_WORKMODE_SETTING;
         fishdata[1]=FishSubCmd.MESG_SUBTYPE_KEEPCLIENT;
         fishdata[3]=1;
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MSG_ID_FISHEYE_KEEP_CLIENT_STATE,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MSG_ID_FISHEYE_KEEP_CLIENT_STATE,fishdata);
         MSG_ID_FISHEYE_KEEP_CLIENT_STATE++;
     }
     public void sMesgQrcodeLearnDevice(String contactId, String password,byte qrType,byte deviceType,byte[] codeData){
@@ -486,7 +492,7 @@ public class FisheyeSetHandler {
         fishdata[3]=deviceType;
         fishdata[8]= (byte) codeData.length;
         System.arraycopy(codeData,0,fishdata,9,codeData.length);
-        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(password),MESG_ID_TYPE_QRCODE_LEARN_CODE,fishdata);
+        P2PHandler.getInstance().setFishEye(Integer.parseInt(contactId),Integer.parseInt(P2PHandler.getInstance().EntryPassword(password)),MESG_ID_TYPE_QRCODE_LEARN_CODE,fishdata);
         MESG_ID_TYPE_QRCODE_LEARN_CODE++;
     }
 

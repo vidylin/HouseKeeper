@@ -31,6 +31,7 @@ import com.hrsst.housekeeper.mvp.fragment.DevFragment.DevFragment;
 import com.hrsst.housekeeper.mvp.fragment.MapFragment.MapFragment;
 import com.hrsst.housekeeper.mvp.fragment.OneKeyAlarmFragment.OneKeyAlarmFragment;
 import com.hrsst.housekeeper.mvp.login.LoginActivity;
+import com.hrsst.housekeeper.mvp.manualAddCamera.ManualAddCameraActivity;
 import com.hrsst.housekeeper.service.MainService;
 import com.p2p.core.P2PHandler;
 
@@ -201,6 +202,9 @@ public class MainActivity extends BaseActivity implements MainView {
             case R.id.manually_add:
                 layoutAdd.setVisibility(View.GONE);
                 isHideAdd = true;
+                Intent manuallyAdd = new Intent(this, ManualAddCameraActivity.class);
+                startActivityForResult(manuallyAdd,112);
+//                startActivity(manuallyAdd);
                 break;
             case R.id.menu:
                 drawerlayout.openDrawer(left);

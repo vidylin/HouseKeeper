@@ -5,6 +5,7 @@
     <color name="half_alpha">#88000000</color>
     <color name="fish_back">#f4f4f4</color>
     <color name="list_drop">#c1b5b7</color>
+    <color name="camera_list_item">#e3e6e7</color>
 
     <color name="listview_foucs">#E4E4E4</color>
     <color name="home_bg_color">#f7f7f7</color>
@@ -84,4 +85,10 @@
     <color name="hint_color_text">#c5c5c5</color>
     <color name="lead_regiater">#445795</color>
     <color name="text_view_and_kuang">#838383</color>
+
+    <color name="my_radio_bg_pre">#eaeaea</color>
+    <color name="my_radio_bg">#f7f7f7</color>
+
+    <color name="jia_bg_pre">#d6d6d6</color>
+    <color name="jia_bg">#e2e2e2</color>
 </resources>

@@ -445,7 +445,6 @@
 						android:layout_gravity="center_vertical"
 						>
 						<ImageView
-
 							android:layout_width="45dp"
 							android:layout_height="45dp"
 							android:src="@drawable/preset_pos_image_selector"

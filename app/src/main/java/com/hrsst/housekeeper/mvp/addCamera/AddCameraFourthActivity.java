@@ -12,12 +12,14 @@ import com.baidu.location.BDLocation;
 import com.hrsst.housekeeper.AppComponent;
 import com.hrsst.housekeeper.R;
 import com.hrsst.housekeeper.common.baseActivity.BaseActivity;
+import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
 import com.hrsst.housekeeper.common.utils.T;
 import com.hrsst.housekeeper.common.widget.XCDropDownListView;
 import com.hrsst.housekeeper.entity.Area;
 import com.hrsst.housekeeper.entity.ShopType;
 import com.jakewharton.rxbinding.view.RxView;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -72,6 +74,7 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
     private Area mArea;
     private String areaId = "";
     private String shopTypeId = "";
+    private String userNumber;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -93,6 +96,8 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
         contactId = getIntent().getExtras().getString("contactId");
         addRepeaterMac.setText(contactId);
         init();
+        userNumber = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
+                SharedPreferencesManager.KEY_RECENTPASS_NUMBER);
     }
 
     private void init() {
@@ -138,7 +143,7 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
                 if (addFireZjq.ifShow()) {
                     addFireZjq.closePopWindow();
                 } else {
-//                    mvpPresenter.getPlaceTypeId(userID, privilege + "", 2);
+                    addCameraFourthPresenter.getPlaceTypeId(userNumber, "1", 2);
                     addFireZjq.setClickable(false);
                     addFireZjq.showLoading();
                 }
@@ -147,7 +152,7 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
                 if (addFireType.ifShow()) {
                     addFireType.closePopWindow();
                 } else {
-//                    mvpPresenter.getPlaceTypeId(userID, privilege + "", 1);
+                    addCameraFourthPresenter.getPlaceTypeId(userNumber, "1" , 1);
                     addFireType.setClickable(false);
                     addFireType.showLoading();
                 }
@@ -203,5 +208,45 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
     @Override
     public void errorMessage(String msg) {
         T.showShort(mContext,msg);
+    }
+
+    @Override
+    public void getShopType(ArrayList<Object> shopTypes) {
+        addFireType.setItemsData(shopTypes,addCameraFourthPresenter);
+        addFireType.showPopWindow();
+        addFireType.setClickable(true);
+        addFireType.closeLoading();
+    }
+
+    @Override
+    public void getShopTypeFail(String msg) {
+        T.showShort(mContext, msg);
+        addFireType.setClickable(true);
+        addFireType.closeLoading();
+    }
+
+    @Override
+    public void getAreaType(ArrayList<Object> shopTypes) {
+        addFireZjq.setItemsData(shopTypes,addCameraFourthPresenter);
+        addFireZjq.showPopWindow();
+        addFireZjq.setClickable(true);
+        addFireZjq.closeLoading();
+    }
+
+    @Override
+    public void getAreaTypeFail(String msg) {
+        T.showShort(mContext, msg);
+        addFireZjq.setClickable(true);
+        addFireZjq.closeLoading();
+    }
+
+    @Override
+    public void getChoiceArea(Area area) {
+        mArea = area;
+    }
+
+    @Override
+    public void getChoiceShop(ShopType shopType) {
+        mShopType = shopType;
     }
 }

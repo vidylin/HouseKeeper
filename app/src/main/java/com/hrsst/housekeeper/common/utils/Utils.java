@@ -81,6 +81,14 @@ public class Utils {
 		}
 
 	}
+
+	public static boolean isPhoneNumber(String input){
+		String regex="((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)";
+		//String regex = "(^(\\d{3,4}-)?\\d{7,8})$|(13[0-9]{9}) ";
+		Pattern p = Pattern.compile(regex);
+		return p.matches(regex, input);
+	}
+
 	public static boolean isNetworkAvailable(Activity activity)
 	{
 		Context context = activity.getApplicationContext();

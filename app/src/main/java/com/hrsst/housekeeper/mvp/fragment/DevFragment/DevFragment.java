@@ -21,7 +21,11 @@ import com.hrsst.housekeeper.adapter.ContactAdapter;
 import com.hrsst.housekeeper.common.baseActivity.BaseFragment;
 import com.hrsst.housekeeper.common.data.Contact;
 import com.hrsst.housekeeper.common.global.Constants;
+import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
+import com.hrsst.housekeeper.common.utils.T;
+import com.hrsst.housekeeper.common.widget.NormalDialog;
 import com.hrsst.housekeeper.mvp.apmonitor.ApMonitorActivity;
+import com.hrsst.housekeeper.mvp.modifyCameraInfo.ModifyCameraPwdActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +54,7 @@ public class DevFragment extends BaseFragment implements DevFragmentView{
     private Context mContext;
     private ContactAdapter contactAdapter;
     private  Map<String,Integer> stringMap;
+    private String userNumber;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -72,23 +77,29 @@ public class DevFragment extends BaseFragment implements DevFragmentView{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mContext=getActivity();
+        userNumber = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
+                SharedPreferencesManager.KEY_RECENTPASS_NUMBER);
         list = new ArrayList<>();
         stringMap = new HashMap<>();
         regFilter();
-        testData();
         refreshListView();
+        devFragmentPresenter.getAllCamera(userNumber,"1","",false);
     }
     private void regFilter() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Constants.Action.GET_FRIENDS_STATE);
         filter.addAction(Constants.P2P.RET_GET_REMOTE_DEFENCE);
         filter.addAction(Constants.P2P.RET_SET_REMOTE_DEFENCE);
+        filter.addAction(Constants.PUSH_CAMERA_DATA);
         mContext.registerReceiver(mReceiver, filter);
     }
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals(Constants.PUSH_CAMERA_DATA)){
+                devFragmentPresenter.getAllCamera(userNumber,"1","",true);
+            }
             if(intent.getAction().equals(Constants.Action.GET_FRIENDS_STATE)){
                 Map<String,Contact> contactMap = (Map<String, Contact>) intent.getSerializableExtra("contact");
                 devFragmentPresenter.setFriendStatus(list,contactMap);
@@ -125,26 +136,10 @@ public class DevFragment extends BaseFragment implements DevFragmentView{
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        contactAdapter = new ContactAdapter(mContext,list,devFragmentPresenter);
-        recyclerView.setAdapter(contactAdapter);
-
         swipereFreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                devFragmentPresenter.getFriendStatus(list);
-                devFragmentPresenter.getDefenceState(list);
-                swipereFreshLayout.setRefreshing(false);
-            }
-        });
-        contactAdapter.setOnItemClickListener(new ContactAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, Contact contact) {
-                Intent monitor = new Intent();
-                monitor.setClass(mContext, ApMonitorActivity.class);
-                monitor.putExtra("contact", contact);
-                monitor.putExtra("connectType", Constants.ConnectType.P2PCONNECT);
-                monitor.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(monitor);
+                devFragmentPresenter.getAllCamera(userNumber,"1","",true);
             }
         });
     }
@@ -166,19 +161,14 @@ public class DevFragment extends BaseFragment implements DevFragmentView{
         mContext.unregisterReceiver(mReceiver);
     }
 
-    private void testData(){
-        Contact contact = new Contact();
-        contact.contactId = "3121164";
-        contact.contactName = "测试";
-        contact.contactPassword = "123";
-        Contact contact1 = new Contact();
-        contact1.contactId = "3121638";
-        contact1.contactName = "测试1";
-        contact1.contactPassword = "123";
-        list.add(contact);
-        list.add(contact1);
-        devFragmentPresenter.getFriendStatus(list);
-        devFragmentPresenter.getDefenceState(list);
+    @Override
+    public void showLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -192,6 +182,68 @@ public class DevFragment extends BaseFragment implements DevFragmentView{
         notifyData(lists);
     }
 
+    @Override
+    public void deleteUserIdCameraIdResult(String msg) {
+        swipereFreshLayout.setRefreshing(false);
+        T.showShort(mContext,msg);
+    }
+
+    @Override
+    public void deleteUserIdCameraIdSuccess(Contact data, String msg) {
+        T.showShort(mContext,msg);
+        list.remove(data);
+        contactAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getAllCameraResult(List<Contact> list1) {
+        list.clear();
+        list.addAll(list1);
+        contactAdapter = new ContactAdapter(this,list,devFragmentPresenter);
+        recyclerView.setAdapter(contactAdapter);
+        devFragmentPresenter.getFriendStatus(list);
+        devFragmentPresenter.getDefenceState(list);
+        swipereFreshLayout.setRefreshing(false);
+        contactAdapter.setOnItemClickListener(new ContactAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, Contact contact) {
+                Intent monitor = new Intent();
+                monitor.setClass(mContext, ApMonitorActivity.class);
+                monitor.putExtra("contact", contact);
+                monitor.putExtra("connectType", Constants.ConnectType.P2PCONNECT);
+                monitor.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(monitor);
+            }
+        });
+        contactAdapter.setOnItemLongClickListener(new ContactAdapter.OnRecyclerViewItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View view, final Contact data) {
+                final String cameraId = data.contactId;
+                NormalDialog normalDialog = new NormalDialog(mContext);
+                normalDialog.setTitle("删除摄像机");
+                normalDialog.setContentStr("从列表中删除"+cameraId+"?");
+                normalDialog.setbtnStr1("是");
+                normalDialog.setbtnStr2("否");
+                normalDialog.showNormalDialog();
+                normalDialog.setOnButtonOkListener(new NormalDialog.OnButtonOkListener() {
+                    @Override
+                    public void onClick() {
+                        devFragmentPresenter.deleteUserIdCameraId(userNumber,data);
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void pushResult(List<Contact> contactList) {
+        list.clear();
+        list.addAll(contactList);
+        swipereFreshLayout.setRefreshing(false);
+        devFragmentPresenter.getFriendStatus(list);
+        devFragmentPresenter.getDefenceState(list);
+    }
+
     private void notifyData(List<Contact> lists){
         List<Contact> l = new ArrayList<>();
         l.addAll(lists);
@@ -200,5 +252,22 @@ public class DevFragment extends BaseFragment implements DevFragmentView{
         contactAdapter.notifyDataSetChanged();
     }
 
+    public void intentModify(Contact contact,int pos){
+        Intent intent = new Intent(mContext, ModifyCameraPwdActivity.class);
+        intent.putExtra("contact",contact);
+        intent.putExtra("position",pos);
+        startActivityForResult(intent,100);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 100) {
+            Contact contact = (Contact) data.getExtras().getSerializable("contact");
+            int pos = data.getExtras().getInt("position");
+            list.set(pos, contact);
+            contactAdapter.notifyDataSetChanged();
+        }
+    }
 
 }

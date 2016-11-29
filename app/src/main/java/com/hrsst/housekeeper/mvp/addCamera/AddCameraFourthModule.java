@@ -26,4 +26,5 @@ public class AddCameraFourthModule {
     AddCameraFourthPresenter provideAddCameraFourthPresenter(AddCameraFourthActivity addCameraFourthActivity){
         return new AddCameraFourthPresenter(addCameraFourthActivity);
     }
+
 }

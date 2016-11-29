@@ -1,0 +1,215 @@
+package com.hrsst.housekeeper.entity;
+
+import java.util.List;
+
+/**
+ * Created by Administrator on 2016/11/29.
+ */
+public class AlarmMsg {
+
+    /**
+     * Alarm : [{"alarmTime":"4","alarmType":127,"camera":{"addrcameraNameess":"%E5%8D%B7%E5%AD%90","cameraAddress":"????????????????564?","cameraId":"3121164","cameraPwd":"123456u","latitude":"23.161798","longitude":"113.350428","principal1":"??","principal1Phone":"123456789","principal2":"??","principal2Phone":"123456"},"dealTime":"2","dealUser":null,"ifDealAlarm":0},{"alarmTime":"3","alarmType":127,"camera":{"addrcameraNameess":"%E5%8D%B7%E5%AD%90","cameraAddress":"????????????????564?","cameraId":"3121164","cameraPwd":"123456u","latitude":"23.161798","longitude":"113.350428","principal1":"??","principal1Phone":"123456789","principal2":"??","principal2Phone":"123456"},"dealTime":"1","dealUser":null,"ifDealAlarm":1}]
+     * error : 获取报警消息成功）
+     * errorCode : 0
+     */
+
+    private String error;
+    private int errorCode;
+    /**
+     * alarmTime : 4
+     * alarmType : 127
+     * camera : {"addrcameraNameess":"%E5%8D%B7%E5%AD%90","cameraAddress":"????????????????564?","cameraId":"3121164","cameraPwd":"123456u","latitude":"23.161798","longitude":"113.350428","principal1":"??","principal1Phone":"123456789","principal2":"??","principal2Phone":"123456"}
+     * dealTime : 2
+     * dealUser : null
+     * ifDealAlarm : 0
+     */
+
+    private List<AlarmBean> Alarm;
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public List<AlarmBean> getAlarm() {
+        return Alarm;
+    }
+
+    public void setAlarm(List<AlarmBean> Alarm) {
+        this.Alarm = Alarm;
+    }
+
+    public static class AlarmBean {
+        private String alarmTime;
+        private int alarmType;
+        /**
+         * addrcameraNameess : %E5%8D%B7%E5%AD%90
+         * cameraAddress : ????????????????564?
+         * cameraId : 3121164
+         * cameraPwd : 123456u
+         * latitude : 23.161798
+         * longitude : 113.350428
+         * principal1 : ??
+         * principal1Phone : 123456789
+         * principal2 : ??
+         * principal2Phone : 123456
+         */
+
+        private CameraBean camera;
+        private String dealTime;
+        private Object dealUser;
+        private int ifDealAlarm;
+
+        public String getAlarmTime() {
+            return alarmTime;
+        }
+
+        public void setAlarmTime(String alarmTime) {
+            this.alarmTime = alarmTime;
+        }
+
+        public int getAlarmType() {
+            return alarmType;
+        }
+
+        public void setAlarmType(int alarmType) {
+            this.alarmType = alarmType;
+        }
+
+        public CameraBean getCamera() {
+            return camera;
+        }
+
+        public void setCamera(CameraBean camera) {
+            this.camera = camera;
+        }
+
+        public String getDealTime() {
+            return dealTime;
+        }
+
+        public void setDealTime(String dealTime) {
+            this.dealTime = dealTime;
+        }
+
+        public Object getDealUser() {
+            return dealUser;
+        }
+
+        public void setDealUser(Object dealUser) {
+            this.dealUser = dealUser;
+        }
+
+        public int getIfDealAlarm() {
+            return ifDealAlarm;
+        }
+
+        public void setIfDealAlarm(int ifDealAlarm) {
+            this.ifDealAlarm = ifDealAlarm;
+        }
+
+        public static class CameraBean {
+            private String addrcameraNameess;
+            private String cameraAddress;
+            private String cameraId;
+            private String cameraPwd;
+            private String latitude;
+            private String longitude;
+            private String principal1;
+            private String principal1Phone;
+            private String principal2;
+            private String principal2Phone;
+
+            public String getAddrcameraNameess() {
+                return addrcameraNameess;
+            }
+
+            public void setAddrcameraNameess(String addrcameraNameess) {
+                this.addrcameraNameess = addrcameraNameess;
+            }
+
+            public String getCameraAddress() {
+                return cameraAddress;
+            }
+
+            public void setCameraAddress(String cameraAddress) {
+                this.cameraAddress = cameraAddress;
+            }
+
+            public String getCameraId() {
+                return cameraId;
+            }
+
+            public void setCameraId(String cameraId) {
+                this.cameraId = cameraId;
+            }
+
+            public String getCameraPwd() {
+                return cameraPwd;
+            }
+
+            public void setCameraPwd(String cameraPwd) {
+                this.cameraPwd = cameraPwd;
+            }
+
+            public String getLatitude() {
+                return latitude;
+            }
+
+            public void setLatitude(String latitude) {
+                this.latitude = latitude;
+            }
+
+            public String getLongitude() {
+                return longitude;
+            }
+
+            public void setLongitude(String longitude) {
+                this.longitude = longitude;
+            }
+
+            public String getPrincipal1() {
+                return principal1;
+            }
+
+            public void setPrincipal1(String principal1) {
+                this.principal1 = principal1;
+            }
+
+            public String getPrincipal1Phone() {
+                return principal1Phone;
+            }
+
+            public void setPrincipal1Phone(String principal1Phone) {
+                this.principal1Phone = principal1Phone;
+            }
+
+            public String getPrincipal2() {
+                return principal2;
+            }
+
+            public void setPrincipal2(String principal2) {
+                this.principal2 = principal2;
+            }
+
+            public String getPrincipal2Phone() {
+                return principal2Phone;
+            }
+
+            public void setPrincipal2Phone(String principal2Phone) {
+                this.principal2Phone = principal2Phone;
+            }
+        }
+    }
+}

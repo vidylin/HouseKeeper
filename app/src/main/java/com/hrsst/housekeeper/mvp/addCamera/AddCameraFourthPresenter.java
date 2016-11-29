@@ -4,12 +4,19 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.hrsst.housekeeper.AppApplication;
 import com.hrsst.housekeeper.common.basePresenter.BasePresenter;
+import com.hrsst.housekeeper.entity.Area;
+import com.hrsst.housekeeper.entity.HttpAreaResult;
+import com.hrsst.housekeeper.entity.HttpError;
 import com.hrsst.housekeeper.entity.PostResult;
+import com.hrsst.housekeeper.entity.ShopType;
 import com.hrsst.housekeeper.rxjava.ApiCallback;
 import com.hrsst.housekeeper.rxjava.SubscriberCallBack;
 import com.hrsst.housekeeper.service.LocationService;
 
+import java.util.ArrayList;
+
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Created by Administrator on 2016/11/23.
@@ -65,6 +72,10 @@ public class AddCameraFourthPresenter extends BasePresenter<AddCameraFourthView>
             mvpView.errorMessage("请获取经纬度");
             return;
         }
+        if(cameraPwd==null||cameraPwd.length()==0){
+            mvpView.errorMessage("请填写摄像机密码");
+            return;
+        }
 //        if(areaId==null||areaId.length()==0){
 //            mvpView.errorMessage("请填选择区域");
 //            return;
@@ -94,5 +105,60 @@ public class AddCameraFourthPresenter extends BasePresenter<AddCameraFourthView>
                 mvpView.hideLoading();
             }
         }));
+    }
+
+    //type:1表示查询商铺类型，2表示查询区域类型
+    public void getPlaceTypeId(String userId, String privilege, final int type){
+        Observable mObservable = null;
+        if(type==1){
+            mObservable= apiStoreServer.getPlaceTypeId(userId,privilege,"").map(new Func1<HttpError,ArrayList<Object>>() {
+                @Override
+                public ArrayList<Object> call(HttpError o) {
+                    return o.getPlaceType();
+                }
+            });
+        }else{
+            mObservable= apiStoreServer.getAreaId(userId,privilege,"").map(new Func1<HttpAreaResult,ArrayList<Object>>() {
+                @Override
+                public ArrayList<Object> call(HttpAreaResult o) {
+                    return o.getSmoke();
+                }
+            });
+        }
+        addSubscription(mObservable,new SubscriberCallBack<>(new ApiCallback<ArrayList<Object>>() {
+            @Override
+            public void onSuccess(ArrayList<Object> model) {
+                if(type==1){
+                    if(model!=null&&model.size()>0){
+                        mvpView.getShopType(model);
+                    }else{
+                        mvpView.getShopTypeFail("无数据");
+                    }
+                }else{
+                    if(model!=null&&model.size()>0){
+                        mvpView.getAreaType(model);
+                    }else{
+                        mvpView.getAreaTypeFail("无数据");
+                    }
+                }
+            }
+            @Override
+            public void onFailure(int code, String msg) {
+                mvpView.errorMessage("网络错误");
+            }
+            @Override
+            public void onCompleted() {
+            }
+        }));
+    }
+
+    @Override
+    public void getArea(Area area) {
+        mvpView.getChoiceArea(area);
+    }
+
+    @Override
+    public void getShop(ShopType shopType) {
+        mvpView.getChoiceShop(shopType);
     }
 }

@@ -11,6 +11,7 @@ public class Constants {
 	public static final String SERVER_YOOSEE_IP_THREE = "http://api3.cloud-links.net/";
 	public static final String SERVER_YOOSEE_IP_FOUR = "http://api4.cloud-links.net/";
 	public static final String CACHE_FOLDER_NAME = "yoosee";
+	public static final String PUSH_CAMERA_DATA = "push_camera_data";
 	//更新接口
 	public static final String UPDATE_URL="http://192.168.4.120:8080/download/";
 	public static final int DEFAULT_TIMEOUT=20;
@@ -157,6 +158,9 @@ public class Constants {
 				+ "RET_SET_DEFENCE_AREA";
 		public static final String RET_GET_DEFENCE_AREA = PACKAGE_NAME
 				+ "RET_GET_DEFENCE_AREA";
+		//预置位设置后返回
+		public static final String MESG_TYPE_RET_ALARM_TYPE_MOTOR_PRESET_POS = PACKAGE_NAME
+				+ "MESG_TYPE_RET_ALARM_TYPE_MOTOR_PRESET_POS";
 
 		// 远程设置
 		public static final String ACK_RET_SET_REMOTE_DEFENCE = PACKAGE_NAME

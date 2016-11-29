@@ -23,6 +23,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
@@ -36,6 +37,7 @@ import com.hrsst.housekeeper.adapter.SelectorDialogAdapter;
 import com.hrsst.housekeeper.common.data.Contact;
 import com.hrsst.housekeeper.common.global.Constants;
 import com.hrsst.housekeeper.common.utils.Utils;
+import com.hrsst.housekeeper.mvp.defenceList.DefenceListPresenter;
 import com.p2p.core.P2PHandler;
 import com.p2p.core.update.UpdateManager;
 import com.p2p.core.utils.MyUtils;
@@ -51,6 +53,7 @@ public class NormalDialog {
 	AlertDialog dialog;
 	private int loadingMark;
 	private OnButtonOkListener onButtonOkListener;
+	private OnButtonDeleteListener onButtonDeleteListener;
 	private OnButtonCancelListener onButtonCancelListener;
 	private OnCancelListener onCancelListener;
 	private OnCustomCancelListner customCancelListner;
@@ -459,6 +462,10 @@ public class NormalDialog {
 		window.setWindowAnimations(R.style.dialog_normal);
 	}
 
+	public void deleteCamera(){
+
+	}
+
 	public void showNormalDialog() {
 		View view = LayoutInflater.from(context).inflate(
 				R.layout.dialog_normal, null);
@@ -506,6 +513,88 @@ public class NormalDialog {
 //		dialog.setCanceledOnTouchOutside(true);
 //		Window window = dialog.getWindow();
 //		window.setWindowAnimations(R.style.dialog_normal);
+	}
+
+	public void deleteFireDialog() {
+		View view = LayoutInflater.from(context).inflate(
+				R.layout.dialog_defence, null);
+		RelativeLayout deleteFire = (RelativeLayout) view.findViewById(R.id.delete_fire);
+		RelativeLayout modifyFireName = (RelativeLayout) view.findViewById(R.id.dialog_content);
+		deleteFire.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (null != dialog) {
+					dialog.dismiss();
+				}
+				onButtonDeleteListener.onClick();
+
+			}
+		});
+		modifyFireName.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (null != dialog) {
+					dialog.dismiss();
+				}
+				onButtonOkListener.onClick();
+			}
+		});
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		dialog = builder.create();
+		if (dialog.isShowing()) {
+			dialog.dismiss();
+		}
+		dialog.show();
+		dialog.setContentView(view);
+		WindowManager.LayoutParams layout = dialog.getWindow().getAttributes();
+		layout.height=250;
+		layout.width=450;
+//		dialog.setCanceledOnTouchOutside(true);
+		Window window = dialog.getWindow();
+		window.setAttributes(layout);
+		window.setWindowAnimations(R.style.dialog_normal);
+	}
+
+	public void modifyDefenceNameDialog(String oldName, final DefenceListPresenter defenceListPresenter) {
+		View view = LayoutInflater.from(context).inflate(
+				R.layout.dialog_modify_defence_name, null);
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		dialog = builder.create();
+		if (dialog.isShowing()) {
+			dialog.dismiss();
+		}
+		dialog.setView(view);
+		dialog.show();
+		Window window = dialog.getWindow();
+		window.setContentView(R.layout.dialog_modify_defence_name);
+		window.setWindowAnimations(R.style.dialog_normal);
+		TextView okTextView = (TextView) dialog.findViewById(R.id.button1_text);
+		TextView cancelTextView = (TextView) dialog.findViewById(R.id.button2_text);
+		final EditText editText = (EditText) dialog.findViewById(R.id.new_defence_name);
+		editText.setText(oldName);
+		okTextView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (null != dialog) {
+					dialog.dismiss();
+				}
+				String newName= editText.getText().toString().trim();
+				defenceListPresenter.getNewName(newName);
+				onButtonOkListener.onClick();
+			}
+		});
+		cancelTextView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (null == onButtonCancelListener) {
+					if (null != dialog) {
+						dialog.cancel();
+					}
+				} else {
+					onButtonCancelListener.onClick();
+				}
+			}
+		});
 	}
 
 	public void showSelectorDialog() {
@@ -816,12 +905,20 @@ public class NormalDialog {
 		public void onClick();
 	}
 
+	public interface OnButtonDeleteListener {
+		public void onClick();
+	}
+
 	public interface OnButtonCancelListener {
 		public void onClick();
 	}
 
 	public void setOnButtonOkListener(OnButtonOkListener onButtonOkListener) {
 		this.onButtonOkListener = onButtonOkListener;
+	}
+
+	public void setOnButtonDeleteListener(OnButtonDeleteListener onButtonDeleteListener) {
+		this.onButtonDeleteListener = onButtonDeleteListener;
 	}
 
 	public void setOnButtonCancelListener(

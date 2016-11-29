@@ -2,8 +2,13 @@ package com.hrsst.housekeeper.mvp.fragment.DevFragment;
 
 import android.content.Context;
 
+import com.hrsst.housekeeper.common.basePresenter.BasePresenter;
 import com.hrsst.housekeeper.common.data.Contact;
 import com.hrsst.housekeeper.common.global.Constants;
+import com.hrsst.housekeeper.entity.Camera;
+import com.hrsst.housekeeper.entity.PostResult;
+import com.hrsst.housekeeper.rxjava.ApiCallback;
+import com.hrsst.housekeeper.rxjava.SubscriberCallBack;
 import com.p2p.core.P2PHandler;
 
 import java.util.ArrayList;
@@ -16,7 +21,7 @@ import rx.functions.Func1;
 /**
  * Created by Administrator on 2016/11/18.
  */
-public class DevFragmentPresenterImpl implements DevFragmentPresenter,DevFragmentListener{
+public class DevFragmentPresenterImpl extends BasePresenter<DevFragmentView> implements DevFragmentPresenter{
     private DevFragmentView devFragmentView;
 
     public DevFragmentPresenterImpl(DevFragmentView devFragmentView) {
@@ -94,13 +99,88 @@ public class DevFragmentPresenterImpl implements DevFragmentPresenter,DevFragmen
             for(int i=0;i<map.size();i++){
                 Contact c = contactList.get(i);
                 String id = c.contactId;
-                int state = map.get(id);
-                c.defenceState = state;
-                lists.remove(i);
-                lists.add(i,c);
+                boolean containKey = map.containsKey(id);
+                if(containKey){
+                    int state = map.get(id);
+                    c.defenceState = state;
+                    lists.remove(i);
+                    lists.add(i,c);
+                }
+
             }
             devFragmentView.setDefenceState(lists);
         }
+    }
+
+    @Override
+    public void deleteUserIdCameraId(String userId, final Contact data) {
+        devFragmentView.showLoading();
+        Observable<PostResult> mObservable = apiStoreServer.deleteUserIdCameraId(userId,data.contactId);
+        addSubscription(mObservable,new SubscriberCallBack<>(new ApiCallback<PostResult>() {
+            @Override
+            public void onSuccess(PostResult model) {
+                int errorCode = model.getErrorCode();
+                if(errorCode==0){
+                    devFragmentView.deleteUserIdCameraIdSuccess(data,"删除成功");
+                }else{
+                    devFragmentView.deleteUserIdCameraIdResult("删除失败");
+                }
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                devFragmentView.deleteUserIdCameraIdResult("网络错误");
+            }
+
+            @Override
+            public void onCompleted() {
+                devFragmentView.hideLoading();
+            }
+        }));
+    }
+
+    //userId=13428282520&privilege=1&page=1
+    @Override
+    public void getAllCamera(String userId, String privilege, String page, final boolean push){
+        if(!push){
+            devFragmentView.showLoading();
+        }
+        Observable<Camera> mObservable = apiStoreServer.ordinaryUserGetAllCamera(userId,privilege,page);
+        addSubscription(mObservable,new SubscriberCallBack<>(new ApiCallback<Camera>() {
+            @Override
+            public void onSuccess(Camera model) {
+                int errorCode = model.getErrorCode();
+                if(errorCode==0){
+                    List<Contact> contactList = new ArrayList<Contact>();
+                    List<Camera.CameraBean> list = model.getCamera();
+                    for(Camera.CameraBean cameraBean : list){
+                        Contact contact = new Contact();
+                        contact.contactId = cameraBean.getCameraId();
+                        contact.contactPassword = cameraBean.getCameraPwd();
+                        contact.contactName = cameraBean.getCameraName();
+                        contactList.add(contact);
+                    }
+                    if(!push){
+                        devFragmentView.getAllCameraResult(contactList);
+                    }else{
+                        devFragmentView.pushResult(contactList);
+                    }
+                }else{
+                    List<Contact> contactList = new ArrayList<>();
+                    devFragmentView.getAllCameraResult(contactList);
+                }
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                devFragmentView.deleteUserIdCameraIdResult("网络错误");
+            }
+
+            @Override
+            public void onCompleted() {
+                devFragmentView.hideLoading();
+            }
+        }));
     }
 
 }

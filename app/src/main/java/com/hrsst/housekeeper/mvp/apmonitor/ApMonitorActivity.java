@@ -70,8 +70,10 @@ import com.hrsst.housekeeper.common.widget.NormalDialog;
 import com.hrsst.housekeeper.common.yoosee.P2PConnect;
 import com.hrsst.housekeeper.common.yoosee.SettingListener;
 import com.hrsst.housekeeper.mvp.alarmSetting.AlarmSettingActivity;
+import com.hrsst.housekeeper.mvp.defenceList.DefenceListActivity;
 import com.hrsst.housekeeper.mvp.fragment.MonitorOne.MonitorOneFragment;
 import com.hrsst.housekeeper.mvp.fragment.MonitorTwo.MonitorTwoFragment;
+import com.hrsst.housekeeper.mvp.modifyCameraInfo.ModifyCameraNameActivity;
 import com.hrsst.housekeeper.mvp.playBack.PlayBackListActivity;
 import com.hrsst.housekeeper.mvp.recordProject.RecordProjectActivity;
 import com.hrsst.housekeeper.mvp.sdcard.SDCardActivity;
@@ -1065,12 +1067,23 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
             R.id.iv_screenshot, R.id.hungup, R.id.choose_video_format, R.id.iv_half_screen, R.id.video_mode_hd, R.id.video_mode_sd,
             R.id.video_mode_ld, R.id.rl_prgError, R.id.btn_refrash, R.id.tv_choosee_device, R.id.open_door, R.id.send_voice, R.id.play_back_im,
             R.id.preset_pos_im,R.id.yuzhiwei_im,R.id.baidu1,R.id.baidu2,R.id.baidu3,R.id.baidu4,R.id.baidu5,R.id.sd_card_im,R.id.share_dev_im,
-            R.id.defence_im})
+            R.id.defence_im,R.id.setting_im})
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
+            case R.id.setting_im:
+                Intent settingIm = new Intent(mContext,ModifyCameraNameActivity.class);
+                settingIm.putExtra("contact", mContact);
+                settingIm.putExtra("connectType", 0);
+                startActivity(settingIm);
+                reject();
+                break;
             case R.id.defence_im:
-
+                Intent defenceIm = new Intent(mContext,DefenceListActivity.class);
+                defenceIm.putExtra("contact", mContact);
+                defenceIm.putExtra("connectType", 0);
+                startActivity(defenceIm);
+                reject();
                 break;
             case R.id.share_dev_im:
                 Intent i13 = new Intent(mContext,AlarmSettingActivity.class);
@@ -1734,6 +1747,14 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         super.onResume();
         readyCallDevice();
         initp2pView();
+    }
+
+    @Override
+    public void onStop() {
+        // TODO Auto-generated method stub
+        super.onStop();
+        reject();
+        System.out.println("onStop...");
     }
 
     /*

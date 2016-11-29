@@ -16,4 +16,7 @@ public interface DevFragmentPresenter {
     void getFriendStatus(List<Contact> lists);
     void getDefenceState(List<Contact> contact);
     void setDefenceState(List<Contact> lists,Map<String,Integer> map);
+    void deleteUserIdCameraId(String userId,Contact data);
+    void getAllCamera(String userId, String privilege, String page, final boolean push);
+
 }

@@ -1,6 +1,5 @@
 package com.hrsst.housekeeper.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import com.hrsst.housekeeper.R;
 import com.hrsst.housekeeper.common.data.Contact;
 import com.hrsst.housekeeper.common.widget.HeaderView;
+import com.hrsst.housekeeper.mvp.fragment.DevFragment.DevFragment;
 import com.hrsst.housekeeper.mvp.fragment.DevFragment.DevFragmentPresenter;
 
 import java.util.List;
@@ -22,9 +22,9 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/11/8.
  */
-public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
+public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener,View.OnLongClickListener {
 
-    private Context mContext;
+    private DevFragment mContext;
     private List<Contact> constantsList;
     public static final int PULLUP_LOAD_MORE = 0;//上拉加载更多
     public static final int LOADING_MORE = 1;//正在加载中
@@ -35,6 +35,7 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private int load_more_status = 0;
     private LayoutInflater mInflater;
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    private OnRecyclerViewItemLongClickListener onRecyclerViewItemLongClickListener = null;
     private DevFragmentPresenter devFragmentPresenter;
 
     @Override
@@ -45,19 +46,35 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+    @Override
+    public boolean onLongClick(View view) {
+        if(onRecyclerViewItemLongClickListener!=null){
+            onRecyclerViewItemLongClickListener.onItemLongClick(view, (Contact) view.getTag());
+        }
+        return true;
+    }
+
+
     public static interface OnRecyclerViewItemClickListener {
         void onItemClick(View view, Contact data);
+    }
+
+    public static interface OnRecyclerViewItemLongClickListener {
+        void onItemLongClick(View view, Contact data);
     }
 
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
         this.mOnItemClickListener = listener;
     }
 
+    public void setOnItemLongClickListener(OnRecyclerViewItemLongClickListener listener) {
+        this.onRecyclerViewItemLongClickListener = listener;
+    }
 
-    public ContactAdapter(Context mContext, List<Contact> constantsList, DevFragmentPresenter devFragmentPresenter) {
+    public ContactAdapter(DevFragment mContext, List<Contact> constantsList, DevFragmentPresenter devFragmentPresenter) {
         this.mContext = mContext;
         this.constantsList = constantsList;
-        this.mInflater = LayoutInflater.from(mContext);
+        this.mInflater = LayoutInflater.from(mContext.getActivity());
         this.devFragmentPresenter = devFragmentPresenter;
     }
 
@@ -68,11 +85,12 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         //这边可以做一些属性设置，甚至事件监听绑定
         ItemViewHolder viewHolder = new ItemViewHolder(view);
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final Contact contact = constantsList.get(position);
         ((ItemViewHolder) holder).cameraName.setText(contact.getContactName());
         ((ItemViewHolder) holder).userIcon.updateImage(contact.contactId, false, contact.contactType);
@@ -91,7 +109,13 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((ItemViewHolder) holder).lockRelative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                devFragmentPresenter.setDefence(mContext, contact.contactId, contact.contactPassword, contact.defenceState);
+                devFragmentPresenter.setDefence(mContext.getActivity(), contact.contactId, contact.contactPassword, contact.defenceState);
+            }
+        });
+        ((ItemViewHolder) holder).modifyCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.intentModify(contact,position);
             }
         });
         holder.itemView.setTag(contact);

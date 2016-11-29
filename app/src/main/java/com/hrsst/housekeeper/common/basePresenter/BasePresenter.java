@@ -1,5 +1,10 @@
 package com.hrsst.housekeeper.common.basePresenter;
 
+import android.content.Context;
+
+import com.hrsst.housekeeper.common.utils.T;
+import com.hrsst.housekeeper.common.utils.Utils;
+import com.hrsst.housekeeper.common.widget.NormalDialog;
 import com.hrsst.housekeeper.entity.Area;
 import com.hrsst.housekeeper.entity.ShopType;
 import com.hrsst.housekeeper.retrofit.ApiStores;
@@ -37,6 +42,16 @@ public class BasePresenter <V> implements Presenter<V>{
     @Override
     public void getShop(ShopType shopType) {
 
+    }
+
+    public void telPhoneAction(Context mContext, String phoneNum){
+        if(Utils.isPhoneNumber(phoneNum)){
+            NormalDialog mNormalDialog = new NormalDialog(mContext, "是否需要拨打电话：", phoneNum,
+                    "是", "否");
+            mNormalDialog.showNormalDialog();
+        }else{
+            T.showShort(mContext, "电话号码不合法");
+        }
     }
 
     //RXjava取消注册，以避免内存泄露
