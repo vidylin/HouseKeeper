@@ -1,5 +1,6 @@
 package com.hrsst.housekeeper.retrofit;
 
+import com.hrsst.housekeeper.entity.AlarmCameraInfo;
 import com.hrsst.housekeeper.entity.AlarmMsg;
 import com.hrsst.housekeeper.entity.Camera;
 import com.hrsst.housekeeper.entity.Defence;
@@ -133,4 +134,10 @@ public interface ApiStores {
     @GET("getAllAlarm")
     @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<AlarmMsg> getAllAlarm(@Query("userId") String userId, @Query("privilege") String privilege,@Query("page") String page);
+//
+//    9 获取摄像头信息
+//    9 get:	  http://192.168.4.111:51091/camera/getOneCamera?cameraId=3121164
+    @GET("getOneCamera")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
+    Observable<AlarmCameraInfo> getOneCamera(@Query("cameraId") String cameraId);
 }

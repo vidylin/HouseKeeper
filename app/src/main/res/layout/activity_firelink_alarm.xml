@@ -6,7 +6,7 @@
     >
     <LinearLayout 
         android:id="@+id/alarm_fk_center"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="330dp"
         >
@@ -15,26 +15,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/allarming"
+			android:layout_gravity="center_horizontal"
             android:scaleType="center"
             />
     </LinearLayout>
     <TextView
         android:id="@+id/alarm_msg_tv" 
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:gravity="center"
         android:layout_marginTop="300dp"
         android:layout_centerHorizontal="true"
-        android:text="大厅的烟感发出报警消息"
         />
     <TextView 
         android:id="@+id/alarm_msg_time_tv"
         android:layout_below="@id/alarm_msg_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="报警时间:2016-05-05 12:15:16"
         android:layout_centerInParent="true"
         android:textColor="#000000"
         android:layout_marginTop="20dp"
@@ -59,7 +58,6 @@
 	        android:layout_toRightOf="@id/alarm_back"
 	        android:layout_marginLeft="30dp"
 	        android:src="@drawable/watch_video_button_selector"
-	        android:visibility="gone"
 	        />
     </RelativeLayout>
     

@@ -437,6 +437,7 @@ public class P2PConnect {
     		alarm.putExtra("sensorName", sensorName);
     		alarm.putExtra("mainType", mainType);
     		alarm.putExtra("subType", subType);
+			alarm.putExtra("cameraId", id);
 			AppApplication.context.startActivity(alarm);
 		} else {// 正在监控
 			if (!monitorId.equals(id)) {
@@ -453,6 +454,7 @@ public class P2PConnect {
 				k.putExtra("sensorName", sensorName);
 	    		k.putExtra("mainType", mainType);
 	    		k.putExtra("subType", subType);
+				k.putExtra("cameraId", id);
 				AppApplication.context.sendBroadcast(k);
 			}
 		}
