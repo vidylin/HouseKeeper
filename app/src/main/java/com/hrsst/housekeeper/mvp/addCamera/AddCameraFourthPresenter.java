@@ -65,9 +65,9 @@ public class AddCameraFourthPresenter extends BasePresenter<AddCameraFourthView>
     };
 
     //(cameraId=1&cameraName=2&cameraPwd=3&cameraAddress=4&longitude=5&latitude=6&principal1=7&principal1Phone=8&principal2=9&principal2Phone=10&areaId=11&placeTypeId=12)
-    public void addCamera(String cameraId,String cameraName,String cameraPwd,String cameraAddress,String longitude,
-                          String latitude,String principal1,String principal1Phone,String principal2,String principal2Phone,
-                          String areaId,String placeTypeId){
+    public void addCamera(final String userID , final String cameraId, String cameraName, String cameraPwd, String cameraAddress, String longitude,
+                          String latitude, String principal1, String principal1Phone, String principal2, String principal2Phone,
+                          String areaId, String placeTypeId){
         if(longitude.length()==0||latitude.length()==0){
             mvpView.errorMessage("请获取经纬度");
             return;
@@ -89,20 +89,50 @@ public class AddCameraFourthPresenter extends BasePresenter<AddCameraFourthView>
             public void onSuccess(PostResult model) {
                 int result = model.getErrorCode();
                 if(result==0){
-                    mvpView.addCameraResult("添加成功");
+                    addCamera(userID,cameraId);
                 }else{
                     mvpView.errorMessage("添加失败");
+                    mvpView.hideLoading();
                 }
             }
 
             @Override
             public void onFailure(int code, String msg) {
                 mvpView.errorMessage("添加失败");
+                mvpView.hideLoading();
             }
 
             @Override
             public void onCompleted() {
+            }
+        }));
+    }
+
+    private void addCamera(String userId,String cameraId){
+        Observable<PostResult> mObservable = apiStoreServer.bindUserIdCameraId(userId,cameraId);
+        addSubscription(mObservable,new SubscriberCallBack<>(new ApiCallback<PostResult>() {
+            @Override
+            public void onSuccess(PostResult model) {
+                int errorCode = model.getErrorCode();
+                if(errorCode==0){
+                    mvpView.addCameraResult("添加成功");
+                }else if(errorCode==3){
+                    mvpView.hideLoading();
+                    mvpView.errorMessage("摄像机已存在，请勿重复添加");
+                }else{
+                    mvpView.hideLoading();
+                    mvpView.errorMessage("添加失败，请重新添加");
+                }
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
                 mvpView.hideLoading();
+                mvpView.errorMessage("网络错误，请重新添加");
+            }
+
+            @Override
+            public void onCompleted() {
             }
         }));
     }

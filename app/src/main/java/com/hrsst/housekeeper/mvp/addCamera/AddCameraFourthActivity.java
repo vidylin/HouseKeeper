@@ -1,6 +1,7 @@
 package com.hrsst.housekeeper.mvp.addCamera;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import com.baidu.location.BDLocation;
 import com.hrsst.housekeeper.AppComponent;
 import com.hrsst.housekeeper.R;
 import com.hrsst.housekeeper.common.baseActivity.BaseActivity;
+import com.hrsst.housekeeper.common.global.Constants;
 import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
 import com.hrsst.housekeeper.common.utils.T;
 import com.hrsst.housekeeper.common.widget.XCDropDownListView;
@@ -75,6 +77,7 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
     private String areaId = "";
     private String shopTypeId = "";
     private String userNumber;
+    private String userId;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -94,6 +97,8 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
         ButterKnife.bind(this);
         mContext = this;
         contactId = getIntent().getExtras().getString("contactId");
+        userId = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
+                SharedPreferencesManager.KEY_RECENTNAME);
         addRepeaterMac.setText(contactId);
         init();
         userNumber = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
@@ -128,7 +133,7 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
         String principal2 = addFireManTwo.getText().toString().trim();
         String principal1Phone = addFireManPhone.getText().toString().trim();
         String principal2Phone = addFireManPhoneTwo.getText().toString().trim();
-        addCameraFourthPresenter.addCamera(contactId,smokeMac,cameraName,address,longitude,
+        addCameraFourthPresenter.addCamera(userId,contactId,smokeMac,cameraName,address,longitude,
                 latitude,principal1,principal1Phone,principal2,principal2Phone,
                 areaId,shopTypeId);
     }
@@ -202,6 +207,9 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
     @Override
     public void addCameraResult(String msg) {
         T.showShort(mContext,msg);
+        Intent intent = new Intent();
+        intent.setAction(Constants.PUSH_CAMERA_DATA);
+        sendBroadcast(intent);
         finish();
     }
 
