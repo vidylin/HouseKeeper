@@ -91,4 +91,7 @@
 
     <color name="jia_bg_pre">#d6d6d6</color>
     <color name="jia_bg">#e2e2e2</color>
+
+    <color name="colorPrimary">#E4663F</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>

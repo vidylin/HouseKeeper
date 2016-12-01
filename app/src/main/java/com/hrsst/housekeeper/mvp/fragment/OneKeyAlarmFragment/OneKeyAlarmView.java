@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/10.
  */
 public interface OneKeyAlarmView {
-    void getCurrentTime(String time);
+    void getCurrentTime(int time);
     void stopCountDown(String msg);
     void sendAlarmMessage(String result);
     void getDataResult(String result);

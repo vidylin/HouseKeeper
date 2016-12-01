@@ -136,11 +136,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void autoLogin(String userId, String pwd) {
-
     }
 
     @Override
     public void autoLoginFail() {
-
     }
 }

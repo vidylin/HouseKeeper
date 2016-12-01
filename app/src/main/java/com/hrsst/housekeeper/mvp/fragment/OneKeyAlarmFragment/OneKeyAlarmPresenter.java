@@ -1,64 +1,73 @@
 package com.hrsst.housekeeper.mvp.fragment.OneKeyAlarmFragment;
 
+import android.os.Handler;
+import android.os.Message;
+
 import com.hrsst.housekeeper.common.basePresenter.BasePresenter;
 import com.hrsst.housekeeper.common.data.Contact;
+import com.hrsst.housekeeper.entity.Camera;
+import com.hrsst.housekeeper.rxjava.ApiCallback;
+import com.hrsst.housekeeper.rxjava.SubscriberCallBack;
 
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Func1;
 
 /**
  * Created by Administrator on 2016/11/10.
  */
 public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
     private Subscription mSubscription;
+    private Timer timer;
 
     public OneKeyAlarmPresenter(OneKeyAlarmFragment oneKeyAlarmFragment){
         attachView(oneKeyAlarmFragment);
     }
 
-    public void countdown(int time, final Contact contact, final String userId, final String privilege, final String info){
-        if(contact==null){
-            mvpView.getDataResult("网络错误，请检查网络是否通畅");
-            return;
+    int countNum=0;
+    public void startTimer(){
+        if(timer==null){
+            timer = new Timer();
         }
-        if (time < 0) time = 0;
-        final int countTime = time;
-        Observable<Integer> mObservable = Observable.interval(0, 1, TimeUnit.SECONDS)
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<Long, Integer>() {
-                    @Override
-                    public Integer call(Long increaseTime) {
-                        return countTime - increaseTime.intValue();
-                    }
-                })
-                .take(countTime + 1);
-        mSubscription = mObservable.doOnSubscribe(new Action0() {
+        timer.schedule(new TimerTask() {
             @Override
-            public void call() {
-                mvpView.getCurrentTime(countTime+"");
+            public void run() {
+                countNum = countNum+1;
+                Message message = new Message();
+                message.what = 1;
+                message.obj =countNum;
+                handler.sendMessage(message);//
             }
-        })
-                .subscribe(new Subscriber<Integer>() {
-                    @Override
-                    public void onCompleted() {
-                        //发送报警
-                    }
-                    @Override
-                    public void onError(Throwable e) {
+        },1,50);
+    }
 
-                    }
-                    @Override
-                    public void onNext(Integer integer) {
-                        mvpView.getCurrentTime(integer.toString());
-                    }
-                });
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int obj = (int) msg.obj;
+            if(obj<=100){
+                mvpView.getCurrentTime(obj);
+            }else{
+                countNum=0;
+                if(timer!=null){
+                    timer.cancel();
+                    timer=null;
+                }
+            }
+        }
+    };
+
+    public void stopTimer(){
+        if(timer!=null){
+            timer.cancel();
+            timer=null;
+            countNum=0;
+        }
     }
 
     public void stopCountDown(){
@@ -71,11 +80,33 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
         }
     }
 
-    private void textAlarm( String userId,String privilege, String smokeMac,String info){
+    public void getAllCamera(String userId, String privilege, String page){
+        Observable<Camera> mObservable = apiStoreServer.ordinaryUserGetAllCamera(userId,privilege,page);
+        addSubscription(mObservable,new SubscriberCallBack<>(new ApiCallback<Camera>() {
+            @Override
+            public void onSuccess(Camera model) {
+                int errorCode = model.getErrorCode();
+                if(errorCode==0){
+                    List<Contact> contactList = new ArrayList<Contact>();
+                    List<Camera.CameraBean> list = model.getCamera();
+                    for(Camera.CameraBean cameraBean : list){
+                        Contact contact = new Contact();
+                        contact.contactId = cameraBean.getCameraId();
+                        contact.contactPassword = cameraBean.getCameraPwd();
+                        contact.contactName = cameraBean.getCameraName();
+                        contactList.add(contact);
+                    }
+                    mvpView.getDataSuccess(contactList);
+                }
+            }
 
-    }
+            @Override
+            public void onFailure(int code, String msg) {
+            }
 
-    public void getAllSmoke(String userId, String privilege){
-
+            @Override
+            public void onCompleted() {
+            }
+        }));
     }
 }

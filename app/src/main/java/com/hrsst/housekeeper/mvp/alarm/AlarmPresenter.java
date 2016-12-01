@@ -30,12 +30,10 @@ public class AlarmPresenter extends BasePresenter<AlarmView>{
 
             @Override
             public void onFailure(int code, String msg) {
-
             }
 
             @Override
             public void onCompleted() {
-
             }
         }));
     }
