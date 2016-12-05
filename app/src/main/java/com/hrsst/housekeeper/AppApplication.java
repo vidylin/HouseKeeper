@@ -19,6 +19,7 @@ import com.p2p.core.update.UpdateManager;
 public class AppApplication extends Application{
     public static String privilege;
     public static AppApplication context;
+    private String state;
     public static final String MAIN_SERVICE_START = "com.hrsst.housekeeper.service.MAINSERVICE";
     private AppComponent appComponent;
     public static int SCREENWIGHT;
@@ -39,6 +40,14 @@ public class AppApplication extends Application{
 
     public String getPrivilege(){
         return privilege;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Override

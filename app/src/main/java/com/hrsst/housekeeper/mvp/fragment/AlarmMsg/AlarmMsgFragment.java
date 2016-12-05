@@ -76,7 +76,7 @@ public class AlarmMsgFragment extends BaseFragment implements AlarmMsgView{
         alarmBeanList = new ArrayList<>();
         refreshListView();
         userId = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
-                SharedPreferencesManager.KEY_RECENTNAME);
+                SharedPreferencesManager.KEY_RECENTPASS_NUMBER);
         privilege = AppApplication.privilege;
         page = 1;
         alarmMsgPresenter.getAllAlarmMsg(userId,privilege,page+"",false);

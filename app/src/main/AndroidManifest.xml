@@ -104,6 +104,7 @@
         <activity android:name=".mvp.addCamera.AddCameraFirstActivity" />
         <activity android:name=".mvp.addCamera.AddCameraSecondActivity" />
         <activity android:name=".mvp.addCamera.AddCameraThirdActivity" />
+        <activity android:name=".mvp.fragment.MapFragment.MyPictureActivity" />
 
         <service android:name=".service.MainService" />
 
@@ -116,7 +117,6 @@
             android:name=".mvp.playBack.PlayBackListActivity"
             android:label="@string/title_activity_play_back_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".mvp.playBack.PlayBackActivity" />
         <activity android:name=".mvp.recordProject.RecordProjectActivity" />
         <activity android:name=".mvp.sdcard.SDCardActivity" />
         <activity android:name=".mvp.alarmSetting.AlarmSettingActivity" />
@@ -127,7 +127,16 @@
         <activity android:name=".mvp.modifyCameraInfo.ModifyCameraPwdActivity" />
         <activity android:name=".mvp.defence.DefenceActivity" />
         <activity android:name=".mvp.modifyCameraInfo.ModifyCameraNameActivity" />
-        <activity android:name=".mvp.defenceList.DefenceListActivity"></activity>
+        <activity android:name=".mvp.defenceList.DefenceListActivity" />
+
+        <service
+            android:name=".service.DemoPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice"></service>
+        <service android:name=".service.DemoIntentService" />
+
+        <activity android:name=".mvp.fragment.MyFragment.AboutActivity"></activity>
     </application>
 
 </manifest>

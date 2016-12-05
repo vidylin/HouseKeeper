@@ -94,4 +94,6 @@
 
     <color name="colorPrimary">#E4663F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="progress_bg">#fc9575</color>
+    <color name="progress_bg_send">#e4e3e3</color>
 </resources>

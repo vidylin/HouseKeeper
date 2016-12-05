@@ -9,8 +9,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.hrsst.housekeeper.AppApplication;
 import com.hrsst.housekeeper.AppComponent;
@@ -20,6 +25,7 @@ import com.hrsst.housekeeper.common.baseActivity.BaseFragment;
 import com.hrsst.housekeeper.common.data.Contact;
 import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
 import com.hrsst.housekeeper.common.utils.T;
+import com.hrsst.housekeeper.common.utils.Utils;
 import com.hrsst.housekeeper.common.widget.CircleTextProgressbar;
 
 import java.util.ArrayList;
@@ -29,6 +35,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnPageChange;
 
 /**
@@ -45,6 +52,14 @@ public class OneKeyAlarmFragment extends BaseFragment implements OneKeyAlarmView
     CircleTextProgressbar tvRedCircleColor;
     @Bind(R.id.start_image)
     ImageView startImage;
+    @Bind(R.id.one_key_alarm_bg)
+    RelativeLayout oneKeyAlarmBg;
+    @Bind(R.id.m_tv)
+    TextView mTv;
+    @Bind(R.id.send_tv)
+    TextView sendTv;
+    @Bind(R.id.infoOperating)
+    ImageView infoOperating;
     private Context mContext;
     private ViewPagerAdapter mViewPagerAdapter;
     private List<View> views;
@@ -52,6 +67,9 @@ public class OneKeyAlarmFragment extends BaseFragment implements OneKeyAlarmView
     private List<Contact> contacts;
     private Contact contact;
     private String userID;
+    private int progress;
+    private Animation operatingAnim;
+    private String privilege;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -76,28 +94,45 @@ public class OneKeyAlarmFragment extends BaseFragment implements OneKeyAlarmView
         mContext = getActivity();
         userID = SharedPreferencesManager.getInstance().getData(mContext,
                 SharedPreferencesManager.SP_FILE_GWELL,
-                SharedPreferencesManager.KEY_RECENTNAME);
-        contacts= new ArrayList<>();
-        String privilege = AppApplication.privilege;
+                SharedPreferencesManager.KEY_RECENTPASS_NUMBER);
+        contacts = new ArrayList<>();
+        privilege = AppApplication.privilege;
+        oneKeyAlarmPresenter.getAllCamera(userID, privilege, "",false);
+        operatingAnim = AnimationUtils.loadAnimation(mContext, R.anim.tip);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim.setInterpolator(lin);
         tvRedCircleColor.setProgressType(CircleTextProgressbar.ProgressType.COUNT);
-        oneKeyAlarmPresenter.getAllCamera(userID,privilege,"");
         startImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        sendTv.setVisibility(View.GONE);
+                        mTv.setText("长按5s后报警");
+                        oneKeyAlarmBg.setBackgroundResource(R.color.progress_bg);
                         oneKeyAlarmPresenter.startTimer();
                         startImage.setImageResource(R.mipmap.a_bj_an);
                         return true;
                     case MotionEvent.ACTION_UP:
-                        startImage.setImageResource(R.mipmap.a_bj);
-                        oneKeyAlarmPresenter.stopTimer();
-                        tvRedCircleColor.setProgress(0);
+                        if (progress < 100) {
+                            startImage.setImageResource(R.mipmap.a_bj);
+                            oneKeyAlarmPresenter.stopTimer();
+                            tvRedCircleColor.setProgress(0);
+                        }
+                        progress = 0;
                         return true;
                 }
                 return false;
             }
         });
+    }
+
+    @OnClick(R.id.infoOperating)
+    public void onClick(){
+        if(operatingAnim!=null){
+            infoOperating.startAnimation(operatingAnim);
+            oneKeyAlarmPresenter.getAllCamera(userID, privilege, "",true);
+        }
     }
 
     @Override
@@ -114,31 +149,46 @@ public class OneKeyAlarmFragment extends BaseFragment implements OneKeyAlarmView
 
     @Override
     public void getCurrentTime(int time) {
+        progress = time;
         tvRedCircleColor.setProgress(time);
-    }
-
-    @Override
-    public void stopCountDown(String msg) {
-        T.showShort(mContext, msg);
     }
 
     @Override
     public void sendAlarmMessage(String result) {
         T.showShort(mContext, result);
+        tvRedCircleColor.setProgress(0);
+        startImage.setImageResource(R.mipmap.a_bj_fs);
+        oneKeyAlarmBg.setBackgroundResource(R.color.progress_bg_send);
+        mTv.setText("再报一次");
+        sendTv.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void getDataResult(String result) {
-        T.showShort(mContext, result);
+    public void getDataRefresh(List<Contact> contactList) {
+        contacts.clear();
+        contacts.addAll(contactList);
+        contact = contacts.get(0);
+        if(mViewPagerAdapter==null){
+            initViews(contacts);
+            initDots();
+        }else{
+            mViewPagerAdapter.notifyDataSetChanged();
+        }
     }
+
 
     @Override
     public void getDataSuccess(List<Contact> contactList) {
         contacts.clear();
         contacts.addAll(contactList);
         contact = contacts.get(0);
-        initViews(contactList);
+        initViews(contacts);
         initDots();
+    }
+
+    @Override
+    public void stopAnim() {
+        infoOperating.clearAnimation();
     }
 
     private void initViews(List<Contact> list) {

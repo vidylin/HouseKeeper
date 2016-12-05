@@ -244,7 +244,7 @@ public class NormalDialog {
 	}
 
 	private Handler getHandler(){
-		Handler handler = new Handler() {
+		Handler handler = new Handler(context.getMainLooper()) {
 			long last_time;
 
 			@Override

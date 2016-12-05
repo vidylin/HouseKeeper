@@ -1,10 +1,10 @@
 package com.hrsst.housekeeper.mvp.fragment.MapFragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -18,9 +18,7 @@ import android.widget.LinearLayout;
 
 import com.bm.library.Info;
 import com.bm.library.PhotoView;
-import com.hrsst.housekeeper.AppComponent;
 import com.hrsst.housekeeper.R;
-import com.hrsst.housekeeper.common.baseActivity.BaseFragment;
 import com.hrsst.housekeeper.common.widget.NormalDialog;
 
 import java.io.File;
@@ -32,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/11/8.
  */
-public class MapFragment extends BaseFragment {
+public class MyPictureActivity extends Activity {
     @Bind(R.id.list_grid)
     GridView listGrid;
     @Bind(R.id.l_no_pictrue)
@@ -52,21 +50,11 @@ public class MapFragment extends BaseFragment {
     private BaseAdapter baseAdapter;
 
     @Override
-    protected void setupActivityComponent(AppComponent appComponent) {
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_map, null);
-        ButterKnife.bind(this, view);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mContext = getActivity();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_map);
+        ButterKnife.bind(this);
+        mContext = this;
         if (null == files) {
             files = new File[0];
         }
@@ -247,13 +235,8 @@ public class MapFragment extends BaseFragment {
     }
 
     @Override
-    public String getFragmentName() {
-        return "MapFragment";
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         ButterKnife.unbind(this);
     }
 

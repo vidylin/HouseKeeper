@@ -140,4 +140,8 @@ public interface ApiStores {
     @GET("getOneCamera")
     @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<AlarmCameraInfo> getOneCamera(@Query("cameraId") String cameraId);
+
+    @GET("getCid")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
+    Observable<HttpError> bindAlias(@Query("alias") String alias, @Query("cid") String cid,@Query("projectName") String projectName);
 }

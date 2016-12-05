@@ -1,14 +1,38 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_bg"
-    android:scrollbars="none" >
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@mipmap/tab_bar"
+        android:orientation="vertical" >
 
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_choosee_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:text="@string/choosee_device"
+            android:textSize="12dp"
+            android:textColor="@color/text_color_white"
+            android:visibility="gone"/>
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/item_left_right_margin"
-        android:layout_marginRight="@dimen/item_left_right_margin"
         android:layout_marginTop="@dimen/item_group_margin_top"
         android:orientation="vertical" >
 
@@ -16,7 +40,7 @@
             android:id="@+id/layout_alarm_switch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ctl_setting_bar_height"
-            android:background="@drawable/tiao_bg_single" >
+            android:background="@drawable/list_item_color_bg">
 
             <TextView
                 android:id="@+id/tv_receive_alarm_text"
@@ -50,14 +74,19 @@
                 android:layout_marginRight="@dimen/inner_margin_right"
                 android:indeterminateDrawable="@anim/progress_white"
                 android:indeterminateDuration="560000" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray"
+                />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/add_alarm_item"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ctl_setting_bar_height"
-            android:layout_marginTop="@dimen/item_group_margin_top"
-            android:background="@drawable/tiao_bg_single" >
+            android:background="@drawable/list_item_color_bg">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -111,14 +140,19 @@
                 android:layout_marginRight="@dimen/inner_margin_right"
                 android:background="@mipmap/arrow"
                 android:contentDescription="@string/imagedes" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray"
+                />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/change_email"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ctl_setting_bar_height"
-            android:layout_marginTop="@dimen/item_group_margin_top"
-            android:background="@drawable/tiao_bg_single" >
+            android:background="@drawable/list_item_color_bg" >
 
             <TextView
                 android:id="@+id/email_text_left"
@@ -168,14 +202,19 @@
                 android:layout_marginRight="@dimen/inner_margin_right"
                 android:background="@mipmap/arrow"
                 android:contentDescription="@string/imagedes" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray"
+                />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/change_motion"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ctl_setting_bar_height"
-            android:layout_marginTop="@dimen/item_group_margin_top"
-            android:background="@drawable/tiao_bg_single" >
+            android:background="@drawable/list_item_color_bg">
 
             <TextView
                 android:id="@+id/record_text"
@@ -209,14 +248,19 @@
                 android:layout_marginRight="@dimen/inner_margin_right"
                 android:indeterminateDrawable="@anim/progress_white"
                 android:indeterminateDuration="560000" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray"
+                />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/change_buzzer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ctl_setting_bar_height"
-            android:layout_marginTop="@dimen/item_group_margin_top"
-            android:background="@drawable/tiao_bg_single" >
+            android:background="@drawable/list_item_color_bg">
 
             <TextView
                 android:id="@+id/buzzer_text"
@@ -250,15 +294,21 @@
                 android:layout_marginRight="@dimen/inner_margin_right"
                 android:indeterminateDrawable="@anim/progress_white"
                 android:indeterminateDuration="560000" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray"
+                />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/buzzer_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/tiao_bg_bottom"
+            android:background="@drawable/list_item_color_bg"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/buzzer_texts"
@@ -305,15 +355,20 @@
                     android:textColor="@color/text_color_black"
                     android:textSize="@dimen/text_size_normal" />
             </RadioGroup>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray"
+                />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/change_pir"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ctl_setting_bar_height"
-            android:layout_marginTop="@dimen/item_group_margin_top"
-            android:background="@drawable/tiao_bg_single"
-            android:visibility="gone" >
+            android:background="@drawable/list_item_color_bg"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/pir_text"
@@ -347,15 +402,20 @@
                 android:layout_marginRight="@dimen/inner_margin_right"
                 android:indeterminateDrawable="@anim/progress_white"
                 android:indeterminateDuration="560000" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray"
+                />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/alarm_input_switch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ctl_setting_bar_height"
-            android:layout_marginTop="@dimen/item_group_margin_top"
-            android:background="@drawable/tiao_bg_single"
-            android:visibility="gone" >
+            android:background="@drawable/list_item_color_bg"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_alarm_input"
@@ -389,14 +449,19 @@
                 android:layout_marginRight="@dimen/inner_margin_right"
                 android:indeterminateDrawable="@anim/progress_white"
                 android:indeterminateDuration="560000" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray"
+                />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/alarm_out_switch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ctl_setting_bar_height"
-            android:layout_marginTop="@dimen/item_group_margin_top"
-            android:background="@drawable/tiao_bg_single"
+            android:background="@drawable/list_item_color_bg"
             android:visibility="gone" >
 
             <TextView
@@ -439,4 +504,4 @@
             android:layout_marginTop="@dimen/item_group_margin_top" />
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

@@ -16,6 +16,7 @@
             android:src="@mipmap/touxiang"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
+            android:visibility="gone"
             />
         <TextView
             android:id="@+id/tv_control_record"
@@ -23,9 +24,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:text="32552"
             />
     </RelativeLayout>

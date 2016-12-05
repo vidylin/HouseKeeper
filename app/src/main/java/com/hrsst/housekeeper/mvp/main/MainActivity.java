@@ -2,17 +2,16 @@ package com.hrsst.housekeeper.mvp.main;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import com.hrsst.housekeeper.AppApplication;
 import com.hrsst.housekeeper.AppComponent;
 import com.hrsst.housekeeper.R;
 import com.hrsst.housekeeper.common.baseActivity.BaseActivity;
+import com.hrsst.housekeeper.common.global.Constants;
 import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
 import com.hrsst.housekeeper.common.widget.NormalDialog;
 import com.hrsst.housekeeper.common.yoosee.P2PListener;
@@ -28,11 +28,12 @@ import com.hrsst.housekeeper.common.yoosee.SettingListener;
 import com.hrsst.housekeeper.mvp.addCamera.AddCameraFirstActivity;
 import com.hrsst.housekeeper.mvp.fragment.AlarmMsg.AlarmMsgFragment;
 import com.hrsst.housekeeper.mvp.fragment.DevFragment.DevFragment;
-import com.hrsst.housekeeper.mvp.fragment.MapFragment.MapFragment;
+import com.hrsst.housekeeper.mvp.fragment.MyFragment.MyFragment;
 import com.hrsst.housekeeper.mvp.fragment.OneKeyAlarmFragment.OneKeyAlarmFragment;
 import com.hrsst.housekeeper.mvp.login.LoginActivity;
 import com.hrsst.housekeeper.mvp.manualAddCamera.ManualAddCameraActivity;
 import com.hrsst.housekeeper.service.MainService;
+import com.igexin.sdk.PushManager;
 import com.p2p.core.P2PHandler;
 
 import javax.inject.Inject;
@@ -45,8 +46,6 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Inject
     MainPresenter mainPresenter;
-    //    @Inject
-//    MainThread mainThread;
     @Bind(R.id.tv_contact)
     TextView tvContact;
     @Bind(R.id.icon_contact)
@@ -67,43 +66,15 @@ public class MainActivity extends BaseActivity implements MainView {
     LinearLayout tabComponent;
     @Bind(R.id.fragment_layout)
     FrameLayout fragmentLayout;
-    @Bind(R.id.one)
-    ImageView one;
-    @Bind(R.id.num_tv)
-    TextView numTv;
-    @Bind(R.id.info_num)
-    RelativeLayout infoNum;
-    @Bind(R.id.menu_title)
-    RelativeLayout menuTitle;
-    @Bind(R.id.menu_one)
-    TextView menuOne;
-    @Bind(R.id.menu_two)
-    TextView menuTwo;
-    @Bind(R.id.menu_three)
-    TextView menuThree;
-    @Bind(R.id.menu_four)
-    TextView menuFour;
-    @Bind(R.id.menu_five)
-    TextView menuFive;
-    @Bind(R.id.setting_lin)
-    LinearLayout settingLin;
-    @Bind(R.id.left)
-    RelativeLayout left;
-    @Bind(R.id.drawerlayout)
-    DrawerLayout drawerlayout;
     @Bind(R.id.add_device)
     TextView addDevice;
-    @Bind(R.id.menu)
-    TextView menu;
     @Bind(R.id.layout_add)
     LinearLayout layoutAdd;
-    @Bind(R.id.user_num)
-    TextView userNum;
-    @Bind(R.id.mailAdr)
-    TextView mailAdr;
+    @Bind(R.id.my_device)
+    RelativeLayout myDevice;
     private AlarmMsgFragment alarmMsgFragment;
     private DevFragment devFragment;
-    private MapFragment mapFragment;
+    private MyFragment myFragment;
     private OneKeyAlarmFragment oneKeyAlarmFragment;
     public static final int FRAGMENT_ONE = 0;
     public static final int FRAGMENT_TWO = 1;
@@ -132,17 +103,41 @@ public class MainActivity extends BaseActivity implements MainView {
         mContext = this;
         fragmentManager = getFragmentManager();
         showFragment(FRAGMENT_ONE);
-        drawerlayout.setScrimColor(Color.argb(80, 80, 80, 80));
         getHightAndWight();
         startService(new Intent(MainActivity.this, MainService.class));
         mainPresenter.updateVersion(mContext, true);
-        String userNumber = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
-                SharedPreferencesManager.KEY_RECENTPASS_NUMBER);
-        String userId = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
-                SharedPreferencesManager.KEY_RECENTNAME);
-        userNum.setText(userNumber);
-        mailAdr.setText(userId);
+        regFilter();
+        PushManager.getInstance().initialize(this.getApplicationContext(), com.hrsst.housekeeper.service.DemoPushService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), com.hrsst.housekeeper.service.DemoIntentService.class);
+
     }
+
+    public void regFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.CHECK_VERSION_UPDATE);
+        filter.addAction(Constants.APP_EXIT);
+        registerReceiver(mReceiver, filter);
+    }
+
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.CHECK_VERSION_UPDATE)) {
+                mainPresenter.updateVersion(mContext, false);
+            }
+            if (intent.getAction().equals(Constants.APP_EXIT)) {
+                SharedPreferencesManager.getInstance().putData(mContext,
+                        SharedPreferencesManager.SP_FILE_GWELL,
+                        SharedPreferencesManager.KEY_RECENTPASS,
+                        "");
+                Intent intent1 = new Intent(mContext, LoginActivity.class);
+                startActivity(intent1);
+                finish();
+            }
+        }
+    };
+
 
     void getHightAndWight() {
         DisplayMetrics dm = new DisplayMetrics();
@@ -156,35 +151,38 @@ public class MainActivity extends BaseActivity implements MainView {
                 R.anim.scale_narrow);
     }
 
-    @OnClick({R.id.icon_setting, R.id.icon_discover, R.id.icon_keyboard, R.id.icon_contact, R.id.add_device,
-            R.id.menu, R.id.radar_add, R.id.manually_add, R.id.menu_two, R.id.setting_lin, R.id.menu_five})
+    @OnClick({R.id.icon_setting, R.id.icon_discover, R.id.icon_keyboard, R.id.icon_contact, R.id.add_device, R.id.radar_add, R.id.manually_add})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.icon_contact:
                 showFragment(FRAGMENT_ONE);
                 tabComponent.setBackgroundResource(R.mipmap.daohang1);
                 addDevice.setVisibility(View.VISIBLE);
+                myDevice.setVisibility(View.VISIBLE);
                 break;
             case R.id.icon_keyboard:
                 layoutAdd.setVisibility(View.GONE);
                 isHideAdd = true;
-                showFragment(FRAGMENT_TWO);
+                showFragment(FRAGMENT_THREE);
                 tabComponent.setBackgroundResource(R.mipmap.daohang2);
                 addDevice.setVisibility(View.GONE);
+                myDevice.setVisibility(View.GONE);
                 break;
             case R.id.icon_discover:
                 layoutAdd.setVisibility(View.GONE);
                 isHideAdd = true;
-                showFragment(FRAGMENT_THREE);
+                showFragment(FRAGMENT_FOUR);
                 tabComponent.setBackgroundResource(R.mipmap.daohang3);
                 addDevice.setVisibility(View.GONE);
+                myDevice.setVisibility(View.VISIBLE);
                 break;
             case R.id.icon_setting:
                 layoutAdd.setVisibility(View.GONE);
                 isHideAdd = true;
-                showFragment(FRAGMENT_FOUR);
+                showFragment(FRAGMENT_TWO);
                 tabComponent.setBackgroundResource(R.mipmap.daohang4);
                 addDevice.setVisibility(View.GONE);
+                myDevice.setVisibility(View.VISIBLE);
                 break;
             case R.id.add_device:
                 if (isHideAdd == true) {
@@ -203,24 +201,8 @@ public class MainActivity extends BaseActivity implements MainView {
                 layoutAdd.setVisibility(View.GONE);
                 isHideAdd = true;
                 Intent manuallyAdd = new Intent(this, ManualAddCameraActivity.class);
-                startActivityForResult(manuallyAdd,112);
+                startActivityForResult(manuallyAdd, 112);
 //                startActivity(manuallyAdd);
-                break;
-            case R.id.menu:
-                drawerlayout.openDrawer(left);
-                break;
-            case R.id.menu_two:
-                drawerlayout.closeDrawer(left);
-                mainPresenter.updateVersion(mContext, false);
-                break;
-            case R.id.menu_five:
-                SharedPreferencesManager.getInstance().putData(mContext,
-                        SharedPreferencesManager.SP_FILE_GWELL,
-                        SharedPreferencesManager.KEY_RECENTPASS,
-                        "");
-                Intent intent1 = new Intent(mContext, LoginActivity.class);
-                startActivity(intent1);
-                finish();
                 break;
             default:
                 break;
@@ -233,11 +215,11 @@ public class MainActivity extends BaseActivity implements MainView {
         //注意这里设置位置
         switch (index) {
             case FRAGMENT_TWO:
-                if (mapFragment == null) {
-                    mapFragment = new MapFragment();
-                    ft.add(R.id.fragment_layout, mapFragment);
+                if (myFragment == null) {
+                    myFragment = new MyFragment();
+                    ft.add(R.id.fragment_layout, myFragment);
                 } else {
-                    ft.show(mapFragment);
+                    ft.show(myFragment);
                 }
                 break;
             case FRAGMENT_ONE:
@@ -270,8 +252,8 @@ public class MainActivity extends BaseActivity implements MainView {
 
     public void hideFragment(FragmentTransaction ft) {
         //如果不为空，就先隐藏起来
-        if (mapFragment != null) {
-            ft.hide(mapFragment);
+        if (myFragment != null) {
+            ft.hide(myFragment);
         }
         if (devFragment != null) {
             ft.hide(devFragment);
@@ -299,8 +281,8 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mapFragment != null) {
-            mapFragment = null;
+        if (myFragment != null) {
+            myFragment = null;
         }
         if (devFragment != null) {
             devFragment = null;
@@ -311,6 +293,7 @@ public class MainActivity extends BaseActivity implements MainView {
         if (alarmMsgFragment != null) {
             alarmMsgFragment = null;
         }
+        unregisterReceiver(mReceiver);
     }
 
     @Override

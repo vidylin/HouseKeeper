@@ -1,11 +1,11 @@
 package com.hrsst.housekeeper.mvp.alarmPushAccount;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -25,7 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AlarmPushAccountActivity extends AppCompatActivity {
+public class AlarmPushAccountActivity extends Activity {
 
     @Bind(R.id.progressBar_alarmId)
     ProgressBar progressBar_alarmId;
@@ -62,9 +62,9 @@ public class AlarmPushAccountActivity extends AppCompatActivity {
             public void onChange(int item) {
                 // TODO Auto-generated method stub
                 if (item > 0) {
-                    add_alarm_item.setBackgroundResource(R.drawable.tiao_bg_up);
+                    add_alarm_item.setBackgroundResource(R.drawable.list_item_color_bg);
                 } else {
-                    add_alarm_item.setBackgroundResource(R.drawable.tiao_bg_single);
+                    add_alarm_item.setBackgroundResource(R.drawable.list_item_color_bg);
                 }
             }
 

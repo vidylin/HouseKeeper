@@ -7,38 +7,44 @@
 		android:id="@+id/add_bar_item"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/ctl_add_item_height"
-		android:background="@drawable/tiao_bg_bottom"
+		android:background="@drawable/list_item_color_bg"
 		>
-					<ImageView 
-					    android:id="@+id/delete_item"
-	                    android:layout_width="40dp"
-	                    android:layout_height="50dp"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginLeft="@dimen/inner_margin_left"
-	                    android:src="@mipmap/ic_delete_item"
-	                    android:scaleType="center"
-	                    />
-		           
-		           	<TextView 
-		           	    android:id="@+id/alarmId_text"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_centerVertical="true"
-	                    android:textColor="@color/text_color_gray"
-	                    android:textSize="@dimen/text_size_small"
-	                    android:layout_marginRight="5dp"
-	                    android:text="@string/unbound"
-	                    android:layout_toLeftOf="@+id/arrow"
-	                    />
-		           	
-	                <ImageView 
-	                    android:id="@+id/arrow"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginRight="@dimen/inner_margin_right"
-	                    android:layout_alignParentRight="true"
-	                    android:background="@mipmap/arrow"/>
+		<ImageView
+			android:id="@+id/delete_item"
+			android:layout_width="40dp"
+			android:layout_height="50dp"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="@dimen/inner_margin_left"
+			android:src="@mipmap/ic_delete_item"
+			android:scaleType="center"
+			/>
+
+		<TextView
+			android:id="@+id/alarmId_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:textColor="@color/text_color_gray"
+			android:textSize="@dimen/text_size_small"
+			android:layout_marginRight="5dp"
+			android:text="@string/unbound"
+			android:layout_centerHorizontal="true"
+			/>
+
+		<ImageView
+			android:id="@+id/arrow"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:layout_marginRight="@dimen/inner_margin_right"
+			android:layout_alignParentRight="true"
+			android:background="@mipmap/arrow"/>
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="0.5dp"
+			android:layout_alignParentBottom="true"
+			android:background="@color/gray"
+			/>
 	</RelativeLayout>
     
 </RelativeLayout>

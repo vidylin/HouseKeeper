@@ -5,6 +5,8 @@ public class Constants {
 	public static final int KEYBOARD_SHOW_FILTER_USER = 0x11;
 	public static final String PACKAGE_NAME = "com.hrsst.housekeeper.";
 	public static final String SERVER_IP = "http://119.29.224.28:51090/camera/";
+	public static final String SERVER_PUSH ="http://119.29.155.148/GeTuiPush/";
+//	public static final String SERVER_PUSH ="http://192.168.4.120:8080/GeTuiPush/";
 	public static final String FORGET_PASSWORD_URL = "http://www.cloudlinks.cn/pw/";
 	public static final String SERVER_YOOSEE_IP_ONE ="http://api1.cloudlinks.cn/";
 	public static final String SERVER_YOOSEE_IP_TWO = "http://api2.cloudlinks.cn/";
@@ -15,6 +17,9 @@ public class Constants {
 	//更新接口
 	public static final String UPDATE_URL="http://192.168.4.120:8080/download/";
 	public static final int DEFAULT_TIMEOUT=20;
+
+	public static final String  CHECK_VERSION_UPDATE="CHECK_VERSION_UPDATE";
+	public static final String  APP_EXIT="APP_EXIT";
 
 	public static class P2P {
 		// 设备不支持

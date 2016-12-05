@@ -23,6 +23,7 @@ import rx.functions.Func1;
  */
 public class ManualAddCameraPresenter extends BasePresenter<ManualAddCameraView>{
     private ManualAddCameraActivity manualAddCameraActivity;
+    private boolean isRegFilter=false;
 
     public ManualAddCameraPresenter(ManualAddCameraActivity manualAddCameraActivity){
         this.manualAddCameraActivity = manualAddCameraActivity;
@@ -52,6 +53,7 @@ public class ManualAddCameraPresenter extends BasePresenter<ManualAddCameraView>
         filter.addAction(Constants.P2P.RET_GET_BIND_ALARM_ID);
         filter.addAction(Constants.P2P.ACK_RET_SET_BIND_ALARM_ID);
         manualAddCameraActivity.registerReceiver(mReceiver, filter);
+        isRegFilter = true;
     }
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -162,7 +164,7 @@ public class ManualAddCameraPresenter extends BasePresenter<ManualAddCameraView>
     }
 
     public void unRegisterReceiver(){
-        if(mReceiver!=null){
+        if(mReceiver!=null&&isRegFilter==true){
             manualAddCameraActivity.unregisterReceiver(mReceiver);
             mReceiver=null;
         }

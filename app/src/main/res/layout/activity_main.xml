@@ -3,12 +3,7 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawerlayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <RelativeLayout
+    <RelativeLayout
             android:id="@+id/main_rela"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,15 +25,6 @@
                 android:background="@color/dao_hang_lan"
                 android:layout_alignParentTop="true"
                 >
-                <TextView
-                    android:id="@+id/menu"
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/menu"
-                    />
 
                 <ImageView
                     android:layout_width="65dp"
@@ -171,7 +157,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textColor="#ffffff"
-                        android:text="截图"/>
+                        android:text="一键报警"/>
                 </RelativeLayout>
                 <ImageView
                     android:layout_width="1dp"
@@ -189,7 +175,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textColor="#ffffff"
-                        android:text="一键报警"/>
+                        android:text="报警消息"/>
                 </RelativeLayout>
                 <ImageView
                     android:visibility="gone"
@@ -212,7 +198,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textColor="#ffffff"
-                        android:text="报警消息"
+                        android:text="个人中心"
                         />
                 </RelativeLayout>
                 <ImageView
@@ -221,14 +207,4 @@
                     />
             </LinearLayout>
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/left"
-            android:layout_width="280dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:background="@android:color/white">
-            <include layout="@layout/fragment_setting"/>
-        </RelativeLayout>
-    </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

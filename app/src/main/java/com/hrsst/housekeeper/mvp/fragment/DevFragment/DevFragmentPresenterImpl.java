@@ -139,7 +139,6 @@ public class DevFragmentPresenterImpl extends BasePresenter<DevFragmentView> imp
         }));
     }
 
-    //userId=13428282520&privilege=1&page=1
     @Override
     public void getAllCamera(String userId, String privilege, String page, final boolean push){
         if(!push){

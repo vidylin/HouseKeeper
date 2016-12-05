@@ -41,7 +41,7 @@
     <dimen name="text_size_normal">15sp</dimen>
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="inner_margin_right">10dp</dimen>
-    <dimen name="inner_margin_left">10dp</dimen>
+    <dimen name="inner_margin_left">30dp</dimen>
     <dimen name="edit_height">45dp</dimen>
     <dimen name="globel_button_height">35dp</dimen>
     <dimen name="edit_icon_button_width">40dp</dimen>

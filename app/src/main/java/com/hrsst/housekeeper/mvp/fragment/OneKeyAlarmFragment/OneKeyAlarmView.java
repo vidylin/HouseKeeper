@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface OneKeyAlarmView {
     void getCurrentTime(int time);
-    void stopCountDown(String msg);
     void sendAlarmMessage(String result);
-    void getDataResult(String result);
+    void getDataRefresh(List<Contact> contacts);
     void getDataSuccess(List<Contact> contacts);
+    void stopAnim();
 }

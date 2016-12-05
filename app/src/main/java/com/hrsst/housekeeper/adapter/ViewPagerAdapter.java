@@ -21,14 +21,10 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2016/10/17.
  */
 public class ViewPagerAdapter extends PagerAdapter {
-    @Bind(R.id.left_tv)
-    TextView leftTv;
     @Bind(R.id.shop_name)
     TextView shopName;
     @Bind(R.id.shop_address)
     TextView shopAddress;
-    @Bind(R.id.right_tv)
-    TextView rightTv;
     private Activity activity;
     private List<View> list;
     private List<Contact> contacts;
@@ -51,7 +47,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        return super.getItemPosition(object);
+        return POSITION_NONE;
     }
 
     @Override
@@ -59,17 +55,8 @@ public class ViewPagerAdapter extends PagerAdapter {
         View view = list.get(position);
         ButterKnife.bind(this,view);
         ((ViewPager) container).addView(view, 0);
-        if(list.size()==1){
-            leftTv.setVisibility(View.GONE);
-            rightTv.setVisibility(View.GONE);
-        }
-        if(position==0){
-            leftTv.setVisibility(View.GONE);
-        }
-        if (position==list.size()-1){
-            rightTv.setVisibility(View.GONE);
-        }
-
+        Contact contact = contacts.get(position);
+        shopName.setText(contact.contactName);
         return view;
     }
 

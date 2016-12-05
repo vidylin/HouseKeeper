@@ -1,11 +1,11 @@
 package com.hrsst.housekeeper.mvp.alarmSetting;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -32,7 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AlarmSettingActivity extends AppCompatActivity implements View.OnClickListener {
+public class AlarmSettingActivity extends Activity implements View.OnClickListener {
     @Bind(R.id.img_receive_alarm)
     ImageView img_receive_alarm;
     @Bind(R.id.progressBar_receive_alarm)
@@ -85,6 +85,8 @@ public class AlarmSettingActivity extends AppCompatActivity implements View.OnCl
     ProgressBar progressBar_alarm_out;
     @Bind(R.id.alarm_out_switch)
     RelativeLayout alarm_out_switch;
+    @Bind(R.id.tv_name)
+    TextView tvName;
     private Context mContext;
     private Contact contact;
     AddBar addBar;
@@ -155,7 +157,7 @@ public class AlarmSettingActivity extends AppCompatActivity implements View.OnCl
     public void initComponent() {
         layout_alarm_switch.setClickable(false);
         add_alarm_item.setClickable(false);
-
+        tvName.setText("报警设置");
         // AP模式部分功能隐藏
         if (connectType == 0) {
             layout_alarm_switch.setVisibility(View.VISIBLE);
@@ -550,8 +552,8 @@ public class AlarmSettingActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    @OnClick({R.id.change_email,R.id.add_alarm_item,R.id.change_buzzer,R.id.change_motion,R.id.radio_one,R.id.radio_two,R.id.radio_three,R.id.change_pir,
-            R.id.alarm_input_switch,R.id.alarm_out_switch,R.id.layout_alarm_switch})
+    @OnClick({R.id.change_email, R.id.add_alarm_item, R.id.change_buzzer, R.id.change_motion, R.id.radio_one, R.id.radio_two, R.id.radio_three, R.id.change_pir,
+            R.id.alarm_input_switch, R.id.alarm_out_switch, R.id.layout_alarm_switch})
     public void onClick(View view) {
         // TODO Auto-generated method stub
         switch (view.getId()) {
@@ -693,25 +695,21 @@ public class AlarmSettingActivity extends AppCompatActivity implements View.OnCl
         if (state == Constants.P2P_SET.BUZZER_SET.BUZZER_SWITCH_ON_ONE_MINUTE) {
             buzzer_switch = Constants.P2P_SET.BUZZER_SET.BUZZER_SWITCH_ON_ONE_MINUTE;
             buzzer_img.setBackgroundResource(R.mipmap.ic_checkbox_on);
-            change_buzzer.setBackgroundResource(R.drawable.tiao_bg_up);
             buzzer_time.setVisibility(RelativeLayout.VISIBLE);
             radio_one.setChecked(true);
         } else if (state == Constants.P2P_SET.BUZZER_SET.BUZZER_SWITCH_ON_TWO_MINUTE) {
             buzzer_switch = Constants.P2P_SET.BUZZER_SET.BUZZER_SWITCH_ON_TWO_MINUTE;
             buzzer_img.setBackgroundResource(R.mipmap.ic_checkbox_on);
-            change_buzzer.setBackgroundResource(R.drawable.tiao_bg_up);
             buzzer_time.setVisibility(RelativeLayout.VISIBLE);
             radio_two.setChecked(true);
         } else if (state == Constants.P2P_SET.BUZZER_SET.BUZZER_SWITCH_ON_THREE_MINUTE) {
             buzzer_switch = Constants.P2P_SET.BUZZER_SET.BUZZER_SWITCH_ON_THREE_MINUTE;
             buzzer_img.setBackgroundResource(R.mipmap.ic_checkbox_on);
-            change_buzzer.setBackgroundResource(R.drawable.tiao_bg_up);
             buzzer_time.setVisibility(RelativeLayout.VISIBLE);
             radio_three.setChecked(true);
         } else {
             buzzer_switch = Constants.P2P_SET.BUZZER_SET.BUZZER_SWITCH_OFF;
             buzzer_img.setBackgroundResource(R.mipmap.ic_checkbox_off);
-            change_buzzer.setBackgroundResource(R.drawable.tiao_bg_single);
             buzzer_time.setVisibility(RelativeLayout.GONE);
         }
     }
@@ -814,9 +812,9 @@ public class AlarmSettingActivity extends AppCompatActivity implements View.OnCl
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            Intent i = new Intent(mContext,ApMonitorActivity.class);
-            i.putExtra("contact",contact);
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent i = new Intent(mContext, ApMonitorActivity.class);
+            i.putExtra("contact", contact);
             startActivity(i);
             finish();
         }

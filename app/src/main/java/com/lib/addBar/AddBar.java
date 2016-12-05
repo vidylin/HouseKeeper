@@ -90,7 +90,7 @@ public class AddBar extends RelativeLayout {
 			View last_view = items.get(item_count - 1);
 			RelativeLayout last_item = (RelativeLayout) last_view
 					.findViewById(R.id.add_bar_item);
-			last_item.setBackgroundResource(R.drawable.tiao_bg_center);
+			last_item.setBackgroundResource(R.drawable.list_item_color_bg);
 		}
 
 		items.add(view);
@@ -142,7 +142,7 @@ public class AddBar extends RelativeLayout {
 		if (item_count > 0) {
 			RelativeLayout last_item = (RelativeLayout) items.get(
 					item_count - 1).findViewById(R.id.add_bar_item);
-			last_item.setBackgroundResource(R.drawable.tiao_bg_bottom);
+			last_item.setBackgroundResource(R.drawable.list_item_color_bg);
 		}
 		UpdateItemListener();
 	}

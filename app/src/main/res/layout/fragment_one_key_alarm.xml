@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#ffffff">
 
         <RelativeLayout
             android:id="@+id/one_key_alarm_bg"
             android:layout_width="match_parent"
             android:layout_height="330dp"
-            android:background="#fc9575">
+            android:background="@color/progress_bg">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
                     android:orientation="horizontal">
                         <com.hrsst.housekeeper.common.widget.CircleTextProgressbar
                             android:id="@+id/tv_red_circle_color"
@@ -25,7 +26,8 @@
                     android:id="@+id/start_image"
                     android:layout_width="210dp"
                     android:layout_height="210dp"
-                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="45dp"
                     android:src="@drawable/one_key_alarm_selector"/>
                 <TextView
                     android:id="@+id/m_tv"
@@ -35,22 +37,55 @@
                     android:layout_marginTop="180dp"
                     android:textColor="#ffffff"
                     android:text="长按5s后报警"/>
+                <TextView
+                    android:id="@+id/send_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="#387ace"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    android:text="请耐心等候安防人员前来事故现场"/>
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/infoOperating"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/one_key_alarm_bg"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/refresh"
+            android:scaleType="center">
+        </ImageView>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
+            android:layout_below="@id/one_key_alarm_bg"
             android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:layout_height="100dp">
         </android.support.v4.view.ViewPager>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/one_key_alarm_bg"
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="25dp"
+            android:src="@mipmap/xz"/>
 
         <LinearLayout
             android:id="@+id/viewGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_below="@id/view_pager"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
             ></LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>

@@ -58,6 +58,7 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
                     timer.cancel();
                     timer=null;
                 }
+                mvpView.sendAlarmMessage("报警已发送");
             }
         }
     };
@@ -70,17 +71,7 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
         }
     }
 
-    public void stopCountDown(){
-        if(mSubscription!=null){
-            if(!mSubscription.isUnsubscribed()){
-                mSubscription.unsubscribe();
-                mSubscription=null;
-                mvpView.stopCountDown("已取消报警");
-            }
-        }
-    }
-
-    public void getAllCamera(String userId, String privilege, String page){
+    public void getAllCamera(String userId, String privilege, String page, final boolean refresh){
         Observable<Camera> mObservable = apiStoreServer.ordinaryUserGetAllCamera(userId,privilege,page);
         addSubscription(mObservable,new SubscriberCallBack<>(new ApiCallback<Camera>() {
             @Override
@@ -96,7 +87,12 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
                         contact.contactName = cameraBean.getCameraName();
                         contactList.add(contact);
                     }
-                    mvpView.getDataSuccess(contactList);
+                    if(refresh){
+                        mvpView.getDataRefresh(contactList);
+                    }else{
+                        mvpView.getDataSuccess(contactList);
+                    }
+
                 }
             }
 
@@ -106,6 +102,7 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
 
             @Override
             public void onCompleted() {
+                mvpView.stopAnim();
             }
         }));
     }

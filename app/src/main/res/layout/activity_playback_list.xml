@@ -49,6 +49,7 @@
             android:layout_margin="10dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/touxiang"
+            android:visibility="gone"
             />
 
         <TextView
@@ -57,6 +58,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:layout_below="@id/header_img"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="#ffffff"
             android:text="1111"

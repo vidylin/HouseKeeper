@@ -15,6 +15,7 @@ public class HttpError<T> {
     private String error;
     private int errorCode;
     private ArrayList<ShopType> placeType;
+    private  String state;
 
     public String getError() {
         return error;
@@ -41,4 +42,11 @@ public class HttpError<T> {
         this.placeType = placeType;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }
