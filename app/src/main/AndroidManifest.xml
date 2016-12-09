@@ -133,10 +133,11 @@
             android:name=".service.DemoPushService"
             android:exported="true"
             android:label="PushService"
-            android:process=":pushservice"></service>
+            android:process=":pushservice" />
         <service android:name=".service.DemoIntentService" />
 
-        <activity android:name=".mvp.fragment.MyFragment.AboutActivity"></activity>
+        <activity android:name=".mvp.fragment.MyFragment.AboutActivity" />
+        <activity android:name=".mvp.fragment.MyFragment.PrintScreenActivity"></activity>
     </application>
 
 </manifest>

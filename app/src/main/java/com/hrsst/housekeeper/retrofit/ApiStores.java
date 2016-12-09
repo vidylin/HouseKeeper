@@ -144,4 +144,9 @@ public interface ApiStores {
     @GET("getCid")
     @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<HttpError> bindAlias(@Query("alias") String alias, @Query("cid") String cid,@Query("projectName") String projectName);
+
+    @FormUrlEncoded
+    @POST("textAlarm")
+    Observable<PostResult> textAlarm(@Field("userId") String userId, @Field("privilege") String privilege,
+                                             @Field("cameraId") String cameraId,@Field("info") String info);
 }

@@ -1,8 +1,17 @@
 package com.hrsst.housekeeper.service;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 
 import com.hrsst.housekeeper.AppApplication;
+import com.hrsst.housekeeper.R;
 import com.hrsst.housekeeper.common.global.Constants;
 import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
 import com.hrsst.housekeeper.entity.HttpError;
@@ -17,6 +26,9 @@ import com.igexin.sdk.message.GTTransmitMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.Random;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -47,7 +59,13 @@ public class DemoIntentService extends GTIntentService {
         String msg = new String(gtTransmitMessage.getPayload());
         try {
             JSONObject dataJson = new JSONObject(msg);
-            System.out.print(dataJson);
+            DisposeAlarm disposeAlarm = new DisposeAlarm();
+            disposeAlarm.setAlarmType(dataJson.getInt("alarmType"));
+            disposeAlarm.setPolice(dataJson.getString("police"));
+            disposeAlarm.setTime(dataJson.getString("time"));
+            disposeAlarm.setPoliceName(dataJson.getString("policeName"));
+            Random random4 = new Random();
+            showDownNotification(context,disposeAlarm.getPoliceName()+"警员已处理您的消息",null,random4.nextInt(),null);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -91,5 +109,36 @@ public class DemoIntentService extends GTIntentService {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber));
+    }
+
+    @SuppressWarnings("deprecation")
+    private void showDownNotification(Context context, String message, Serializable mPushAlarmMsg, int id, Class clazz){
+        NotificationCompat.Builder m_builder = new NotificationCompat.Builder(context);
+        m_builder.setContentTitle(message); // 主标题
+
+        //从系统服务中获得通知管理器
+        NotificationManager nm=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //具体的通知内容
+
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher); // 将PNG图片转
+        m_builder.setLargeIcon(icon);
+
+        m_builder.setSmallIcon(R.mipmap.ic_launcher); //设置小图标
+        m_builder.setWhen(System.currentTimeMillis());
+        m_builder.setAutoCancel(true);
+        if(clazz!=null){
+            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);//设置提示音
+            m_builder.setSound(uri);
+            m_builder.setContentText("点击查看详情"); //设置主要内容
+            //通知消息与Intent关联
+            Intent it=new Intent(context,clazz);
+            it.putExtra("mPushAlarmMsg",mPushAlarmMsg);
+            it.putExtra("alarmMsg",message);
+            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent contentIntent=PendingIntent.getActivity(context, id, it, PendingIntent.FLAG_CANCEL_CURRENT);
+            m_builder.setContentIntent(contentIntent);
+        }
+        //执行通知
+        nm.notify(id, m_builder.build());
     }
 }

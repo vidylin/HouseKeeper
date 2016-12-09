@@ -117,22 +117,20 @@ public class AddCameraFourthPresenter extends BasePresenter<AddCameraFourthView>
                 if(errorCode==0){
                     mvpView.addCameraResult("添加成功");
                 }else if(errorCode==3){
-                    mvpView.hideLoading();
-                    mvpView.errorMessage("摄像机已存在，请勿重复添加");
+                    mvpView.addCameraResult("添加成功");
                 }else{
-                    mvpView.hideLoading();
                     mvpView.errorMessage("添加失败，请重新添加");
                 }
             }
 
             @Override
             public void onFailure(int code, String msg) {
-                mvpView.hideLoading();
                 mvpView.errorMessage("网络错误，请重新添加");
             }
 
             @Override
             public void onCompleted() {
+                mvpView.hideLoading();
             }
         }));
     }

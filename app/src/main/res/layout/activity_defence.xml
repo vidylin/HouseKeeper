@@ -81,7 +81,7 @@
                 myradio:myDrawableSize="100dp"
                 android:gravity="center"
                 android:paddingTop="10dp"
-                android:text="样啊"
+                android:text="门磁探测器"
                 />
             <com.hrsst.housekeeper.common.widget.MyRadioButton
                 android:id="@+id/my_radio_hw"
@@ -97,7 +97,7 @@
                 myradio:myDrawableSize="100dp"
                 android:gravity="center"
                 android:paddingTop="10dp"
-                android:text="样啊"/>
+                android:text="红外探测器"/>
 
         </RadioGroup>
         <LinearLayout
@@ -159,7 +159,7 @@
                 myradio:myDrawableSize="100dp"
                 android:gravity="center"
                 android:paddingTop="10dp"
-                android:text="样啊"/>
+                android:text="燃气探测器"/>
             <com.hrsst.housekeeper.common.widget.MyRadioButton
                 android:id="@+id/my_radio_yg"
                 android:layout_width="0dp"
@@ -174,7 +174,7 @@
                 myradio:myDrawableSize="100dp"
                 android:gravity="center"
                 android:paddingTop="10dp"
-                android:text="样啊"/>
+                android:text="烟感探测器"/>
         </RadioGroup>
         <LinearLayout
             android:layout_width="match_parent"
@@ -325,5 +325,5 @@
             android:layout_centerInParent="true"
             />
     </RelativeLayout>
-    <include layout="@layout/progress_bar"/>
+<include layout="@layout/progress_bar"/>
 </RelativeLayout>

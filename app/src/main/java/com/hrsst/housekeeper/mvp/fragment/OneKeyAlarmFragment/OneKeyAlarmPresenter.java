@@ -6,6 +6,7 @@ import android.os.Message;
 import com.hrsst.housekeeper.common.basePresenter.BasePresenter;
 import com.hrsst.housekeeper.common.data.Contact;
 import com.hrsst.housekeeper.entity.Camera;
+import com.hrsst.housekeeper.entity.PostResult;
 import com.hrsst.housekeeper.rxjava.ApiCallback;
 import com.hrsst.housekeeper.rxjava.SubscriberCallBack;
 
@@ -15,21 +16,27 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import rx.Observable;
-import rx.Subscription;
 
 /**
  * Created by Administrator on 2016/11/10.
  */
 public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
-    private Subscription mSubscription;
     private Timer timer;
+    private String userId;
+    private String privilege;
+    private String cameraId;
+    private String info;
 
     public OneKeyAlarmPresenter(OneKeyAlarmFragment oneKeyAlarmFragment){
         attachView(oneKeyAlarmFragment);
     }
 
     int countNum=0;
-    public void startTimer(){
+    public void startTimer(String userId,String privilege,String cameraId,String info){
+        this.userId = userId;
+        this.privilege = privilege;
+        this.cameraId = cameraId;
+        this.info = info;
         if(timer==null){
             timer = new Timer();
         }
@@ -58,7 +65,7 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
                     timer.cancel();
                     timer=null;
                 }
-                mvpView.sendAlarmMessage("报警已发送");
+                onKeyAlarm(userId,privilege,cameraId,info);
             }
         }
     };
@@ -78,7 +85,7 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
             public void onSuccess(Camera model) {
                 int errorCode = model.getErrorCode();
                 if(errorCode==0){
-                    List<Contact> contactList = new ArrayList<Contact>();
+                    List<Contact> contactList = new ArrayList<>();
                     List<Camera.CameraBean> list = model.getCamera();
                     for(Camera.CameraBean cameraBean : list){
                         Contact contact = new Contact();
@@ -103,6 +110,28 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
             @Override
             public void onCompleted() {
                 mvpView.stopAnim();
+            }
+        }));
+    }
+
+    private void onKeyAlarm(String userId,String privilege,String cameraId,String info){
+        Observable<PostResult> mObservable = apiStoreServer.textAlarm(userId,privilege,cameraId,info);
+        addSubscription(mObservable,new SubscriberCallBack<>(new ApiCallback<PostResult>() {
+            @Override
+            public void onSuccess(PostResult model) {
+                int errorCode = model.getErrorCode();
+                if(errorCode==0){
+
+                }
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+            }
+
+            @Override
+            public void onCompleted() {
+                mvpView.sendAlarmMessage("报警已发送");
             }
         }));
     }

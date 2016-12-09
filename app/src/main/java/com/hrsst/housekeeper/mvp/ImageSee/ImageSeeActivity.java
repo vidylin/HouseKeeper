@@ -1,111 +1,90 @@
 package com.hrsst.housekeeper.mvp.ImageSee;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.PointF;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageView;
+import android.os.Environment;
 
-import com.hrsst.housekeeper.AppComponent;
 import com.hrsst.housekeeper.R;
-import com.hrsst.housekeeper.common.baseActivity.BaseActivity;
+import com.lib.imagesee.FilePagerAdapter;
+import com.lib.imagesee.GalleryViewPager;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ImageSeeActivity extends BaseActivity implements View.OnTouchListener {
-    // 放大缩小
-    Matrix matrix = new Matrix();
-    Matrix savedMatrix = new Matrix();
-    PointF start = new PointF();
-    PointF mid = new PointF();
-    float oldDist;
-    // 模式
-    static final int NONE = 0;
-    static final int DRAG = 1;
-    static final int ZOOM = 2;
-    int mode = NONE;
-    @Bind(R.id.imageView1)
-    ImageView imageView1;
-
-    @Override
-    protected void setupActivityComponent(AppComponent appComponent) {
-    }
+public class ImageSeeActivity extends Activity {
+    File[] files;
+    List<String> imagePath;
+    private GalleryViewPager mViewPager;
+    private Context mContext;
+    private int currentItem;
+    String callId;
+    Intent mIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_check);
-        ButterKnife.bind(this);
-        String currentImage = getIntent().getExtras().getString("currentImage");
-        Bitmap bmp= BitmapFactory.decodeFile(currentImage);
-        imageView1.setImageBitmap(bmp);
-        imageView1.setOnTouchListener(this);
+        setContentView(R.layout.activity_image_see);
+        mContext = this;
+        mIntent = getIntent();
+        currentItem = mIntent.getIntExtra("currentImage", 0);
+        callId = getIntent().getStringExtra("callId");
+        initUI(currentItem);
+    }
+
+    public void initUI(int position) {
+        imagePath = new ArrayList<String>();
+        String screenshotPath = Environment.getExternalStorageDirectory()
+                .getPath() + "/screenshot";
+        File file = new File(screenshotPath);
+        FileFilter filter = new FileFilter() {
+
+            @Override
+            public boolean accept(File pathname) {
+                if (null == callId || "".equals(callId)) {
+                    if (pathname.getName().endsWith(".jpg")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (pathname.getName().startsWith(callId)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            }
+        };
+        files = file.listFiles(filter);
+        for (int i = 0, count = files.length; i < count; i++) {
+            imagePath.add((files[i]).getPath());
+        }
+
+        FilePagerAdapter pagerAdapter = new FilePagerAdapter(mContext,
+                imagePath);
+//		pagerAdapter.setOnItemChangeListener(new OnItemChangeListener() {
+//			@Override
+//			public void onItemChange(int currentPosition) {
+////				Toast.makeText(mContext, "Current item is " + currentPosition,
+////						Toast.LENGTH_SHORT).show();
+//			}
+//		});
+
+        mViewPager = (GalleryViewPager) findViewById(R.id.viewer);
+        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setAdapter(pagerAdapter);
+        mViewPager.setCurrentItem(position);
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        ImageView myImageView = (ImageView) v;
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            // 设置拖拉模式
-            case MotionEvent.ACTION_DOWN:
-//                matrix.set(myImageView.getImageMatrix());
-//                savedMatrix.set(matrix);
-//                start.set(event.getX(), event.getY());
-//                mode = DRAG;
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_POINTER_UP:
-//                mode = NONE;
-                break;
-
-            // 设置多点触摸模式
-            case MotionEvent.ACTION_POINTER_DOWN:
-                oldDist = spacing(event);
-                if (oldDist > 10f) {
-                    savedMatrix.set(matrix);
-                    midPoint(mid, event);
-                    mode = ZOOM;
-                }
-                break;
-            // 若为DRAG模式，则点击移动图片
-            case MotionEvent.ACTION_MOVE:
-//                if (mode == DRAG) {
-//                    matrix.set(savedMatrix);
-//                    matrix.postTranslate(event.getX() - start.x, event.getY()
-//                            - start.y);
-//                }
-//                // 若为ZOOM模式，则点击触摸缩放
-//                else
-                if (mode == ZOOM) {
-                    float newDist = spacing(event);
-                    if (newDist > 10f) {
-                        matrix.set(savedMatrix);
-                        float scale = newDist / oldDist;
-                        // 设置硕放比例和图片的中点位置
-                        matrix.postScale(scale, scale, mid.x, mid.y);
-                    }
-                }
-                break;
-        }
-        myImageView.setImageMatrix(matrix);
-        return true;
-    }
-
-    // 计算移动距离
-    private float spacing(MotionEvent event) {
-        float x = event.getX(0) - event.getX(1);
-        float y = event.getY(0) - event.getY(1);
-        return (float) Math.sqrt(x * x + y * y);
-    }
-
-    // 计算中点位置
-    private void midPoint(PointF point, MotionEvent event) {
-        float x = event.getX(0) + event.getX(1);
-        float y = event.getY(0) + event.getY(1);
-        point.set(x / 2, y / 2);
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        finish();
     }
 }

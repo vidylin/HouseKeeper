@@ -189,6 +189,7 @@ public class DefenceListActivity extends BaseActivity implements DefenceListView
         defenceListAdapter.notifyDataSetChanged();
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

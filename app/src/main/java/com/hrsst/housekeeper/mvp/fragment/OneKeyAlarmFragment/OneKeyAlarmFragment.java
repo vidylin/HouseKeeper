@@ -25,7 +25,6 @@ import com.hrsst.housekeeper.common.baseActivity.BaseFragment;
 import com.hrsst.housekeeper.common.data.Contact;
 import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
 import com.hrsst.housekeeper.common.utils.T;
-import com.hrsst.housekeeper.common.utils.Utils;
 import com.hrsst.housekeeper.common.widget.CircleTextProgressbar;
 
 import java.util.ArrayList;
@@ -110,7 +109,9 @@ public class OneKeyAlarmFragment extends BaseFragment implements OneKeyAlarmView
                         sendTv.setVisibility(View.GONE);
                         mTv.setText("长按5s后报警");
                         oneKeyAlarmBg.setBackgroundResource(R.color.progress_bg);
-                        oneKeyAlarmPresenter.startTimer();
+                        if(contact!=null){
+                            oneKeyAlarmPresenter.startTimer(userID,privilege,contact.contactId,userID+"SOS");
+                        }
                         startImage.setImageResource(R.mipmap.a_bj_an);
                         return true;
                     case MotionEvent.ACTION_UP:
@@ -134,6 +135,7 @@ public class OneKeyAlarmFragment extends BaseFragment implements OneKeyAlarmView
             oneKeyAlarmPresenter.getAllCamera(userID, privilege, "",true);
         }
     }
+
 
     @Override
     public void onDestroy() {

@@ -77,7 +77,6 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
     private String areaId = "";
     private String shopTypeId = "";
     private String userNumber;
-    private String userId;
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
@@ -97,8 +96,6 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
         ButterKnife.bind(this);
         mContext = this;
         contactId = getIntent().getExtras().getString("contactId");
-        userId = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
-                SharedPreferencesManager.KEY_RECENTNAME);
         addRepeaterMac.setText(contactId);
         init();
         userNumber = SharedPreferencesManager.getInstance().getData(mContext, SharedPreferencesManager.SP_FILE_GWELL,
@@ -133,7 +130,7 @@ public class AddCameraFourthActivity extends BaseActivity implements AddCameraFo
         String principal2 = addFireManTwo.getText().toString().trim();
         String principal1Phone = addFireManPhone.getText().toString().trim();
         String principal2Phone = addFireManPhoneTwo.getText().toString().trim();
-        addCameraFourthPresenter.addCamera(userId,contactId,smokeMac,cameraName,address,longitude,
+        addCameraFourthPresenter.addCamera(userNumber,contactId,smokeMac,cameraName,address,longitude,
                 latitude,principal1,principal1Phone,principal2,principal2Phone,
                 areaId,shopTypeId);
     }

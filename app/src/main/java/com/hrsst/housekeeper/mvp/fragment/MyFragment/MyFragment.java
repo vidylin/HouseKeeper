@@ -15,7 +15,6 @@ import com.hrsst.housekeeper.common.baseActivity.BaseFragment;
 import com.hrsst.housekeeper.common.global.Constants;
 import com.hrsst.housekeeper.common.utils.SharedPreferencesManager;
 import com.hrsst.housekeeper.common.utils.T;
-import com.hrsst.housekeeper.mvp.fragment.MapFragment.MyPictureActivity;
 
 import javax.inject.Inject;
 
@@ -73,7 +72,7 @@ public class MyFragment extends BaseFragment implements MyFragmentView {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.my_picture:
-                Intent intent = new Intent(mContext, MyPictureActivity.class);
+                Intent intent = new Intent(mContext, PrintScreenActivity.class);
                 startActivity(intent);
                 break;
             case R.id.app_update:

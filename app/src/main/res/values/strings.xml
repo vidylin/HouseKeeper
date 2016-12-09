@@ -440,7 +440,7 @@
     <string name="visitor_messge">访客信息</string>
     <string name="time_out">超时</string>
     <string name="pre_record">预录像</string>
-    <string name="not_surpport_sensor">不支持传感器开关</string>
+    <string name="not_surpport_sensor">不支持传感器开关</string>allarm_type
     <string name="record_failed">录像故障</string>
     <string name="not_know">未知</string>
     <string name="device_name_exist">设备名已经存在</string>
