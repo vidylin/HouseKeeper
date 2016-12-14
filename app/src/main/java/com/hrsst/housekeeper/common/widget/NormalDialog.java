@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -167,7 +166,7 @@ public class NormalDialog {
 		View view = LayoutInflater.from(context).inflate(
 				R.layout.dialog_update, null);
 		TextView title = (TextView) view.findViewById(R.id.title_text);
-		WebView content = (WebView) view.findViewById(R.id.content_text);
+		TextView content = (TextView) view.findViewById(R.id.content_text);
 		TextView button1 = (TextView) view
 				.findViewById(R.id.button1_text);
 		TextView button2 = (TextView) view
@@ -180,8 +179,9 @@ public class NormalDialog {
 		if(urlStr==null){
 			content.setBackgroundColor(context.getResources().getColor(R.color.update_message)); // 设置背景色
 			content.getBackground().setAlpha(255); // 设置填充透明度 范围：0-255
-			content.loadDataWithBaseURL(null, "已是最新版本！", "text/html", "utf-8",
-					null);
+//			content.loadDataWithBaseURL(null, "已是最新版本！", "text/html", "utf-8",
+//					null);
+			content.setText("已是最新版本！");
 			minddle_image.setVisibility(View.GONE);
 			cancel_rela_dialog.setVisibility(View.GONE);
 			button2.setText("确定");
@@ -199,8 +199,9 @@ public class NormalDialog {
 		}else{
 			content.setBackgroundColor(Color.WHITE); // 设置背景色
 			content.getBackground().setAlpha(100); // 设置填充透明度 范围：0-255
-			content.loadDataWithBaseURL(null, message, "text/html", "utf-8",
-					null);
+//			content.loadDataWithBaseURL(null, message, "text/html", "utf-8",
+//					null);
+			content.setText(message);
 			button1.setText("立即更新");
 			button2.setText("下次再说");
 			button1.setOnClickListener(new View.OnClickListener() {

@@ -67,7 +67,11 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
                 }));
     }
 
-    public void register(final String phoneNo, final String pwd, String rePwd, final String code, final Context mContext){
+    public void register(final String phoneNo, final String pwd, String rePwd, final String code, final Context mContext, final String name){
+        if(name==null||name.length()<=0){
+            mvpView.getDataFail("请填写用户名称");
+            return;
+        }
         MD5 md = new MD5();
         final String password = md.getMD5ofStr(pwd);
         final String rePassword = md.getMD5ofStr(rePwd);
@@ -99,7 +103,7 @@ public class RegisterPhonePresenter extends BasePresenter<RegisterPhoneView>{
                                 SharedPreferencesManager.getInstance().putData(mContext,
                                         SharedPreferencesManager.SP_FILE_GWELL,
                                         SharedPreferencesManager.KEY_RECENTPASS_NUMBER, userID);
-                                registerToServer(userID,"",phoneNo,pwd,"1");
+                                registerToServer(userID,name,phoneNo,pwd,"1");
                                 break;
                             case "6":
                                 mvpView.hideLoading();

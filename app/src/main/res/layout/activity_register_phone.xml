@@ -18,7 +18,7 @@
     <RelativeLayout
         android:id="@+id/register_rela"
         android:layout_width="250dp"
-        android:layout_height="135dp"
+        android:layout_height="175dp"
         android:layout_below="@id/register_email_tv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -44,15 +44,36 @@
             android:layout_below="@id/register_user"
             />
         <EditText
+            android:id="@+id/nick_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:inputType="textPassword"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="用户名称"
+            android:layout_below="@id/register_user"
+            android:textColorHint="@color/hint_color_text"
+            android:textColor="@color/text_view_and_kuang"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/text_view_and_kuang"
+            android:layout_below="@id/nick_name"
+            />
+        <EditText
             android:id="@+id/register_pwd"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@null"
             android:inputType="textPassword"
-            android:layout_marginTop="51dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:hint="密码"
+            android:layout_below="@id/nick_name"
             android:textColorHint="@color/hint_color_text"
             android:textColor="@color/text_view_and_kuang"
             />

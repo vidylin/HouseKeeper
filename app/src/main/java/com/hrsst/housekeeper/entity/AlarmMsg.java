@@ -8,7 +8,7 @@ import java.util.List;
 public class AlarmMsg {
 
     /**
-     * Alarm : [{"alarmTime":"4","alarmType":127,"camera":{"addrcameraNameess":"%E5%8D%B7%E5%AD%90","cameraAddress":"????????????????564?","cameraId":"3121164","cameraPwd":"123456u","latitude":"23.161798","longitude":"113.350428","principal1":"??","principal1Phone":"123456789","principal2":"??","principal2Phone":"123456"},"dealTime":"2","dealUser":null,"ifDealAlarm":0},{"alarmTime":"3","alarmType":127,"camera":{"addrcameraNameess":"%E5%8D%B7%E5%AD%90","cameraAddress":"????????????????564?","cameraId":"3121164","cameraPwd":"123456u","latitude":"23.161798","longitude":"113.350428","principal1":"??","principal1Phone":"123456789","principal2":"??","principal2Phone":"123456"},"dealTime":"1","dealUser":null,"ifDealAlarm":1}]
+     * Alarm : [{"alarmTime":"4","alarmType":127,"camera":{"addrcameraNameess":"君","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西536号","cameraId":"3121638","cameraPwd":"123","latitude":"23.131779","longitude":"113.350168","placeType":"其它店","principal1":"break","principal1Phone":"123456789","principal2":"","principal2Phone":""},"dealTime":"2016-12-09 10:36:23","dealUser":{"email":"fsyhrsst@126.com","phone":"","userId":"05501386","userName":"iOS"},"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:49:34","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:44:55","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:43:22","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:42:05","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:41:50","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:38:35","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:23:14","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:21:18","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:14:45","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:14:39","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:14:23","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:07:30","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:06:25","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:06:18","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:05:41","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:05:23","alarmType":1,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:04:41","alarmType":1,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:04:38","alarmType":1,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0},{"alarmTime":"2016-12-13 09:03:40","alarmType":2,"camera":{"addrcameraNameess":"微微057","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraPwd":"123","latitude":"23.131768","longitude":"113.350206","placeType":"其它店","principal1":"微微","principal1Phone":"","principal2":"","principal2Phone":""},"dealTime":"","dealUser":null,"ifDealAlarm":0}]
      * error : 获取报警消息成功）
      * errorCode : 0
      */
@@ -18,9 +18,9 @@ public class AlarmMsg {
     /**
      * alarmTime : 4
      * alarmType : 127
-     * camera : {"addrcameraNameess":"%E5%8D%B7%E5%AD%90","cameraAddress":"????????????????564?","cameraId":"3121164","cameraPwd":"123456u","latitude":"23.161798","longitude":"113.350428","principal1":"??","principal1Phone":"123456789","principal2":"??","principal2Phone":"123456"}
-     * dealTime : 2
-     * dealUser : null
+     * camera : {"addrcameraNameess":"君","areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西536号","cameraId":"3121638","cameraPwd":"123","latitude":"23.131779","longitude":"113.350168","placeType":"其它店","principal1":"break","principal1Phone":"123456789","principal2":"","principal2Phone":""}
+     * dealTime : 2016-12-09 10:36:23
+     * dealUser : {"email":"fsyhrsst@126.com","phone":"","userId":"05501386","userName":"iOS"}
      * ifDealAlarm : 0
      */
 
@@ -54,21 +54,30 @@ public class AlarmMsg {
         private String alarmTime;
         private int alarmType;
         /**
-         * addrcameraNameess : %E5%8D%B7%E5%AD%90
-         * cameraAddress : ????????????????564?
-         * cameraId : 3121164
-         * cameraPwd : 123456u
-         * latitude : 23.161798
-         * longitude : 113.350428
-         * principal1 : ??
+         * addrcameraNameess : 君
+         * areaName : 测试区
+         * cameraAddress : 中国广东省广州市天河区黄埔大道西536号
+         * cameraId : 3121638
+         * cameraPwd : 123
+         * latitude : 23.131779
+         * longitude : 113.350168
+         * placeType : 其它店
+         * principal1 : break
          * principal1Phone : 123456789
-         * principal2 : ??
-         * principal2Phone : 123456
+         * principal2 :
+         * principal2Phone :
          */
 
         private CameraBean camera;
         private String dealTime;
-        private Object dealUser;
+        /**
+         * email : fsyhrsst@126.com
+         * phone :
+         * userId : 05501386
+         * userName : iOS
+         */
+
+        private DealUserBean dealUser;
         private int ifDealAlarm;
 
         public String getAlarmTime() {
@@ -103,11 +112,11 @@ public class AlarmMsg {
             this.dealTime = dealTime;
         }
 
-        public Object getDealUser() {
+        public DealUserBean getDealUser() {
             return dealUser;
         }
 
-        public void setDealUser(Object dealUser) {
+        public void setDealUser(DealUserBean dealUser) {
             this.dealUser = dealUser;
         }
 
@@ -121,11 +130,13 @@ public class AlarmMsg {
 
         public static class CameraBean {
             private String addrcameraNameess;
+            private String areaName;
             private String cameraAddress;
             private String cameraId;
             private String cameraPwd;
             private String latitude;
             private String longitude;
+            private String placeType;
             private String principal1;
             private String principal1Phone;
             private String principal2;
@@ -137,6 +148,14 @@ public class AlarmMsg {
 
             public void setAddrcameraNameess(String addrcameraNameess) {
                 this.addrcameraNameess = addrcameraNameess;
+            }
+
+            public String getAreaName() {
+                return areaName;
+            }
+
+            public void setAreaName(String areaName) {
+                this.areaName = areaName;
             }
 
             public String getCameraAddress() {
@@ -179,6 +198,14 @@ public class AlarmMsg {
                 this.longitude = longitude;
             }
 
+            public String getPlaceType() {
+                return placeType;
+            }
+
+            public void setPlaceType(String placeType) {
+                this.placeType = placeType;
+            }
+
             public String getPrincipal1() {
                 return principal1;
             }
@@ -209,6 +236,45 @@ public class AlarmMsg {
 
             public void setPrincipal2Phone(String principal2Phone) {
                 this.principal2Phone = principal2Phone;
+            }
+        }
+
+        public static class DealUserBean {
+            private String email;
+            private String phone;
+            private String userId;
+            private String userName;
+
+            public String getEmail() {
+                return email;
+            }
+
+            public void setEmail(String email) {
+                this.email = email;
+            }
+
+            public String getPhone() {
+                return phone;
+            }
+
+            public void setPhone(String phone) {
+                this.phone = phone;
+            }
+
+            public String getUserId() {
+                return userId;
+            }
+
+            public void setUserId(String userId) {
+                this.userId = userId;
+            }
+
+            public String getUserName() {
+                return userName;
+            }
+
+            public void setUserName(String userName) {
+                this.userName = userName;
             }
         }
     }

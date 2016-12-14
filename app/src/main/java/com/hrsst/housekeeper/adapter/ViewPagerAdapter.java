@@ -57,6 +57,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         ((ViewPager) container).addView(view, 0);
         Contact contact = contacts.get(position);
         shopName.setText(contact.contactName);
+        shopAddress.setText(contact.activeUser);
         return view;
     }
 

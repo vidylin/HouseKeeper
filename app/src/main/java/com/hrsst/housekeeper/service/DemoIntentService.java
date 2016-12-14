@@ -60,7 +60,6 @@ public class DemoIntentService extends GTIntentService {
         try {
             JSONObject dataJson = new JSONObject(msg);
             DisposeAlarm disposeAlarm = new DisposeAlarm();
-            disposeAlarm.setAlarmType(dataJson.getInt("alarmType"));
             disposeAlarm.setPolice(dataJson.getString("police"));
             disposeAlarm.setTime(dataJson.getString("time"));
             disposeAlarm.setPoliceName(dataJson.getString("policeName"));
@@ -96,7 +95,7 @@ public class DemoIntentService extends GTIntentService {
 
             @Override
             public void onCompleted() {
-                stopSelf();
+//                stopSelf();
             }
         }));
     }

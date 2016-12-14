@@ -43,6 +43,8 @@ public class RegisterEmailActivity extends BaseActivity implements RegisterPhone
     TextView registerEmailOldUserTv;
     @Bind(R.id.mProgressBar)
     ProgressBar mProgressBar;
+    @Bind(R.id.nick_name)
+    EditText nickName;
     private Context mContext;
 
     @Override
@@ -93,8 +95,8 @@ public class RegisterEmailActivity extends BaseActivity implements RegisterPhone
                         String phoneNO = registerEmailUser.getText().toString().trim();
                         String pwd = registerEmailPwd.getText().toString().trim();
                         String rePwd = registerEmailComfirePwd.getText().toString().trim();
-                        registerMailPresenter.registerEmail(phoneNO, pwd, rePwd,mContext);
-//                        registerMailPresenter.registerToServer("111222555","lllppp","12345645454","","1");
+                        String name = nickName.getText().toString().trim();
+                        registerMailPresenter.registerEmail(phoneNO, pwd, rePwd,mContext,name);
                     }
                 });
     }

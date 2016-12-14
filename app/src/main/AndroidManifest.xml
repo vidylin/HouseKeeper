@@ -77,7 +77,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mvp.login.SplashActivity"
-            android:label="@string/title_activity_splash"
+            android:label="@string/app_name"
             android:theme="@style/customBackground">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -104,7 +104,6 @@
         <activity android:name=".mvp.addCamera.AddCameraFirstActivity" />
         <activity android:name=".mvp.addCamera.AddCameraSecondActivity" />
         <activity android:name=".mvp.addCamera.AddCameraThirdActivity" />
-        <activity android:name=".mvp.fragment.MapFragment.MyPictureActivity" />
 
         <service android:name=".service.MainService" />
 

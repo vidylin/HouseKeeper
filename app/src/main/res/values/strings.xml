@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HouseKeeper</string>
+    <string name="app_name">新BEES普通版</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="id_name">邮箱/手机号码</string>
     <string name="pwd_name">密码</string>

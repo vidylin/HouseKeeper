@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -299,5 +300,23 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     public void showUpdateDialog(String message, final String urlStr) {
         new NormalDialog(mContext, message, urlStr).showVersionDialog();
+    }
+
+    @Override
+    public void exitBy2Click(boolean isExit) {
+        if (isExit) {
+            moveTaskToBack(false);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            mainPresenter.exitBy2Click(mContext);
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 }

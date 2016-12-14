@@ -56,7 +56,7 @@ public interface ApiStores {
             , @Field("Pwd") String pwd, @Field("RePwd") String rePwd
             , @Field("VerifyCode") String verifyCode, @Field("IgnoreSafeWarning") String ignoreSafeWarning);
 
-    @GET("update.xml")
+    @GET("update_bees_normal.xml")
     Observable<VersionXml> checkVersion();
 
     @FormUrlEncoded

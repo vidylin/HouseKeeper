@@ -21,6 +21,7 @@ public class BasePresenter <V> implements Presenter<V>{
     public V mvpView;
     public ApiStores[] apiStore = {AppClient.retrofit().create(ApiStores.class),AppClient.retrofitTwo().create(ApiStores.class),AppClient.retrofitThree().create(ApiStores.class),AppClient.retrofitFour().create(ApiStores.class)};
     public ApiStores apiStoreServer = AppClient.retrofitServer().create(ApiStores.class);
+//    public ApiStores apiStoreServerTest = AppClient.testRetrofitServer().create(ApiStores.class);
     private CompositeSubscription mCompositeSubscription;
 
     @Override

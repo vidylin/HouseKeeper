@@ -46,6 +46,8 @@ public class RegisterPhoneActivity extends BaseActivity implements RegisterPhone
     ProgressBar mProgressBar;
     @Bind(R.id.register_email_tv)
     TextView registerEmailTv;
+    @Bind(R.id.nick_name)
+    EditText nickName;
     private Context mContext;
     private String phoneNO;
 
@@ -84,7 +86,8 @@ public class RegisterPhoneActivity extends BaseActivity implements RegisterPhone
                         String pwd = registerPwd.getText().toString().trim();
                         String rePwd = registerComfirePwd.getText().toString().trim();
                         String code = registerCode.getText().toString().trim();
-                        registerPhonePresenter.register(phoneNO, pwd, rePwd, code, mContext);
+                        String name = nickName.getText().toString().trim();
+                        registerPhonePresenter.register(phoneNO, pwd, rePwd, code, mContext,name);
                     }
                 });
         RxView.clicks(registerOldUserTv).throttleFirst(2, TimeUnit.SECONDS)

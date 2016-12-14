@@ -92,6 +92,7 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
                         contact.contactId = cameraBean.getCameraId();
                         contact.contactPassword = cameraBean.getCameraPwd();
                         contact.contactName = cameraBean.getCameraName();
+                        contact.activeUser = cameraBean.getCameraAddress();
                         contactList.add(contact);
                     }
                     if(refresh){
@@ -121,7 +122,6 @@ public class OneKeyAlarmPresenter extends BasePresenter<OneKeyAlarmView>{
             public void onSuccess(PostResult model) {
                 int errorCode = model.getErrorCode();
                 if(errorCode==0){
-
                 }
             }
 

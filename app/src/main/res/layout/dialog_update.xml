@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="280dp"
+    android:layout_width="260dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center"
@@ -7,7 +7,7 @@
     >
     <RelativeLayout 
         android:id="@+id/dialog_title"
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         >
         <TextView 
@@ -25,7 +25,7 @@
     </RelativeLayout>
     <ImageView 
         android:id="@+id/separator"
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:src="@mipmap/list_item_line"
        	android:layout_height="wrap_content"
 
@@ -33,21 +33,22 @@
         />
     <RelativeLayout 
         android:id="@+id/dialog_content"
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
+		android:background="@drawable/modify_dialog"
         >
-            <WebView 
+            <TextView
                 android:id="@+id/content_text"
-                android:background="@drawable/modify_dialog"
-                android:layout_width="match_parent"
-	            android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
 	            android:layout_centerInParent="true"
-	            android:layout_margin="5dp"
+				android:textSize="16sp"
+				android:textColor="#000000"
                 />
      </RelativeLayout>
         
         <LinearLayout 
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"

@@ -97,8 +97,8 @@ public class RefreshRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             ((ItemViewHolder) holder).alarmTimeTv.setText(alarmBean.getAlarmTime());
             ((ItemViewHolder) holder).smokeMacTv.setText(cameraBean.getAddrcameraNameess());
             ((ItemViewHolder) holder).repeaterAddressTv.setText(cameraBean.getCameraAddress());
-//            ((ItemViewHolder) holder).repeaterNameTv.setText(cameraBean.get());
-//            ((ItemViewHolder) holder).repeaterMacTv.setText(mNormalAlarmMessage.getAreaName());
+            ((ItemViewHolder) holder).repeaterNameTv.setText(cameraBean.getPlaceType());
+            ((ItemViewHolder) holder).repeaterMacTv.setText(cameraBean.getAreaName());
             ((ItemViewHolder) holder).userSmokeMarkPrincipal.setText(cameraBean.getPrincipal1());
             ((ItemViewHolder) holder).userSmokeMarkPhoneTv.setText(cameraBean.getPrincipal1Phone());
             ((ItemViewHolder) holder).userSmokeMarkPrincipalTwo.setText(cameraBean.getPrincipal2());
@@ -152,7 +152,7 @@ public class RefreshRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
-        if (position + 1 == getItemCount()) {
+        if (position == getItemCount()) {
             return TYPE_FOOTER;
         } else {
             return TYPE_ITEM;
@@ -161,7 +161,7 @@ public class RefreshRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return alarmBeanList.size() + 1;
+        return alarmBeanList.size();
     }
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素

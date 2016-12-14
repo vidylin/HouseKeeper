@@ -26,6 +26,7 @@ import rx.Observable;
  * Created by Administrator on 2016/11/7.
  */
 public class LoginPresenter extends BasePresenter<LoginView>{
+    private int loginCount=0;
 
     public LoginPresenter(Activity loginActivity,Activity splashActivity){
         if(loginActivity!=null){
@@ -81,6 +82,7 @@ public class LoginPresenter extends BasePresenter<LoginView>{
                             break;
                     }
                 }else{
+                    mvpView.hideLoading();
                     switch (errorCode){
                         case "2":
                             T.showShort(context,"用户不存在");
@@ -102,12 +104,17 @@ public class LoginPresenter extends BasePresenter<LoginView>{
 
             @Override
             public void onFailure(int code, String msg) {
-                mvpView.getDataFail("网络错误，请检查网络");
+                if(loginCount<4){
+                    loginCount=loginCount+1;
+                    loginYooSee(User,Pwd,context,type);
+                }else{
+                    mvpView.hideLoading();
+                    mvpView.getDataFail("网络错误，请检查网络");
+                }
             }
 
             @Override
             public void onCompleted() {
-                mvpView.showLoading();
             }
         }));
     }
@@ -157,6 +164,7 @@ public class LoginPresenter extends BasePresenter<LoginView>{
     }
 
     private void loginServer(String userId, String phone, String email, final LoginModel loginModel){
+//        mvpView.showLoading();
         Observable<LoginServer> observable = apiStoreServer.loginServer(userId,phone,email);
         addSubscription(observable,new SubscriberCallBack<>(new ApiCallback<LoginServer>() {
             @Override

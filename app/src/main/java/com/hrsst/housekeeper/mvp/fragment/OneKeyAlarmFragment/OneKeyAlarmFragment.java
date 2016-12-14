@@ -110,7 +110,7 @@ public class OneKeyAlarmFragment extends BaseFragment implements OneKeyAlarmView
                         mTv.setText("长按5s后报警");
                         oneKeyAlarmBg.setBackgroundResource(R.color.progress_bg);
                         if(contact!=null){
-                            oneKeyAlarmPresenter.startTimer(userID,privilege,contact.contactId,userID+"SOS");
+                            oneKeyAlarmPresenter.startTimer(userID,privilege,contact.contactId,"向您发出报警信息");
                         }
                         startImage.setImageResource(R.mipmap.a_bj_an);
                         return true;

@@ -5,4 +5,5 @@ package com.hrsst.housekeeper.mvp.main;
  */
 public interface MainView {
     void showUpdateDialog(String message, final String urlStr);
+    void exitBy2Click(boolean isExit);
 }

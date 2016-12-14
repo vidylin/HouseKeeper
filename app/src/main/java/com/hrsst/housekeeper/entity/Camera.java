@@ -7,8 +7,9 @@ import java.util.List;
  */
 public class Camera {
 
+
     /**
-     * camera : [{"areaName":"???","cameraId":"3121164","cameraName":"camera_3121164","cameraPwd":"npwd","ifDealAlarm":0,"placeType":"???","setTime":"1"},{"areaName":"???","cameraId":"3121638","cameraName":"???987","cameraPwd":"123","ifDealAlarm":1,"placeType":"??","setTime":"1"}]
+     * camera : [{"areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西540号","cameraId":"2726057","cameraName":"微微057","cameraPwd":"123","ifDealAlarm":1,"placeType":"其它店","setTime":"2016-12-08 14:40:38"},{"areaName":"测试区","cameraAddress":"中国广东省广州市天河区黄埔大道西534号","cameraId":"3121638","cameraName":"丁香蕉","cameraPwd":"123","ifDealAlarm":1,"placeType":"其它店","setTime":"1"}]
      * error : 普通用户获取摄像头成功
      * errorCode : 0
      */
@@ -16,13 +17,14 @@ public class Camera {
     private String error;
     private int errorCode;
     /**
-     * areaName : ???
-     * cameraId : 3121164
-     * cameraName : camera_3121164
-     * cameraPwd : npwd
-     * ifDealAlarm : 0
-     * placeType : ???
-     * setTime : 1
+     * areaName : 测试区
+     * cameraAddress : 中国广东省广州市天河区黄埔大道西540号
+     * cameraId : 2726057
+     * cameraName : 微微057
+     * cameraPwd : 123
+     * ifDealAlarm : 1
+     * placeType : 其它店
+     * setTime : 2016-12-08 14:40:38
      */
 
     private List<CameraBean> camera;
@@ -53,6 +55,7 @@ public class Camera {
 
     public static class CameraBean {
         private String areaName;
+        private String cameraAddress;
         private String cameraId;
         private String cameraName;
         private String cameraPwd;
@@ -66,6 +69,14 @@ public class Camera {
 
         public void setAreaName(String areaName) {
             this.areaName = areaName;
+        }
+
+        public String getCameraAddress() {
+            return cameraAddress;
+        }
+
+        public void setCameraAddress(String cameraAddress) {
+            this.cameraAddress = cameraAddress;
         }
 
         public String getCameraId() {

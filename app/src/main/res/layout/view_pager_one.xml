@@ -24,14 +24,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#387ace"
-                    android:textSize="16sp"
-                    android:text="中山大道店"/>
+                    android:textSize="16sp" />
                 <TextView
                     android:id="@+id/shop_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="广东省广州市黄埔大道西广州市黄埔大道西108888888888号"/>
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
 
         </RelativeLayout>

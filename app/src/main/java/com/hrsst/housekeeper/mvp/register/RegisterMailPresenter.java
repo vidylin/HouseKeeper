@@ -24,7 +24,11 @@ public class RegisterMailPresenter extends BasePresenter<RegisterPhoneView>{
             attachView(registerPhoneActivity);
     }
 
-    public void registerEmail(final String phoneNo, final String pwd, String rePwd, final Context mContext){
+    public void registerEmail(final String phoneNo, final String pwd, String rePwd, final Context mContext, final String nickName){
+        if(nickName==null||nickName.length()<=0){
+            mvpView.getDataFail("请填写用户名称");
+            return;
+        }
         boolean isEmail = Utils.isEmial(phoneNo);
         if(isEmail){
             mvpView.showLoading();
@@ -52,7 +56,7 @@ public class RegisterMailPresenter extends BasePresenter<RegisterPhoneView>{
                             SharedPreferencesManager.getInstance().putData(mContext,
                                     SharedPreferencesManager.SP_FILE_GWELL,
                                     SharedPreferencesManager.KEY_RECENTPASS_NUMBER, userID);
-                            registerToServer(userID,"中文","",phoneNo,1+"");
+                            registerToServer(userID,nickName,"",phoneNo,1+"");
                             break;
                         case "7":
                             mvpView.hideLoading();

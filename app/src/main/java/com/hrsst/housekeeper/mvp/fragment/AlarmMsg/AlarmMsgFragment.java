@@ -155,6 +155,7 @@ public class AlarmMsgFragment extends BaseFragment implements AlarmMsgView{
 
     @Override
     public void errorMsg(String msg) {
+        swipereFreshLayout.setRefreshing(false);
         T.showShort(mContext,msg);
     }
 
