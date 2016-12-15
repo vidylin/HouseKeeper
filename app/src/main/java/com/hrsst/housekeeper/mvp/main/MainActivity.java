@@ -97,11 +97,11 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        P2PHandler.getInstance().p2pInit(this, new P2PListener(), new SettingListener());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mContext = this;
+        P2PHandler.getInstance().p2pInit(this, new P2PListener(), new SettingListener());
         fragmentManager = getFragmentManager();
         showFragment(FRAGMENT_ONE);
         getHightAndWight();

@@ -1,6 +1,7 @@
 package com.hrsst.housekeeper.common.utils;
 
 import android.app.Service;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Vibrator;
@@ -114,6 +115,24 @@ public class MusicManger {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			if (null != player) {
+				player.stop();
+				player.release();
+				player = null;
+			}
+		}
+	}
+
+	public void playAlarmMusic(Context context){
+		if(null!=player){
+			return;
+		}
+		try {
+			System.out.println("player....");
+			player = MediaPlayer.create(context, R.raw.alarm);
+			player.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			if(null!=player){
 				player.stop();
 				player.release();
 				player = null;

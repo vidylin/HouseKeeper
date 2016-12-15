@@ -220,7 +220,7 @@ public class UpdateManager {
 				if(!dirfile.exists()){
 					dirfile.mkdirs();
 				}
-				
+
 				File apkfile = new File(savePath+"/"+fileName);
 				BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(apkfile));
 				String[] version_server_parse = version_server.split("\\.");
@@ -251,13 +251,13 @@ public class UpdateManager {
 				isDowning = false;
 				connection.disconnect();
 			}
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			isDowning = false;
 			isSuccess = false;
 			e.printStackTrace();
-		} 
+		}
 		Message msg = new Message();
 		msg.arg1 = progress;
 		if(isSuccess){

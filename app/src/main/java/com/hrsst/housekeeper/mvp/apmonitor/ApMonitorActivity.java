@@ -174,7 +174,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
     private Context mContext;
     boolean isReject = false;
     boolean isRegFilter = false;
-    private int ScrrenOrientation;
+    private int ScreenOrientation;
     int window_width, window_height;
     public static String callId, password;
     int connectType;
@@ -182,12 +182,12 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
     boolean mIsCloseVoice = false;
     int mCurrentVolume, mMaxVolume;
     AudioManager mAudioManager;
-    public static boolean isSurpportOpenDoor = false;
+    public static boolean isSupportOpenDoor = false;
     boolean isShowVideo = false;
     public static boolean isSpeak = false;
     int current_video_mode;
     int screenWidth;
-    int screenHeigh;
+    int screenHeight;
     private String NewMessageDeviceID;
     // 刷新监控部分
     private String alarm_id = "";
@@ -195,7 +195,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
     int number;
     int currentNumber = 0;
     boolean isShowDeviceList = false;
-    List<TextView> devicelist = new ArrayList<TextView>();
+    List<TextView> deviceList = new ArrayList<TextView>();
     //  摇手机切换ipc
     Vibrator vibrator;
     SensorManager sensorManager;
@@ -206,14 +206,14 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
     private float lastX;
     private float lastY;
     private float lastZ;
-    private static final int UPTATE_INTERVAL_TIME = 70;
+    private static final int UPDATE_INTERVAL_TIME = 70;
     private static final int SPEED_SHRESHOLD = 2000;
-    private boolean isReceveHeader = false;
+    private boolean isReceiveHeader = false;
     boolean isPermission = true;
     private boolean connectSenconde = false;
     int pushAlarmType;
     boolean isCustomCmdAlarm = false;
-    private Handler mhandler = new Handler();
+    private Handler mHandler = new Handler();
     private boolean mIsLand = false; // 是否是横屏
     OrientationEventListener mOrientationEventListener;
     private List<Fragment> fragments = new ArrayList<>();
@@ -222,7 +222,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
     private FragmentManager fragmentManager;
     int deviceType;
     public static int subType;
-    boolean isFoucusZoom = false;
+    boolean isFocusZoom = false;
     int currentPosition = 0;
     private NetSpeed speed;
     private boolean yuzhiweiFlag = false;
@@ -252,7 +252,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         ipcList = getIntent().getStringArrayExtra("ipcList");
         number = getIntent().getIntExtra("number", -1);
         connectType = getIntent().getIntExtra("connectType", Constants.ConnectType.P2PCONNECT);
-        isSurpportOpenDoor = getIntent().getBooleanExtra("isSurpportOpenDoor", false);
+        isSupportOpenDoor = getIntent().getBooleanExtra("isSupportOpenDoor", false);
         isCustomCmdAlarm = getIntent().getBooleanExtra("isCustomCmdAlarm", false);
         callId = mContact.contactId;
         if (number > 0) {
@@ -274,7 +274,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                 .getStreamVolume(AudioManager.STREAM_MUSIC);
         mMaxVolume = mAudioManager
                 .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        ScrrenOrientation = Configuration.ORIENTATION_PORTRAIT;
+        ScreenOrientation = Configuration.ORIENTATION_PORTRAIT;
         vibrator = (Vibrator) mContext.getSystemService(mContext.VIBRATOR_SERVICE);
     }
 
@@ -303,7 +303,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                             long currentUpdateTime = System.currentTimeMillis();
                             // 两次检测的时间间隔
                             long timeInterval = currentUpdateTime - lastUpdateTime;
-                            if (timeInterval < UPTATE_INTERVAL_TIME)
+                            if (timeInterval < UPDATE_INTERVAL_TIME)
                                 return;
                             // 现在的时间变成last时间
                             lastUpdateTime = currentUpdateTime;
@@ -363,13 +363,13 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         } else {
             current_video_mode = P2PConnect.getMode();
         }
-        if (isSurpportOpenDoor == true) {
+        if (isSupportOpenDoor == true) {
             open_door.setVisibility(ImageView.VISIBLE);
         } else {
             open_door.setVisibility(ImageView.GONE);
         }
         updateVideoModeText(current_video_mode);
-        if (mContact.contactType != P2PValue.DeviceType.DOORBELL && !isSurpportOpenDoor) {
+        if (mContact.contactType != P2PValue.DeviceType.DOORBELL && !isSupportOpenDoor) {
             send_voice.setOnTouchListener(new OnTouchListener() {
 
                 @Override
@@ -399,11 +399,11 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                 }
             });
         } else if (mContact.contactType == P2PValue.DeviceType.DOORBELL
-                && !isSurpportOpenDoor) {
+                && !isSupportOpenDoor) {
             isFirstMute = false;
-        } else if (isSurpportOpenDoor) {
+        } else if (isSupportOpenDoor) {
         }
-        initIpcDeviceList();
+        initIpcdeviceList();
         mOrientationEventListener = new OrientationEventListener(mContext) {
 
             @Override
@@ -586,7 +586,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                 Log.e("monitor", "P2P_READY" + "callId=" + callId);
                 P2PHandler.getInstance().getDefenceStates(callId, password);
                 P2PHandler.getInstance().getFocusZoom(callId, password);
-                isReceveHeader = false;
+                isReceiveHeader = false;
                 isShake = false;
                 P2PConnect.setMonitorId(callId);
                 SettingListener.setMonitorID(callId);
@@ -603,7 +603,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                     Heigh = screenWidth * 9 / 16;
                     setIsLand(false);
                 }
-                if (ScrrenOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                if (ScreenOrientation == Configuration.ORIENTATION_PORTRAIT) {
                     LayoutParams parames = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
                     parames.height = Heigh;
                     r_p2pview.setLayoutParams(parames);
@@ -677,11 +677,11 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
             } else if (intent.getAction().equals(Constants.P2P.RET_P2PDISPLAY)) {
                 Log.e("monitor", "RET_P2PDISPLAY");
                 connectSenconde = true;
-                if (!isReceveHeader) {
+                if (!isReceiveHeader) {
                     hindRlProTxError();
                     pView.updateScreenOrientation();
 //					 iv_full_screen.setVisibility(View.VISIBLE);
-                    isReceveHeader = true;
+                    isReceiveHeader = true;
                 }
             } else if (intent.getAction().equals(
                     Constants.P2P.DELETE_BINDALARM_ID)) {
@@ -719,7 +719,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                 int value = intent.getIntExtra("value", -1);
                 if (deviceId.equals(callId)) {
                     if (result == 0) {
-                        isFoucusZoom = true;
+                        isFocusZoom = true;
                         if (value >= 0 && value <= 10) {
                             currentPosition = value;
                         }
@@ -862,7 +862,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            ScrrenOrientation = Configuration.ORIENTATION_LANDSCAPE;
+            ScreenOrientation = Configuration.ORIENTATION_LANDSCAPE;
             layout_title.setVisibility(View.GONE);
             line.setVisibility(View.GONE);
             rl_control.setVisibility(View.GONE);
@@ -881,7 +881,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
             LayoutParams parames = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             r_p2pview.setLayoutParams(parames);
         } else {
-            ScrrenOrientation = Configuration.ORIENTATION_PORTRAIT;
+            ScreenOrientation = Configuration.ORIENTATION_PORTRAIT;
             layout_title.setVisibility(View.VISIBLE);
             line.setVisibility(View.VISIBLE);
             rl_control.setVisibility(View.VISIBLE);
@@ -1149,7 +1149,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                 reject();
                 break;
             case R.id.iv_full_screen:
-                ScrrenOrientation = Configuration.ORIENTATION_LANDSCAPE;
+                ScreenOrientation = Configuration.ORIENTATION_LANDSCAPE;
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
             case R.id.defence_state:
@@ -1191,7 +1191,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                 break;
             case R.id.iv_half_screen:
                 control_bottom.setVisibility(View.INVISIBLE);
-                ScrrenOrientation = Configuration.ORIENTATION_PORTRAIT;
+                ScreenOrientation = Configuration.ORIENTATION_PORTRAIT;
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 break;
             case R.id.video_mode_hd:
@@ -1269,7 +1269,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         layout_voice_state.setVisibility(RelativeLayout.GONE);
         setMute(true);
         isSpeak = false;
-        mhandler.postDelayed(mrunnable, 1000);
+        mHandler.postDelayed(mrunnable, 1000);
         Log.e("leleSpeak", "no speak--" + isSpeak);
     }
 
@@ -1446,7 +1446,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         if (isSpeak) {// 对讲过程中不可消失
             return;
         }
-        if (ScrrenOrientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (ScreenOrientation == Configuration.ORIENTATION_PORTRAIT) {
             return;
         }
         Log.e("changeControl", "changeControl");
@@ -1600,11 +1600,11 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         if (null != contact) {
             P2PHandler.getInstance().reject();
             switchConnect();
-            changeDeviceListTextColor();
+            changedeviceListTextColor();
             callId = contact.contactId;
             password = contact.contactPassword;
             deviceType = contact.contactType;
-            isFoucusZoom = false;
+            isFocusZoom = false;
             P2PHandler.getInstance().getFocusZoom(callId, password);
             subType = contact.subType;
             tv_name.setText(callId);
@@ -1697,10 +1697,10 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                 String[] data = (String[]) msg.obj;
                 P2PHandler.getInstance().reject();
                 switchConnect();
-                changeDeviceListTextColor();
+                changedeviceListTextColor();
                 callId = data[0];
                 password = data[1];
-                isFoucusZoom = false;
+                isFocusZoom = false;
                 P2PHandler.getInstance().getFocusZoom(callId, password);
                 tv_name.setText(callId);
                 if (isSpeak) {
@@ -1738,7 +1738,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         AppApplication.SCREENWIGHT = dm.widthPixels;
         AppApplication.SCREENHIGHT = dm.heightPixels;
         screenWidth = dm.widthPixels;
-        screenHeigh = dm.heightPixels;
+        screenHeight = dm.heightPixels;
     }
 
     @Override
@@ -1769,7 +1769,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         setMute(true);
     }
 
-    public void initIpcDeviceList() {
+    public void initIpcdeviceList() {
         LayoutParams p = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         p.height = dip2px(mContext, 40 * number);
         l_device_list.setLayoutParams(p);
@@ -1783,7 +1783,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
             } else {
                 tv_deviceId.setTextColor(getResources().getColor(R.color.white));
             }
-            devicelist.add(tv_deviceId);
+            deviceList.add(tv_deviceId);
             l_device_list.addView(view);
             view.setOnClickListener(new OnClickListener() {
 
@@ -1807,7 +1807,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
                 if (ipcList[i].equals(String.valueOf(msg.what))) {
                     currentNumber = i;
                     P2PHandler.getInstance().reject();
-                    changeDeviceListTextColor();
+                    changedeviceListTextColor();
                     callId = ipcList[currentNumber];
                     callDevice();
                 }
@@ -1817,14 +1817,14 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         }
     };
 
-    public void changeDeviceListTextColor() {
-        for (int i = 0; i < devicelist.size(); i++) {
+    public void changedeviceListTextColor() {
+        for (int i = 0; i < deviceList.size(); i++) {
             if (i == currentNumber) {
-                devicelist.get(i).setTextColor(getResources().getColor(R.color.device_blue_p));
-                devicelist.get(i).setClickable(false);
+                deviceList.get(i).setTextColor(getResources().getColor(R.color.device_blue_p));
+                deviceList.get(i).setClickable(false);
             } else {
-                devicelist.get(i).setTextColor(getResources().getColor(R.color.white));
-                devicelist.get(i).setClickable(true);
+                deviceList.get(i).setTextColor(getResources().getColor(R.color.white));
+                deviceList.get(i).setClickable(true);
             }
         }
 
@@ -1843,7 +1843,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         }
         P2PHandler.getInstance().reject();
         switchConnect();
-        changeDeviceListTextColor();
+        changedeviceListTextColor();
         callId = ipcList[currentNumber];
         tv_name.setText(callId);
         setHeaderImage();
@@ -1857,7 +1857,7 @@ public class ApMonitorActivity extends BaseMonitorActivity implements OnPageChan
         }
         P2PHandler.getInstance().reject();
         switchConnect();
-        changeDeviceListTextColor();
+        changedeviceListTextColor();
         callId = ipcList[currentNumber];
         tv_name.setText(callId);
         setHeaderImage();

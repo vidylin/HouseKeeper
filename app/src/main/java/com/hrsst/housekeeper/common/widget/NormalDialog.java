@@ -39,7 +39,6 @@ import com.hrsst.housekeeper.common.utils.Utils;
 import com.hrsst.housekeeper.mvp.defenceList.DefenceListPresenter;
 import com.p2p.core.P2PHandler;
 import com.p2p.core.update.UpdateManager;
-import com.p2p.core.utils.MyUtils;
 
 import java.io.File;
 import java.util.Timer;
@@ -390,7 +389,7 @@ public class NormalDialog {
 
 		});
 		TextView txVersion = (TextView) view.findViewById(R.id.tv_about);
-		txVersion.setText(MyUtils.getVersion());
+//		txVersion.setText(MyUtils.getVersion());
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		dialog = builder.create();
 		dialog.show();

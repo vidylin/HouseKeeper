@@ -163,7 +163,7 @@ public class AlarmActivity extends BaseActivity implements AlarmView {
     // 报警声音
     public void loadMusicAndVibrate() {
         isAlarm = true;
-        MusicManger.getInstance().playAlarmMusic();
+        MusicManger.getInstance().playAlarmMusic(mContext);
         new Thread() {
             public void run() {
                 while (isAlarm) {
@@ -207,7 +207,6 @@ public class AlarmActivity extends BaseActivity implements AlarmView {
             timeOutTimer.cancel();
             timeOutTimer = null;
         }
-
     }
 
     @Override

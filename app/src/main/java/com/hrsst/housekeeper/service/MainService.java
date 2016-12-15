@@ -46,7 +46,7 @@ public class MainService extends Service {
 						account.three_number, codeStr1, codeStr2);
 				Log.e("result", "result=" + result);
 				if (result) {
-					videoconnect.getInstance().initEseeSDK();
+//					videoconnect.getInstance().initEseeSDK();
 					new P2PConnect(getApplicationContext());
 				} else {
 				}

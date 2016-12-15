@@ -154,9 +154,9 @@ public class LoginPresenter extends BasePresenter<LoginView>{
     }
 
     public void autoLogin(Activity activity){
-        if(Utils.isNetworkAvailable(activity)){
-            String userId = SharedPreferencesManager.getInstance().getData(activity, SharedPreferencesManager.SP_FILE_GWELL, SharedPreferencesManager.KEY_RECENTNAME);
-            String userPwd = SharedPreferencesManager.getInstance().getData(activity, SharedPreferencesManager.SP_FILE_GWELL, SharedPreferencesManager.KEY_RECENTPASS);
+        String userId = SharedPreferencesManager.getInstance().getData(activity, SharedPreferencesManager.SP_FILE_GWELL, SharedPreferencesManager.KEY_RECENTPASS_NUMBER);
+        String userPwd = SharedPreferencesManager.getInstance().getData(activity, SharedPreferencesManager.SP_FILE_GWELL, SharedPreferencesManager.KEY_RECENTPASS);
+        if(Utils.isNetworkAvailable(activity)&&userId!=null&&userId.length()>0&&userPwd!=null&&userPwd.length()>0){
             mvpView.autoLogin(userId,userPwd);
         }else {
             mvpView.autoLoginFail();
