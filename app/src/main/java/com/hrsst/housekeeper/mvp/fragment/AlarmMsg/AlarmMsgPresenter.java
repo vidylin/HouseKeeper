@@ -30,8 +30,6 @@ public class AlarmMsgPresenter extends BasePresenter<AlarmMsgView>{
                 if(errorCode==0){
                     List<AlarmMsg.AlarmBean> alarmBeanList = model.getAlarm();
                     mvpView.getAllMsg(alarmBeanList);
-                }else{
-                    mvpView.errorMsg("无数据");
                 }
             }
 

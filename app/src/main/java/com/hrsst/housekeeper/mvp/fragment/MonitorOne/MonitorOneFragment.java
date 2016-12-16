@@ -92,7 +92,7 @@ public class MonitorOneFragment extends Fragment implements OnClickListener {
         }
         ivDefence.setOnClickListener(this);
         if (ApMonitorActivity.mContact.contactType != P2PValue.DeviceType.DOORBELL
-                && !ApMonitorActivity.isSurpportOpenDoor) {
+                && !ApMonitorActivity.isSupportOpenDoor) {
             ivSpeak.setOnTouchListener(new OnTouchListener() {
 
                 @Override
@@ -129,10 +129,10 @@ public class MonitorOneFragment extends Fragment implements OnClickListener {
                 }
             });
         } else if (ApMonitorActivity.mContact.contactType == P2PValue.DeviceType.DOORBELL
-                && !ApMonitorActivity.isSurpportOpenDoor) {
+                && !ApMonitorActivity.isSupportOpenDoor) {
             ApMonitorActivity.isFirstMute = false;
             ivSpeak.setOnClickListener(this);
-        } else if (ApMonitorActivity.isSurpportOpenDoor) {
+        } else if (ApMonitorActivity.isSupportOpenDoor) {
             ApMonitorActivity.isFirstMute = true;
             ApMonitorActivity.isSpeak = false;
             ivSpeak.setOnClickListener(this);

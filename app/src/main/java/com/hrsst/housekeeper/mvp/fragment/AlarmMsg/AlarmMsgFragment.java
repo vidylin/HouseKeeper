@@ -45,6 +45,7 @@ public class AlarmMsgFragment extends BaseFragment implements AlarmMsgView{
     private LinearLayoutManager linearLayoutManager;
     private Context mContext;
     private List<AlarmMsg.AlarmBean> alarmBeanList;
+    private int loadMoreCount;
     private RefreshRecyclerAdapter refreshRecyclerAdapter;
     private int page;
     private int lastVisibleItem;
@@ -96,7 +97,6 @@ public class AlarmMsgFragment extends BaseFragment implements AlarmMsgView{
         recyclerView.setLayoutManager(linearLayoutManager);
         refreshRecyclerAdapter = new RefreshRecyclerAdapter(mContext,alarmBeanList,alarmMsgPresenter);
         recyclerView.setAdapter(refreshRecyclerAdapter);
-        refreshRecyclerAdapter.changeMoreStatus(RefreshRecyclerAdapter.NO_DATA);
         swipereFreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -113,13 +113,13 @@ public class AlarmMsgFragment extends BaseFragment implements AlarmMsgView{
                     return;
                 }
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == refreshRecyclerAdapter.getItemCount()) {
-                    if (alarmBeanList != null && alarmBeanList.size() >= 20) {
+                    if (loadMoreCount>= 20) {
                         loadMore=true;
                         page = page + 1;
                         alarmMsgPresenter.getAllAlarmMsg(userId,privilege,page+"",true);
                         mProgressBar.setVisibility(View.GONE);
                     }else{
-                        refreshRecyclerAdapter.changeMoreStatus(RefreshRecyclerAdapter.NO_DATA);
+                        T.showShort(mContext,"已经没有更多的数据了");
                     }
                 }
             }
@@ -162,6 +162,7 @@ public class AlarmMsgFragment extends BaseFragment implements AlarmMsgView{
     @Override
     public void getAllMsg(List<AlarmMsg.AlarmBean> alarmBeen) {
         if(alarmBeen!=null&&alarmBeen.size()>0){
+            loadMoreCount = alarmBeen.size();
             if(loadMore==false){
                 swipereFreshLayout.setRefreshing(false);
                 alarmBeanList.clear();
