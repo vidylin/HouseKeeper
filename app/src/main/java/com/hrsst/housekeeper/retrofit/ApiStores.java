@@ -61,12 +61,14 @@ public interface ApiStores {
 
     @FormUrlEncoded
     @POST("register")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> registerServerIp(@Field("userId") String userId, @Field("userName") String userName
             , @Field("phone") String phone, @Field("email") String email, @Field("privilege") String pwd);
 //    addCamera
 //(cameraId=1&cameraName=2&cameraPwd=3&cameraAddress=4&longitude=5&latitude=6&principal1=7&principal1Phone=8&principal2=9&principal2Phone=10&areaId=11&placeTypeId=12)
     @FormUrlEncoded
     @POST("addCamera")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> addCamera(@Field("cameraId") String cameraId, @Field("cameraName") String cameraName
             , @Field("cameraPwd") String cameraPwd, @Field("cameraAddress") String cameraAddress, @Field("longitude") String longitude
             ,@Field("latitude") String latitude, @Field("principal1") String principal1, @Field("principal1Phone") String principal1Phone,
@@ -76,11 +78,13 @@ public interface ApiStores {
     //bindUserIdCameraId  userId=zhenweihao&cameraId=1)
     @FormUrlEncoded
     @POST("bindUserIdCameraId")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> bindUserIdCameraId(@Field("userId") String userId, @Field("cameraId") String cameraId);
 
     //deleteUserIdCameraId 用户摄像头解绑 userId=zhenweihao&cameraId=1)
     @FormUrlEncoded
     @POST("deleteUserIdCameraId")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> deleteUserIdCameraId(@Field("userId") String userId, @Field("cameraId") String cameraId);
 
     //    普通用户获取摄像头 ordinaryUserGetAllCamera?userId=13428282520&privilege=1&page=1
@@ -91,6 +95,7 @@ public interface ApiStores {
 //    changeCameraPwd （cameraId=3121164&cameraPwd=npwd)
     @FormUrlEncoded
     @POST("changeCameraPwd")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> changeCameraPwd(@Field("cameraId") String cameraId, @Field("cameraPwd") String cameraPwd);
 
     //获取所有的店铺类型
@@ -106,6 +111,7 @@ public interface ApiStores {
 //    changeCameraName （cameraId=3121164&cameraName=camera_3121164)
     @FormUrlEncoded
     @POST("changeCameraName")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> changeCameraName(@Field("cameraId") String cameraId, @Field("cameraName") String cameraName);
 //    http://192.168.4.111:51091/camera/getAllDefence?cameraId=121164&page=
     @GET("getAllDefence")
@@ -115,12 +121,14 @@ public interface ApiStores {
 //            （defenceId=5&defenceName=dnm40&sensorId=30&cameraId=3121164)
     @FormUrlEncoded
     @POST("bindCameraSensor")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> bindCameraSensor(@Field("defenceId") String defenceId, @Field("defenceName") String defenceName,
                                             @Field("sensorId") String sensorId, @Field("cameraId") String cameraId);
 //    post   http://192.168.4.111:51091/camera/deleteCameraSensor
 //            （defenceId=5&cameraId=3121164)
     @FormUrlEncoded
     @POST("deleteCameraSensor")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> deleteCameraSensor(@Field("defenceId") String defenceId, @Field("cameraId") String cameraId);
 
 //    16 	修改防区名称
@@ -128,6 +136,7 @@ public interface ApiStores {
 //            （cameraId=3121164&defenceId=5&defenceName=ndn)
     @FormUrlEncoded
     @POST("changeDefenceName")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> changeDefenceName(@Field("cameraId") String cameraId, @Field("defenceId") String defenceId,
                                              @Field("defenceName") String defenceName);
 //    http://192.168.4.111:51091/camera/getAllAlarm?userId=13428282520&privilege=1&page=
@@ -147,6 +156,7 @@ public interface ApiStores {
 
     @FormUrlEncoded
     @POST("textAlarm")
+    @Headers("Content-Type: application/x-www-form-urlencoded;charset=utf-8")
     Observable<PostResult> textAlarm(@Field("userId") String userId, @Field("privilege") String privilege,
                                              @Field("cameraId") String cameraId,@Field("info") String info);
 }

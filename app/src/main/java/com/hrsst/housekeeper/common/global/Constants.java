@@ -5,6 +5,7 @@ public class Constants {
 	public static final int KEYBOARD_SHOW_FILTER_USER = 0x11;
 	public static final String PACKAGE_NAME = "com.hrsst.housekeeper.";
 	public static final String SERVER_IP = "http://119.29.224.28:51090/camera/";
+//	public static final String SERVER_IP = "http://192.168.4.111:51091/camera/";
 	public static final String SERVER_PUSH ="http://119.29.155.148/GeTuiPush/";
 //	public static final String SERVER_PUSH_TEST ="http://192.168.4.120:8080/GeTuiPush/";
 	public static final String FORGET_PASSWORD_URL = "http://www.cloudlinks.cn/pw/";

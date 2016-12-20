@@ -91,7 +91,6 @@ public class RefreshRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             AlarmMsg.AlarmBean alarmBean = alarmBeanList.get(position);
-            int alarmType = alarmBean.getAlarmType();
             int ifDeal = alarmBean.getIfDealAlarm();
             final AlarmMsg.AlarmBean.CameraBean cameraBean = alarmBean.getCamera();
             ((ItemViewHolder) holder).alarmTimeTv.setText(alarmBean.getAlarmTime());
